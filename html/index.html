@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Form Builder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/Frontend/css/style.css">
+  <link rel="stylesheet" href="/Frontend/css/smooth.css">
+
+  <style>
+    
+  .field-card {
+    cursor: grab;
+    user-select: none;
+  }
+
+  .dragging {
+    opacity: 0.5;
+    border: 2px dashed #aaa;
+  }
+  .addd {
+  font-size: 1.5rem;         /* Adjust icon size */
+  color: #333;               /* Default icon color */
+  cursor: pointer;           /* Pointer on hover */
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease; /* Smooth hover effects */
+}
+
+.addd:hover {
+  background-color: #f0f0f0;
+  color: #000;
+  transform: translateX(-2px); /* Slight move on hover */
+}
+
+  @media (max-width: 600px) {
+  .addd {
+    font-size: 1.2rem;
+    padding: 6px 10px;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+  <section>
+  <header class="form-header">
+<div class="back">
+    <a href="/Frontend/html/allForms.html"><i class="fa-solid fa-arrow-left addd"></i> </a>
+
+</div>
+    <div class="form-info">
+    <h1 id="formTitle" contenteditable="true" data-placeholder="Untitled Form">Untitled Form</h1>
+<div style="margin-bottom: 15px;">
+  <label for="formDesc" style="font-weight: bold;">WhatsApp Number (optional):</label>
+  <input
+    type="number"
+    id="formDesc"
+    placeholder="Enter WhatsApp number..."
+    style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;"
+  />
+</div>
+  </div>
+  <div class="actions">
+    <button onclick="previewForm()" id="previewBtn">
+    <i class="fas fa-eye"></i> Preview
+  </button>
+  <button onclick="saveForm()">
+    <i class="fas fa-save"></i> Save
+  </button>
+  <button onclick="publishForm()">
+    <i class="fas fa-paper-plane"></i> Publish
+  </button>
+  <button onclick="openSettings()">
+    <i class="fas fa-cog"></i> Settings
+  </button>
+  <!-- <button onclick="deleteForm()" class="danger">
+    <i class="fas fa-trash"></i> Delete
+  </button> -->
+  </div>
+
+  
+</header>
+
+
+  <div class="container">
+    <aside class="sidebar">
+      <!-- Removed h3 element via CSS or runtime if needed -->
+      <button onclick="addField('text')"><i class="fa-solid fa-font"></i> Text</button>
+      <button onclick="addField('email')"><i class="fa-solid fa-envelope"></i> Email</button>
+      <button onclick="addField('number')"><i class="fa-solid fa-phone"></i> Phone</button>
+      <button onclick="addField('date')"><i class="fa-solid fa-calendar-days"></i> Date</button>
+      <button onclick="addField('textarea')"><i class="fa-solid fa-align-left"></i> Long Text</button>
+      <button onclick="addField('checkbox')"><i class="fa-regular fa-square-check"></i> Checkbox</button>
+      <button onclick="addField('radio')"><i class="fa-regular fa-dot-circle"></i> Radio</button>
+      <button onclick="addField('select')"><i class="fa-solid fa-caret-down"></i> Dropdown</button>
+    </aside>
+
+    <main id="formArea"></main>
+
+    <aside id="propertiesPanel" class="properties hidden">
+      <button class="close-btn" onclick="closeProperties()">×</button>
+      <h3>Field Properties</h3>
+      <label>Label <input id="propLabel" type="text" /></label>
+      <label>Placeholder <input id="propPlaceholder" type="text" /></label>
+      <label><input type="checkbox" id="propRequired" /> Required</label>
+      <div id="propOptions" class="hidden">
+        <label>Options</label>
+        <div id="optionInputs"></div>
+        <button onclick="addOption()">Add Option</button>
+      </div>
+    </aside>
+  </div>
+<script>
+  function handlePlaceholders(id, defaultText) {
+    const el = document.getElementById(id);
+    el.addEventListener('blur', () => {
+      if (el.textContent.trim() === '') {
+        el.textContent = defaultText;
+      }
+    });
+  }
+
+  handlePlaceholders('formTitle', 'Untitled Form');
+  handlePlaceholders('formDesc', 'Form Description');
+</script>
+
+  <script src="/Frontend/js/script.js"></script>
+  <script src="/Frontend/js/formActions.js"></script>
+
+  </section>
+</body>
+</html>

@@ -1,0 +1,591 @@
+* {
+  box-sizing: border-box;
+  
+}
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+header {
+  background: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+header h1, header p {
+  margin: 5px 0;
+}
+.actions {
+  margin-top: 10px;
+}
+.actions button {
+  margin-right: 10px;
+  padding: 8px 14px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 140px);
+}
+.sidebar {
+  width: 250px;
+  background: #fff;
+  padding: 15px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+  color: #333;
+}
+.sidebar h3 {
+  margin-top: 0;
+  color: #007bff;
+}
+.sidebar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 2px;
+  padding: 6px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+.sidebar button:hover {
+  background-color: #0056b3;
+}
+.sidebar button i {
+  font-size: 13px;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+  overflow-y: auto;
+}
+.field-card {
+  border:0px solid #ccc;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #fdfdfd;
+  cursor: pointer;
+  border-radius: 5px;
+  position: relative;
+}
+.field-card.selected {
+  border: 2px solid #005de9;
+}
+
+.field-card:hover {
+  opacity: 0.8;
+  background-color: #e3ffde;
+}
+.properties {
+  width: 250px;
+  background: #fff;
+  padding: 15px;
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+  position: relative;
+}
+.properties h3 {
+  margin-top: 0;
+}
+.properties label {
+  display: block;
+  margin: 10px 0 4px;
+  font-weight: 600;
+  color: #333;
+}
+.properties input[type="text"] {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+}
+#propOptions {
+  margin-top: 10px;
+}
+.hidden {
+  display: none;
+}
+.close-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Input styling */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+input[type="url"],
+input[type="tel"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+/* Checkbox & Radio */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Disabled */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+ .sidebar h3 {
+  display: none !important;
+}
+
+
+  .sidebar {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .sidebar button {
+    flex: 0 0 auto;
+    padding: 6px 8px;
+    font-size: 12px;
+    width: fit-content;
+  }
+  .properties {
+    width: 100%;
+    border-top: 1px solid #ccc;
+    border-left: none;
+  }
+}
+.sidebar h3 {
+  flex: 0 0 auto;
+  margin: 5px;
+  font-size: 14px;
+  width: fit-content;
+  white-space: nowrap;
+}
+.sidebar button {
+  flex: 1 1 auto;     }
+.sidebar button i {
+  font-size: 14px;
+  margin-right: 4px;
+}
+.sidebar button:hover {
+  background-color: #0056b3;
+}
+.sidebar button:focus {                                       
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+.sidebar button:active {
+  background-color: #004085;
+  transform: translateY(1px);
+}
+.sidebar button:disabled {
+  background-color: #c0c0c0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.sidebar button:disabled:hover {
+  background-color: #c0c0c0;
+}
+.sidebar button:disabled:focus {
+  box-shadow: none;
+}
+#formArea .form-field {
+  border: 1px dashed #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fefefe;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: text;
+}
+
+#formArea .form-field:hover {
+  background-color: #f3f3f3;
+  border-color: #999;
+}
+
+#formArea input,
+#formArea textarea,
+#formArea select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+#formArea input:not([type="radio"]):not([type="checkbox"]),
+#formArea textarea,
+#formArea select {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.actions button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.actions button:hover {
+  background-color: #3f9243;
+}
+h1[contenteditable] {
+  font-size: 28px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 8px;
+  color: #333;
+  background-color: #fff;
+}
+
+p[contenteditable] {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 600px;
+  color: #333;
+  background-color: #fff;
+}
+
+h1[contenteditable]:empty:before,
+p[contenteditable]:empty:before {
+  content: attr(data-placeholder);
+  color: #aaa;
+}
+
+h1[contenteditable]:empty,
+p[contenteditable]:empty {
+  color: transparent;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  background-color: #fdfdfd;
+  border-bottom: 1px solid #e0e0e0;
+  gap: 10px;
+}
+
+/* Button Actions */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  /* background-color: #0066ff; */
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.actions button:hover {
+  /* background-color: #0052cc; */
+  transform: scale(1.05);
+}
+
+/* Title & Description */
+.form-info {
+  flex: 1;
+  min-width: 250px;
+}
+
+.form-info h1,
+.form-info p {
+  margin: 5px 0;
+  font-weight: 500;
+  outline: none;
+}
+
+#formTitle {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#formDesc {
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+}
+#formDesc:hover{
+  border: 2px solid #007bff;
+  background-color: #f0f8ff;
+}
+#formTitle:hover{
+  border: 2px solid #007bff;
+  background-color: #f0f8ff;
+}
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .form-info {
+    width: 100%;
+  }
+}
+
+/* Label next to radio button */
+.form-group .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* Optional: smaller label for radio */
+.radio-option label {
+  font-weight: normal;
+  color: #333;
+  margin: 0;
+}
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+input:not([type="radio"]),
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+/* Checkbox layout */
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* Make checkbox inputs consistent */
+input[type="checkbox"] {
+  width: fit-content;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #357edd; /* modern color styling */
+}
+
+/* Optional: Style checkbox labels */
+.checkbox-option label {
+  margin: 0;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+#propOptions label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+#optionInputs {
+    border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Container for options */
+#propOptions {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+/* "Options" label */
+#propOptions > label {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Option inputs container */
+#optionInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Each input field inside options */
+#optionInputs input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* "Add Option" button */
+#propOptions button {
+  background-color: #357edd;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover effect */
+#propOptions button:hover {
+  background-color: #275dcf;
+}
+.actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  /* Enable horizontal scroll if needed */
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.actions::-webkit-scrollbar {
+  display: none; /* hide scrollbar for cleaner look */
+}
+
+.actions button {
+  background-color: #f2f2f2;
+  border: none;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0; /* prevent buttons from shrinking */
+}
+
+.actions button:hover {
+  background-color: #e0e0e0;
+}
+
+.actions button.danger {
+  background-color: #ffe6e6;
+  color: #d9534f;
+}
+
+.actions button.danger:hover {
+  background-color: #ffcccc;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .actions button {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}

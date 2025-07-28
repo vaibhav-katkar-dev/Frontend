@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Forms</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+ <style>
+  body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #f1f3f5;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 12px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.dashboard {
+  padding: 2.5rem;
+}
+
+.dashboard h2 {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  color: #1e293b;
+}
+
+/* Form Grid Layout */
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.form-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.25rem 1.5rem;
+  width: 320px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid transparent;
+}
+
+.form-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #dbeafe;
+}
+
+.form-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+.form-card p {
+  margin: 0 0 1rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.form-actions a,
+.form-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-actions a {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.form-actions a:hover {
+  background-color: #cbd5e1;
+}
+
+.form-actions .edit {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.form-actions .edit:hover {
+  background-color: #2563eb;
+}
+
+.form-actions .delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.form-actions .delete:hover {
+  background-color: #dc2626;
+}
+
+.new-form-card {
+  width: 320px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border 0.25s ease, background 0.25s ease, transform 0.2s;
+}
+
+.new-form-card span {
+  color: #9ca3af;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.new-form-card:hover {
+  border-color: #6b7280;
+  background-color: #f9fafb;
+  transform: scale(1.02);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .form-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-card, .new-form-card {
+    width: 90%;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+}
+
+ </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo-section">
+      <img src="data:image/jpeg;base64,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" alt="Logo" class="logo" />
+      <span class="logo-text">FormBuilder</span>
+    </div>
+  
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <h2>Hello Vaibhav 👋</h2>
+    <div class="form-grid" id="form-list"></div>
+  </div>
+
+  <script>
+   
+
+    const list = document.getElementById("form-list");
+
+    function createNewFormCard() {
+      const newCard = document.createElement("div");
+      newCard.className = "new-form-card";
+      newCard.innerHTML = `<span>+ Create New Form</span>`;
+      newCard.onclick = () => {
+        window.location.href = "/Frontend/html/index.html";
+      };
+      list.appendChild(newCard);
+    }
+
+    function createCard(form) {
+      const card = document.createElement("div");
+      card.className = "form-card";
+      card.id = `form-${form._id}`;
+
+      const title = document.createElement("h3");
+      title.innerText = form.title || "Untitled";
+
+      const desc = document.createElement("p");
+      desc.innerText = form.description || "No description";
+
+      const actions = document.createElement("div");
+      actions.className = "form-actions";
+
+      const shareBtn = document.createElement("a");
+      shareBtn.href = `/Frontend/html/shere.html?formId=${form._id}`;
+      shareBtn.innerHTML = `<i class="fa-solid fa-share-nodes"></i> Share`;
+
+      const editBtn = document.createElement("a");
+      editBtn.href = `/Frontend/html/index.html?formId=${form._id}`;
+      editBtn.className = "edit";
+      editBtn.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit`;
+
+      const responsesBtn = document.createElement("a");
+      responsesBtn.href = `/Frontend/html/responses.html?formId=${form._id}`;
+      responsesBtn.innerHTML = `<i class="fa-solid fa-chart-line"></i> Responses`;
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete";
+      deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i> `;
+      deleteBtn.onclick = () => {
+        if (confirm("Are you sure you want to delete this form?")) {
+          fetch(`https://formhit.onrender.com/api/forms/${form._id}`, {
+            method: "DELETE",
+          })
+          .then((res) => res.json())
+          .then(() => {
+            document.getElementById(`form-${form._id}`).remove();
+          })
+          .catch(() => alert("Failed to delete form"));
+        }
+      };
+
+      actions.append(shareBtn, editBtn, responsesBtn, deleteBtn);
+      card.append(title, desc, actions);
+      list.appendChild(card);
+    }
+
+    fetch("https://formhit.onrender.com/api/forms")
+      .then(res => res.json())
+      .then(forms => {
+        createNewFormCard();
+        forms.forEach(form => createCard(form));
+      })
+      .catch(err => {
+        console.error("Error loading forms:", err);
+      });
+  </script>
+</body>
+</html>

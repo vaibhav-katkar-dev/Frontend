@@ -1,0 +1,164 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  padding: 20px;
+}
+
+.form-wrapper {
+  max-width: 700px;
+  margin: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+#form-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: #e0ecff;
+  padding: 10px 15px;
+  border-left: 5px solid #357edd;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+#form-desc {
+  background: #f1f1f1;
+  padding: 10px 15px;
+  border-left: 5px solid #aaa;
+  color: #444;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #357edd;
+  outline: none;
+  background-color: #f9fcff;
+}
+
+#submit-button {
+  width: 100%;
+  background: #357edd;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#submit-button:hover {
+  background: #245fc4;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.form-group > div {/* Prevent radio buttons from being stretched */
+input[type="radio"] {
+  width: auto;
+  margin: 0;
+}
+
+/* Label next to radio button */
+.form-group .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* Optional: smaller label for radio */
+.radio-option label {
+  font-weight: normal;
+  color: #333;
+  margin: 0;
+}
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+input:not([type="radio"]),
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+/* Checkbox layout */
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* Make checkbox inputs consistent */
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #357edd; /* modern color styling */
+}
+
+/* Optional: Style checkbox labels */
+.checkbox-option label {
+  margin: 0;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
