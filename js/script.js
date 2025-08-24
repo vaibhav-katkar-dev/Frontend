@@ -1,5 +1,7 @@
 
 
+
+
 let fields = [];
 
 let selectedFieldId = null;
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = formId.trim();
     console.log("Editing form with ID:", id);
     // Editing mode
-    fetch(`https://formhit.onrender.com/api/forms/${formId}`)
+    fetch(`http://127.0.0.1:5000/api/forms/by-id/${formId}`)
       .then(res => res.json())
       .then(data => {
   console.log("Editing form with ID:", data);

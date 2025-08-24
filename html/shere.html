@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Embed & Share Form</title>
   <script>
-    const baseURL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:5000"
-    : "https://formhit.onrender.com";
+    const baseURL ='http://127.0.0.1:5500';
+  // window.location.hostname === "http://127.0.0.1:5500"
+  //   ? "http://localhost:5500"
+  //   : "https://formhit.onrender.com";
 
   </script>
   <style>
@@ -107,16 +107,34 @@
       max-width: 100%;
     }
 
-    .copied-tooltip {
-      font-size: 12px;
-      color: green;
-      margin-top: 4px;
-      display: none;
-    }
+   .copy-icon, 
+.open-icon {
+  cursor: pointer;
+margin-left: 50px;
+  font-size: 8px;
+  color: #000000; /* subtle grey */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
 
-    .show {
-      display: inline;
-    }
+.copy-icon:hover, 
+.open-icon:hover {
+  color: #000; /* dark on hover */
+  transform: scale(1.1);
+}
+
+.copied-tooltip {
+  font-size: 9px;
+  color: #28a745; /* nice green */
+  margin-left: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.copied-tooltip.show {
+  opacity: 1;
+}
+
+
   </style>
 </head>
 <body>
@@ -147,15 +165,44 @@
       <code id="embedCode">
         &lt;script src="${baseURL}/widget.js?formId=68794215d2df1f49d57f9353"&gt;&lt;/script&gt;
       </code>
-      <span class="copy-icon" onclick="copyToClipboard('embedCode', 'embedTooltip')">📋</span>
+      <span class="copy-icon" onclick="copyToClipboard('embedCode', 'embedTooltip')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="lucide lucide-copy">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  </span>
       <div id="embedTooltip" class="copied-tooltip">Copied!</div>
     </div>
 
     <div class="code-box">
-      <code id="shareLink">${baseURL}/Frontend/html/form.html?formId=68794215d2df1f49d57f9353</code>
-      <span class="copy-icon" onclick="copyToClipboard('shareLink', 'linkTooltip')">📋</span>
-      <div id="linkTooltip" class="copied-tooltip">Copied!</div>
-    </div>
+  <code id="shareLink">
+    ${baseURL}/Frontend/html/form.html?formId=68794215d2df1f49d57f9353
+  </code>
+
+  <!-- Copy Icon -->
+  <span class="copy-icon" onclick="copyToClipboard('shareLink', 'linkTooltip')">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="lucide lucide-copy">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  </span>
+
+  <!-- Open Link Icon -->
+  <span class="open-icon" onclick="openLink('shareLink')" title="Open link in new tab"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="lucide lucide-external-link">
+      <path d="M18 13v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg></span>
+
+  <div id="linkTooltip" class="copied-tooltip">Copied!</div>
+</div>
+
 
     <div class="preview-toggle">
       <button onclick="setPreviewSize('small')">📱 Mobile View</button>
@@ -193,7 +240,24 @@
       document.getElementById("shareLink").innerText = shareUrl;
       document.getElementById("formPreview").src = shareUrl;
     }
+
+    function copyToClipboard(elementId, tooltipId) {
+  const text = document.getElementById(elementId).innerText.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const tooltip = document.getElementById(tooltipId);
+    tooltip.style.opacity = 1;
+    setTimeout(() => tooltip.style.opacity = 0, 1500);
+  });
+}
+
+function openLink(elementId) {
+  const link = document.getElementById(elementId).innerText.trim();
+  window.open(link, "_blank");
+}
+
   </script>
+
+      <script src="/Frontend/js/authCheak.js"></script>
 
 </body>
 </html>

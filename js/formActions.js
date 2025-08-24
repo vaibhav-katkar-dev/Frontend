@@ -51,8 +51,8 @@ function saveForm() {
   document.querySelector('#previewBtn').disabled = false;
   
   const url = formId
-    ? `https://formhit.onrender.com/api/forms/${formId}`
-    : 'https://formhit.onrender.com/api/forms';
+    ? `http://127.0.0.1:5000/api/forms/by-id/${formId}`
+    : 'http://127.0.0.1:5000/api/forms';
 
   const method = formId ? 'PUT' : 'POST';
 
@@ -61,7 +61,7 @@ function saveForm() {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({data,token: localStorage.getItem("token")})
   })
     .then(res => res.json())
     .then(result => {
@@ -89,25 +89,7 @@ function saveForm() {
 function publishForm() {
   const data = getFormJSON();
   // For demo purposes, we reuse the same save logic
-  fetch('https://formhit.onrender.com/api/forms', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(res => res.json())
-    .then(result => {
-      if (result.form) {
-        alert("Form published successfully! (You can now display it on frontend)");
-        console.log(result);
-      } else {
-        alert("Failed to publish form.");
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Error publishing form.");
-    });
+ console.log('publichs');
+   
 }
 

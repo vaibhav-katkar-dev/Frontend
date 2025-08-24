@@ -253,12 +253,13 @@ tr:hover {
     </thead>
     <tbody id="table-body"></tbody>
   </table>
+      <script src="/Frontend/js/authCheak.js"></script>
 
   <script>
-    const baseURL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:5000"
-    : "https://formhit.onrender.com";
+    const baseURL = "http://127.0.0.1:5000";
+  // window.location.hostname === "localhost"
+  //   ? "http://localhost:5000"
+  //   : "https://formhit.onrender.com";
 
     const urlParams = new URLSearchParams(window.location.search);
     const formId = urlParams.get("formId");
@@ -268,7 +269,7 @@ tr:hover {
       throw new Error("formId is required in URL");
     }
 
-    fetch(`${baseURL}/api/forms/responses/${formId}`)
+    fetch(`${baseURL}/api/forms/responses/by-id/${formId}`)
       .then(res => res.json())
       .then(data => {
         const responses = data.responses;
@@ -372,5 +373,6 @@ tr:hover {
 }
 
   </script>
+  
 </body>
 </html>
