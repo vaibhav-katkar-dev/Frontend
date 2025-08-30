@@ -1,5 +1,5 @@
 // authCheck.js
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = "https://fback-1.onrender.com/api/auth";
 let token = localStorage.getItem("token") || "";
 
 // Function to check authentication

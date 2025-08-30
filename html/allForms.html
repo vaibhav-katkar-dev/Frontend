@@ -524,7 +524,7 @@ previewBtn.onclick = () => {
 }
 
 // Fetch templates
-fetch("http://127.0.0.1:5000/api/templates")
+fetch("https://fback-1.onrender.com/api/templates")
   .then(res => res.json())
   .then(templates => {
     templates.forEach(t => createTemplateCard(t));
@@ -582,7 +582,7 @@ fetch("http://127.0.0.1:5000/api/templates")
       deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i> `;
       deleteBtn.onclick = () => {
         if (confirm("Are you sure you want to delete this form?")) {
-          fetch(`http://127.0.0.1:5000/api/forms/by-id/${form._id}`, {
+          fetch(`https://fback-1.onrender.com/api/forms/by-id/${form._id}`, {
             method: "DELETE",
           })
           .then((res) => res.json())
@@ -598,7 +598,7 @@ fetch("http://127.0.0.1:5000/api/templates")
       list.appendChild(card);
     }
     // const token = localStorage.getItem("token");
-    fetch(`http://127.0.0.1:5000/api/forms/by-token/${token}`)
+    fetch(`https://fback-1.onrender.com/api/forms/by-token/${token}`)
       .then(res => res.json())
       .then(forms => {
         createNewFormCard();

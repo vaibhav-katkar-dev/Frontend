@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = formId.trim();
     console.log("Editing form with ID:", id);
     // Editing mode
-    fetch(`http://127.0.0.1:5000/api/forms/by-id/${formId}`)
+    fetch(`https://fback-1.onrender.com/api/forms/by-id/${formId}`)
       .then(res => res.json())
       .then(data => {
   console.log("Editing form with ID:", data);
