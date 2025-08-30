@@ -181,7 +181,7 @@ margin-left: 50px;
 
     <div class="code-box">
   <code id="shareLink">
-    ${baseURL}/Frontend/html/form.html?formId=68794215d2df1f49d57f9353
+    ${baseURL}/html/form.html?formId=68794215d2df1f49d57f9353
   </code>
 
   <!-- Copy Icon -->
@@ -213,7 +213,7 @@ margin-left: 50px;
     </div>
 
     <div class="preview-frame small" id="previewContainer">
-      <iframe id="formPreview" src="${baseURL}/Frontend/html/form.html?formId=68794215d2df1f49d57f9353" width="100%" height="100%" style="border:none;"></iframe>
+      <iframe id="formPreview" src="${baseURL}/html/form.html?formId=68794215d2df1f49d57f9353" width="100%" height="100%" style="border:none;"></iframe>
     </div>
   </div>
 
@@ -236,8 +236,8 @@ margin-left: 50px;
     const params = new URLSearchParams(window.location.search);
     const formId = params.get('formId');
     if (formId) {
-      const embedScript = `&lt;script src="${baseURL}/Frontend/js/widget.js?formId=${formId}"&gt;&lt;/script&gt;`;
-      const shareUrl = `${baseURL}/Frontend/html/form.html?formId=${formId}`;
+      const embedScript = `&lt;script src="${baseURL}/js/widget.js?formId=${formId}"&gt;&lt;/script&gt;`;
+      const shareUrl = `${baseURL}/html/form.html?formId=${formId}`;
 
       document.getElementById("embedCode").innerHTML = embedScript;
       document.getElementById("shareLink").innerText = shareUrl;
@@ -260,7 +260,7 @@ function openLink(elementId) {
 
   </script>
 
-      <script src="/Frontend/js/authCheak.js"></script>
+      <script src="/js/authCheak.js"></script>
 
 </body>
 </html>

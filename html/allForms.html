@@ -502,13 +502,13 @@ previewBtn.innerHTML = `<i class="fa-solid fa-eye"></i> Preview`;
 
 previewBtn.onclick = () => {
     const formId = template.id || template._id; // dynamic id
-    window.location.href = `/Frontend/html/form.html?formId=${formId}`;
+    window.location.href = `/html/form.html?formId=${formId}`;
 };
 
  useBtn.onclick = () => {
   const formId = template.id || template._id; // make sure you get the correct id key
   localStorage.setItem("selectedTemplate", JSON.stringify(template));
-  window.location.href = `/Frontend/html/index.html?formId=${formId}`;
+  window.location.href = `/html/index.html?formId=${formId}`;
   
 
 
@@ -533,7 +533,7 @@ fetch("https://fback-1.onrender.com/api/templates")
 </script>
 
 
-      <script src="/Frontend/js/authCheak.js"></script>
+      <script src="/js/authCheak.js"></script>
 
   <script>
    
@@ -545,7 +545,7 @@ fetch("https://fback-1.onrender.com/api/templates")
       newCard.className = "new-form-card";
       newCard.innerHTML = `<span>+ Create New Form</span>`;
       newCard.onclick = () => {
-        window.location.href = "/Frontend/html/index.html";
+        window.location.href = "/html/index.html";
       };
       list.appendChild(newCard);
     }
@@ -565,16 +565,16 @@ fetch("https://fback-1.onrender.com/api/templates")
       actions.className = "form-actions";
 
       const shareBtn = document.createElement("a");
-      shareBtn.href = `/Frontend/html/shere.html?formId=${form._id}`;
+      shareBtn.href = `/html/shere.html?formId=${form._id}`;
       shareBtn.innerHTML = `<i class="fa-solid fa-share-nodes"></i> Share`;
 
       const editBtn = document.createElement("a");
-      editBtn.href = `/Frontend/html/index.html?formId=${form._id}`;
+      editBtn.href = `/html/index.html?formId=${form._id}`;
       editBtn.className = "edit";
       editBtn.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit`;
 
       const responsesBtn = document.createElement("a");
-      responsesBtn.href = `/Frontend/html/responses.html?formId=${form._id}`;
+      responsesBtn.href = `/html/responses.html?formId=${form._id}`;
       responsesBtn.innerHTML = `<i class="fa-solid fa-chart-line"></i> Responses`;
 
       const deleteBtn = document.createElement("button");
