@@ -3,180 +3,296 @@
 <head>
 <meta charset="UTF-8">
 <title>Auth Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #6e8efb, #a777e3);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    .container {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        width: 320px;
-        box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
-        animation: fadeIn 0.5s ease-in-out;
-    }
-    h2 { text-align: center; margin-bottom: 20px; color: #333; }
-    input, button {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        outline: none;
-        transition: 0.3s;
-    }
-    input:focus { border-color: #6e8efb; box-shadow: 0 0 5px rgba(110,142,251,0.5); }
-    button { background: #6e8efb; color: white; border: none; cursor: pointer; transition: 0.3s; }
-    button:hover { background: #5b77e1; }
-    .switch { text-align: center; margin-top: 15px; font-size: 14px; }
-    .switch a { color: #6e8efb; cursor: pointer; font-weight: bold; }
-    .message { text-align: center; font-size: 14px; margin-top: 10px; }
-    .success { color: green; }
-    .error { color: red; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 32px;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+  animation: slideIn 0.6s ease-in-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 28px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-field {
+  position: relative;
+  margin-bottom: 22px;
+}
+.input-field input {
+  width:94%;
+  padding: 14px 12px;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+  background: #fff;
+  transition: 0.3s ease;
+}
+.input-field label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888;
+  background: #fff;
+  padding: 0 4px;
+  pointer-events: none;
+  transition: 0.25s ease;
+}
+.input-field input:focus {
+  border-color: #6e8efb;
+  box-shadow: 0 0 6px rgba(110,142,251,0.3);
+}
+.input-field input:focus + label,
+.input-field input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  color: #6e8efb;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+button.primary {
+  background: #6e8efb;
+  color: white;
+}
+button.primary:hover {
+  background: #5b77e1;
+}
+button.google {
+  background: #fff;
+  color: #555;
+  border: 1px solid #ddd;
+}
+button.google:hover {
+  background: #f7f7f7;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+button:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+.switch {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+}
+.switch a {
+  color: #6e8efb;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.message {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+}
+.success { color: green; }
+.error { color: red; }
+
+@media (max-width: 420px) {
+  .container {
+    margin: 20px;
+    padding: 25px;
+  }
+}
 </style>
 </head>
 <body>
 
-<div class="container" id="authContainer">
-    <!-- Signup Form -->
-    <div id="signupForm">
-        <h2>Signup</h2>
-        <input id="signupName" placeholder="Name">
-        <input id="signupEmail" placeholder="Email">
-        <input id="signupPassword" placeholder="Password" type="password">
-        <button onclick="signup()">Signup</button>
-        <p class="message" id="signupMsg"></p>
-        <div class="switch">Already have an account? <a onclick="showLogin()">Login</a></div>
+<div class="container">
+  <!-- Signup Form -->
+  <form id="signupForm">
+    <h2>Signup</h2>
+    <div class="input-field">
+      <input id="signupName" placeholder=" " required>
+      <label for="signupName">Name</label>
     </div>
+    <div class="input-field">
+      <input id="signupEmail" type="email" placeholder=" " required>
+      <label for="signupEmail">Email</label>
+    </div>
+    <div class="input-field">
+      <input id="signupPassword" type="password" placeholder=" " required>
+      <label for="signupPassword">Password</label>
+    </div>
+    <button type="submit" class="primary">Signup</button>
+    <button type="button" class="google">Continue with Google</button>
+    <p class="message" id="signupMsg"></p>
+    <div class="switch">Already have an account? <a onclick="showLogin()">Login</a></div>
+  </form>
 
-    <!-- Login Form -->
-    <div id="loginForm" style="display:none;">
-        <h2>Login</h2>
-        <input id="loginEmail" placeholder="Email">
-        <input id="loginPassword" placeholder="Password" type="password">
-        <button onclick="login()">Login</button>
-        <p class="message" id="loginMsg"></p>
-        <div class="switch">Don't have an account? <a onclick="showSignup()">Signup</a></div>
+  <!-- Login Form -->
+  <form id="loginForm" style="display:none;">
+    <h2>Login</h2>
+    <div class="input-field">
+      <input id="loginEmail" type="email" placeholder=" " required>
+      <label for="loginEmail">Email</label>
     </div>
-
-    <!-- Protected Main Content -->
-    <div id="profileSection" style="display:none;">
-        <h2>My Profile</h2>
-        <button onclick="getProfile()">Load Profile</button>
-        <pre id="profile"></pre>
-        <button style="background:red;" onclick="logout()">Logout</button>
+    <div class="input-field">
+      <input id="loginPassword" type="password" placeholder=" " required>
+      <label for="loginPassword">Password</label>
     </div>
+    <button type="submit" class="primary">Login</button>
+    <button type="button" class="google">Continue with Google</button>
+    <p class="message" id="loginMsg"></p>
+    <div class="switch">Don’t have an account? <a onclick="showSignup()">Signup</a></div>
+  </form>
 </div>
 
+<!-- Google SDK -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <script>
-    const API_URL = "https://fback-1.onrender.com/api/auth";
-    let token = localStorage.getItem("token") || "";
+const API_URL = "http://localhost:5000/api/auth";
+let token = localStorage.getItem("token") || "";
+let googleInitialized = false;
 
-    // Run on page load → check login
-    window.onload = () => {
-        if (token) {
-            // Verify token with backend before showing profile
-            verifyToken();
-        } else {
-            showLogin(); // Default show login
-        }
-    };
+// Show forms
+function showLogin() { document.getElementById("signupForm").style.display="none"; document.getElementById("loginForm").style.display="block"; }
+function showSignup() { document.getElementById("loginForm").style.display="none"; document.getElementById("signupForm").style.display="block"; }
 
-    async function verifyToken() {
-        try {
-            const res = await fetch(`${API_URL}/me`, {
-                method: "GET",
-                headers: { "Authorization": token }
-            });
-            if (res.ok) {
-                showProfile();
-                const data = await res.json();
-                document.getElementById("profile").innerText = JSON.stringify(data, null, 2);
-            } else {
-                localStorage.removeItem("token");
-                token = "";
-                showLogin();
-            }
-        } catch (err) {
-            console.error(err);
-            showLogin();
-        }
-    }
+// Verify token
+async function verifyToken() {
+  try {
+    const res = await fetch(`${API_URL}/me`, { headers:{ "Authorization": token } });
+    if(res.ok) window.location.href="allForms.html";
+    else { localStorage.removeItem("token"); token=""; showLogin(); }
+  } catch { showLogin(); }
+}
 
-    function showLogin() {
-        document.getElementById("signupForm").style.display = "none";
-        document.getElementById("loginForm").style.display = "block";
-        document.getElementById("profileSection").style.display = "none";
-    }
-    function showSignup() {
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("signupForm").style.display = "block";
-        document.getElementById("profileSection").style.display = "none";
-    }
-    function showProfile() {
-        window.location.href = "allForms.html";
-        // document.getElementById("signupForm").style.display = "none";
-        // document.getElementById("loginForm").style.display = "none";
-        // document.getElementById("profileSection").style.display = "block";
-    }
-    function logout() {
-        localStorage.removeItem("token");
-        token = "";
-        showLogin();
-    }
+// Signup
+document.getElementById("signupForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
 
-    async function signup() {
-        const name = document.getElementById("signupName").value;
-        const email = document.getElementById("signupEmail").value;
-        const password = document.getElementById("signupPassword").value;
+  const res = await fetch(`${API_URL}/signup`, {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ name, email, password })
+  });
+  const data = await res.json();
+  const msg = document.getElementById("signupMsg");
+  msg.innerText = data.msg || JSON.stringify(data);
+  msg.className = data.msg?.toLowerCase().includes("success") ? "message success" : "message error";
+});
 
-        const res = await fetch(`${API_URL}/signup`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password })
-        });
-        const data = await res.json();
-        document.getElementById("signupMsg").innerText = data.msg || JSON.stringify(data);
-        document.getElementById("signupMsg").className = data.msg?.includes("successfully") ? "message success" : "message error";
-    }
+// Login
+document.getElementById("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
 
-    async function login() {
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
+  const res = await fetch(`${API_URL}/login`, {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ email, password })
+  });
+  const data = await res.json();
+  const msg = document.getElementById("loginMsg");
+  if(data.token){
+    token = data.token;
+    localStorage.setItem("token", token);
+    msg.innerText = "Login successful ✅";
+    msg.className = "message success";
+    setTimeout(()=>window.location.href="allForms.html",600);
+  } else {
+    msg.innerText = data.msg;
+    msg.className = "message error";
+  }
+});
 
-        const res = await fetch(`${API_URL}/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (data.token) {
-            token = data.token;
-            localStorage.setItem("token", token);
-            document.getElementById("loginMsg").innerText = "Login successful ✅";
-            document.getElementById("loginMsg").className = "message success";
-            setTimeout(showProfile, 500);
-        } else {
-            document.getElementById("loginMsg").innerText = data.msg;
-            document.getElementById("loginMsg").className = "message error";
-        }
-    }
+// Google Login
+function initGoogle() {
+  if(!window.google || googleInitialized) return;
 
-    async function getProfile() {
-        const res = await fetch(`${API_URL}/me`, {
-            method: "GET",
-            headers: { "Authorization": token }
-        });
-        const data = await res.json();
-        document.getElementById("profile").innerText = JSON.stringify(data, null, 2);
-    }
+  google.accounts.id.initialize({
+    client_id: "787802625562-e4j7crtfh672b0kh1gcn4ncpncq5tvot.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+  googleInitialized = true;
+
+  document.querySelectorAll(".google").forEach(btn => {
+    btn.addEventListener("click", () => google.accounts.id.prompt());
+  });
+}
+
+// Google callback
+function handleCredentialResponse(response){
+  fetch(`${API_URL}/google`, {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ token: response.credential })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.token){
+      localStorage.setItem("token", data.token);
+      window.location.href="allForms.html";
+    } else alert("Google login failed!");
+  });
+}
+
+// Initialize on load
+window.addEventListener("load", ()=>{
+  initGoogle();
+  if(token) verifyToken();
+  else showLogin();
+});
 </script>
 
 </body>

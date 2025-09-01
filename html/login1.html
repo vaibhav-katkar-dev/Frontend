@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auth Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 320px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    h2 { text-align: center; margin-bottom: 20px; color: #333; }
+    input, button {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        outline: none;
+        transition: 0.3s;
+    }
+    input:focus { border-color: #6e8efb; box-shadow: 0 0 5px rgba(110,142,251,0.5); }
+    button { background: #6e8efb; color: white; border: none; cursor: pointer; transition: 0.3s; }
+    button:hover { background: #5b77e1; }
+    .switch { text-align: center; margin-top: 15px; font-size: 14px; }
+    .switch a { color: #6e8efb; cursor: pointer; font-weight: bold; }
+    .message { text-align: center; font-size: 14px; margin-top: 10px; }
+    .success { color: green; }
+    .error { color: red; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="container" id="authContainer">
+    <!-- Signup Form -->
+    <div id="signupForm">
+        <h2>Signup</h2>
+        <input id="signupName" placeholder="Name">
+        <input id="signupEmail" placeholder="Email">
+        <input id="signupPassword" placeholder="Password" type="password">
+        <button onclick="signup()">Signup</button>
+        <p class="message" id="signupMsg"></p>
+        <div class="switch">Already have an account? <a onclick="showLogin()">Login</a></div>
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginForm" style="display:none;">
+        <h2>Login</h2>
+        <input id="loginEmail" placeholder="Email">
+        <input id="loginPassword" placeholder="Password" type="password">
+        <button onclick="login()">Login</button>
+        <p class="message" id="loginMsg"></p>
+        <div class="switch">Don't have an account? <a onclick="showSignup()">Signup</a></div>
+    </div>
+
+    <!-- Protected Main Content -->
+    <div id="profileSection" style="display:none;">
+        <h2>My Profile</h2>
+        <button onclick="getProfile()">Load Profile</button>
+        <pre id="profile"></pre>
+        <button style="background:red;" onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<script>
+    const API_URL = "https://fback-1.onrender.com/api/auth";
+    let token = localStorage.getItem("token") || "";
+
+    // Run on page load → check login
+    window.onload = () => {
+        if (token) {
+            // Verify token with backend before showing profile
+            verifyToken();
+        } else {
+            showLogin(); // Default show login
+        }
+    };
+
+    async function verifyToken() {
+        try {
+            const res = await fetch(`${API_URL}/me`, {
+                method: "GET",
+                headers: { "Authorization": token }
+            });
+            if (res.ok) {
+                showProfile();
+                const data = await res.json();
+                document.getElementById("profile").innerText = JSON.stringify(data, null, 2);
+            } else {
+                localStorage.removeItem("token");
+                token = "";
+                showLogin();
+            }
+        } catch (err) {
+            console.error(err);
+            showLogin();
+        }
+    }
+
+    function showLogin() {
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("profileSection").style.display = "none";
+    }
+    function showSignup() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "block";
+        document.getElementById("profileSection").style.display = "none";
+    }
+    function showProfile() {
+        window.location.href = "allForms.html";
+        // document.getElementById("signupForm").style.display = "none";
+        // document.getElementById("loginForm").style.display = "none";
+        // document.getElementById("profileSection").style.display = "block";
+    }
+    function logout() {
+        localStorage.removeItem("token");
+        token = "";
+        showLogin();
+    }
+
+    async function signup() {
+        const name = document.getElementById("signupName").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+
+        const res = await fetch(`${API_URL}/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+        });
+        const data = await res.json();
+        document.getElementById("signupMsg").innerText = data.msg || JSON.stringify(data);
+        document.getElementById("signupMsg").className = data.msg?.includes("successfully") ? "message success" : "message error";
+    }
+
+    async function login() {
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        const res = await fetch(`${API_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (data.token) {
+            token = data.token;
+            localStorage.setItem("token", token);
+            document.getElementById("loginMsg").innerText = "Login successful ✅";
+            document.getElementById("loginMsg").className = "message success";
+            setTimeout(showProfile, 500);
+        } else {
+            document.getElementById("loginMsg").innerText = data.msg;
+            document.getElementById("loginMsg").className = "message error";
+        }
+    }
+
+    async function getProfile() {
+        const res = await fetch(`${API_URL}/me`, {
+            method: "GET",
+            headers: { "Authorization": token }
+        });
+        const data = await res.json();
+        document.getElementById("profile").innerText = JSON.stringify(data, null, 2);
+    }
+</script>
+
+</body>
+</html>
