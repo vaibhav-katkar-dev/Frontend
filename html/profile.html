@@ -12,7 +12,7 @@
         // After auth check passes, fetch user data
         async function loadProfile() {
             const token = localStorage.getItem("token");
-            const res = await fetch("https://fback-1.onrender.com/api/auth/me", {
+            const res = await fetch("https://fback-2.onrender.com/api/auth/me", {
                 headers: { "Authorization": token }
             });
             const data = await res.json();
