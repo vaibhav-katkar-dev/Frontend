@@ -189,6 +189,30 @@ button:active::after {
     <button type="button" class="google">Continue with Google</button>
     <p class="message" id="loginMsg"></p>
     <div class="switch">Don’t have an account? <a onclick="showSignup()">Signup</a></div>
+    <div class="switch"><a onclick="showForgot()">Forgot Password?</a></div>
+  </form>
+
+  <!-- Forgot Password Form -->
+  <form id="forgotForm" style="display:none;">
+    <h2>Forgot Password</h2>
+    <div class="input-field">
+      <input id="forgotEmail" type="email" placeholder=" " required>
+      <label for="forgotEmail">Email</label>
+    </div>
+    <button type="submit" class="primary">Send Reset Link</button>
+    <p class="message" id="forgotMsg"></p>
+    <div class="switch"><a onclick="showLogin()">Back to Login</a></div>
+  </form>
+
+  <!-- Reset Password Form -->
+  <form id="resetForm" style="display:none;">
+    <h2>Reset Password</h2>
+    <div class="input-field">
+      <input id="newPassword" type="password" placeholder=" " required>
+      <label for="newPassword">New Password</label>
+    </div>
+    <button type="submit" class="primary">Reset Password</button>
+    <p class="message" id="resetMsg"></p>
   </form>
 </div>
 
@@ -200,11 +224,28 @@ const API_URL = "https://fback-2.onrender.com/api/auth";
 let token = localStorage.getItem("token") || "";
 let googleInitialized = false;
 
-// Show forms
-function showLogin() { document.getElementById("signupForm").style.display="none"; document.getElementById("loginForm").style.display="block"; }
-function showSignup() { document.getElementById("loginForm").style.display="none"; document.getElementById("signupForm").style.display="block"; }
+// ==================== SHOW/HIDE FORMS ====================
+function showLogin() {
+  hideAll();
+  document.getElementById("loginForm").style.display = "block";
+}
+function showSignup() {
+  hideAll();
+  document.getElementById("signupForm").style.display = "block";
+}
+function showForgot() {
+  hideAll();
+  document.getElementById("forgotForm").style.display = "block";
+}
+function showReset() {
+  hideAll();
+  document.getElementById("resetForm").style.display = "block";
+}
+function hideAll() {
+  document.querySelectorAll("form").forEach(f => f.style.display="none");
+}
 
-// Verify token
+// ==================== VERIFY TOKEN ====================
 async function verifyToken() {
   try {
     const res = await fetch(`${API_URL}/me`, { headers:{ "Authorization": token } });
@@ -213,7 +254,7 @@ async function verifyToken() {
   } catch { showLogin(); }
 }
 
-// Signup
+// ==================== SIGNUP ====================
 document.getElementById("signupForm").addEventListener("submit", async e => {
   e.preventDefault();
   const name = document.getElementById("signupName").value;
@@ -231,7 +272,7 @@ document.getElementById("signupForm").addEventListener("submit", async e => {
   msg.className = data.msg?.toLowerCase().includes("success") ? "message success" : "message error";
 });
 
-// Login
+// ==================== LOGIN ====================
 document.getElementById("loginForm").addEventListener("submit", async e => {
   e.preventDefault();
   const email = document.getElementById("loginEmail").value;
@@ -256,7 +297,45 @@ document.getElementById("loginForm").addEventListener("submit", async e => {
   }
 });
 
-// Google Login
+// ==================== FORGOT PASSWORD ====================
+document.getElementById("forgotForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = document.getElementById("forgotEmail").value;
+
+  const res = await fetch(`${API_URL}/forgot-password`, {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ email })
+  });
+  const data = await res.json();
+  const msg = document.getElementById("forgotMsg");
+  msg.innerText = data.message || JSON.stringify(data);
+  msg.className = data.message?.toLowerCase().includes("sent") ? "message success" : "message error";
+});
+
+// ==================== RESET PASSWORD ====================
+document.getElementById("resetForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const password = document.getElementById("newPassword").value;
+  const token = new URLSearchParams(window.location.search).get("token");
+
+  if(!token) {
+    alert("Invalid reset link");
+    return;
+  }
+
+  const res = await fetch(`${API_URL}/reset-password/${token}`, {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ password })
+  });
+  const data = await res.json();
+  const msg = document.getElementById("resetMsg");
+  msg.innerText = data.message || JSON.stringify(data);
+  msg.className = data.message?.toLowerCase().includes("successful") ? "message success" : "message error";
+});
+
+// ==================== GOOGLE LOGIN ====================
 function initGoogle() {
   if(!window.google || googleInitialized) return;
 
@@ -271,7 +350,6 @@ function initGoogle() {
   });
 }
 
-// Google callback
 function handleCredentialResponse(response){
   fetch(`${API_URL}/google`, {
     method:"POST",
@@ -287,13 +365,15 @@ function handleCredentialResponse(response){
   });
 }
 
-// Initialize on load
+// ==================== ON LOAD ====================
 window.addEventListener("load", ()=>{
   initGoogle();
-  if(token) verifyToken();
+  // Check if reset link is opened
+  const token = new URLSearchParams(window.location.search).get("token");
+  if(token) showReset();
+  else if(token) verifyToken();
   else showLogin();
 });
 </script>
-
 </body>
 </html>
