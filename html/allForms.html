@@ -597,7 +597,7 @@ fetch("https://fback-2.onrender.com/api/templates")
       card.append(title, desc, actions);
       list.appendChild(card);
     }
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     fetch(`https://fback-2.onrender.com/api/forms/by-token/${token}`)
       .then(res => res.json())
       .then(forms => {
