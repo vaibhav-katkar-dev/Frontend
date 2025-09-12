@@ -598,7 +598,9 @@ fetch("https://fback-2.onrender.com/api/templates")
       list.appendChild(card);
     }
     let token = localStorage.getItem("token");
-    fetch(`https://fback-2.onrender.com/api/forms/by-token/${token}`)
+        userId = localStorage.getItem("userId");
+
+    fetch(`https://fback-2.onrender.com/api/forms/by-token/${userId}`)
       .then(res => res.json())
       .then(forms => {
         createNewFormCard();

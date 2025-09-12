@@ -309,6 +309,10 @@ document.getElementById("loginForm").addEventListener("submit", async e => {
   });
   const data = await res.json();
   const msg = document.getElementById("loginMsg");
+   if (data.id) {
+      localStorage.setItem("userId", data.user.id);
+
+    }
   if(data.token){
     token = data.token;
     localStorage.setItem("token", token);
@@ -390,6 +394,12 @@ function handleCredentialResponse(response) {
   })
   .then(res => res.json())
   .then(data => {
+     if (data.id) {
+      // ✅ userId को localStorage में save करो
+      localStorage.setItem("userId", data.user.id);
+
+      // console.log("User ID stored:", localStorage.getItem("userId"));
+    }
     if (data.token) {
       localStorage.setItem("token", data.token);
       window.location.href = "allForms.html";
