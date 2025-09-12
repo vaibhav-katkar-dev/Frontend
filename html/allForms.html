@@ -600,15 +600,22 @@ fetch("https://fback-2.onrender.com/api/templates")
     token = localStorage.getItem("token");
         userId = localStorage.getItem("userId");
 
-    fetch(`https://fback-2.onrender.com/api/forms/by-token/${userId}`)
-      .then(res => res.json())
-      .then(forms => {
-        createNewFormCard();
-        forms.forEach(form => createCard(form));
-      })
-      .catch(err => {
-        console.error("Error loading forms:", err);
-      });
+   fetch(`https://fback-2.onrender.com/api/forms/by-token/${userId}`)
+  .then(res => res.json())
+  .then(forms => {
+    console.log("API Response:", forms);
+    createNewFormCard();
+
+    if (Array.isArray(forms)) {
+      forms.forEach(form => createCard(form));
+    } else if (forms.forms) {
+      forms.forms.forEach(form => createCard(form));
+    } else {
+      console.warn("Unexpected response:", forms);
+    }
+  })
+  .catch(err => console.error("Error loading forms:", err));
+
   </script>
 
 
