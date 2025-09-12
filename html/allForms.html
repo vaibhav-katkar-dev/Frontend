@@ -600,7 +600,7 @@ fetch("https://fback-2.onrender.com/api/templates")
     token = localStorage.getItem("token");
         userId = localStorage.getItem("userId");
 
-   fetch(`https://fback-2.onrender.com/api/forms/by-user/${userId}`)
+   fetch(`https://fback-2.onrender.com/api/forms/by-token/${userId}`)
   .then(res => res.json())
   .then(forms => {
     console.log("API Response:", forms);
