@@ -380,18 +380,18 @@ function initGoogle() {
   google.accounts.id.initialize({
     client_id: "787802625562-e4j7crtfh672b0kh1gcn4ncpncq5tvot.apps.googleusercontent.com",
     callback: handleCredentialResponse,
-    ux_mode: "popup" // popup is faster than redirect
+    ux_mode: "popup"
   });
 
-  // Render the actual Google button (fast + optimized)
+  // Render Google button
   document.querySelectorAll(".google").forEach(btn => {
-    btn.innerHTML = ""; // clear old text
+    btn.innerHTML = "";
     google.accounts.id.renderButton(btn, {
       theme: "outline",
       size: "large",
       shape: "pill",
       text: "continue_with",
-      width: "100%"
+      width: 300 // ✅ must be a number, not "100%"
     });
   });
 }
