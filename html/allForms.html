@@ -524,7 +524,7 @@ previewBtn.onclick = () => {
 }
 
 // Fetch templates
-fetch("https://fback-lemon.vercel.app//api/templates")
+fetch("https://fback-lemon.vercel.app/api/templates")
   .then(res => res.json())
   .then(templates => {
     templates.forEach(t => createTemplateCard(t));
