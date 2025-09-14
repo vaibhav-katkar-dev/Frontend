@@ -51,8 +51,8 @@ function saveForm() {
   document.querySelector('#previewBtn').disabled = false;
   
   const url = formId
-    ? `https://fback-2.onrender.com/api/forms/by-id/${formId}`
-    : 'https://fback-2.onrender.com/api/forms';
+    ? `https://fback-lemon.vercel.app/api/forms/by-id/${formId}`
+    : 'https://fback-lemon.vercel.app/api/forms';
 
   const method = formId ? 'PUT' : 'POST';
 

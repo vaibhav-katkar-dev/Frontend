@@ -524,7 +524,7 @@ previewBtn.onclick = () => {
 }
 
 // Fetch templates
-fetch("https://fback-2.onrender.com/api/templates")
+fetch("https://fback-lemon.vercel.app//api/templates")
   .then(res => res.json())
   .then(templates => {
     templates.forEach(t => createTemplateCard(t));
@@ -582,7 +582,7 @@ fetch("https://fback-2.onrender.com/api/templates")
       deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i> `;
       deleteBtn.onclick = () => {
         if (confirm("Are you sure you want to delete this form?")) {
-          fetch(`https://fback-2.onrender.com/api/forms/by-id/${form._id}`, {
+          fetch(`https://fback-lemon.vercel.app/api/forms/by-id/${form._id}`, {
             method: "DELETE",
           })
           .then((res) => res.json())
@@ -601,7 +601,7 @@ fetch("https://fback-2.onrender.com/api/templates")
 
     userId = localStorage.getItem("userId");
     console.log(userId);
-    fetch(`https://fback-2.onrender.com/api/forms/by-token/${userId}`)
+    fetch(`https://fback-lemon.vercel.app/api/forms/by-token/${userId}`)
       .then(res => res.json())
       .then(forms => {
         createNewFormCard();
