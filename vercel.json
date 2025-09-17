@@ -6,18 +6,18 @@
     { "src": "css/**/*", "use": "@vercel/static" },
     { "src": "images/**/*", "use": "@vercel/static" }
   ],
-  "routes": [
-    { "src": "/", "dest": "/html/allForms.html" },
-    { "src": "/(.*\\.html)", "dest": "/html/$1" },
-    { "src": "/js/(.*)", "dest": "/js/$1" },
-    { "src": "/css/(.*)", "dest": "/css/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" }
-  ],
   "redirects": [
     {
       "source": "/:path*",
       "destination": "https://form2chat.me/:path*",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/html/allForms.html" },
+    { "source": "/(.*\\.html)", "destination": "/html/$1" },
+    { "source": "/js/(.*)", "destination": "/js/$1" },
+    { "source": "/css/(.*)", "destination": "/css/$1" },
+    { "source": "/images/(.*)", "destination": "/images/$1" }
   ]
 }
