@@ -9,7 +9,7 @@
     return;
   }
 
-      const baseURL ='https://frontend-roan-two-42.vercel.app';
+      const baseURL ='https://form2chat.me';
 
 
   const formURL = `${baseURL}/html/form.html?formId=${formId}`;
