@@ -44,7 +44,7 @@
     zIndex: "10000",
   });
 
-  // Inner wrapper to only cover form size
+  // Inner wrapper
   const iframeWrapper = document.createElement("div");
   Object.assign(iframeWrapper.style, {
     position: "relative",
@@ -77,9 +77,7 @@
     widgetContainer.style.display = "none";
   };
 
- 
- 
-  // iframe (preload hidden)
+  // iframe (preload hidden in background)
   const iframe = document.createElement("iframe");
   iframe.src = formURL;
   Object.assign(iframe.style, {
@@ -87,16 +85,15 @@
     height: "90vh",
     border: "none",
     borderRadius: "10px",
-    display: "none", // hidden until fully loaded
+    display: "none", // hidden initially
   });
 
-  // Show iframe and hide loader when loaded
-  
   // Append elements
   iframeWrapper.appendChild(closeBtn);
-  iframeWrapper.appendChild(loader);
   iframeWrapper.appendChild(iframe);
   widgetContainer.appendChild(iframeWrapper);
+  document.body.appendChild(widgetBtn);
+  document.body.appendChild(widgetContainer);
 
   // Click outside closes modal
   widgetContainer.onclick = (e) => {
@@ -105,17 +102,17 @@
     }
   };
 
-  document.body.appendChild(widgetBtn);
-  document.body.appendChild(widgetContainer);
-
-  // Open modal on button click
+  // Show/hide iframe when button is clicked
   widgetBtn.onclick = () => {
     widgetContainer.style.display = "flex";
+    iframe.style.display = "block"; // reveal iframe
     iframeWrapper.style.height = "auto";
     setTimeout(() => {
       try {
         iframeWrapper.style.height = iframe.contentWindow.document.body.scrollHeight + 40 + "px";
-      } catch(e) {}
+      } catch (e) {
+        // ignore cross-origin issues
+      }
     }, 300);
   };
 
