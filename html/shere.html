@@ -1,150 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Embed & Share Form</title>
-    <script defer data-domain="form2chat.me" src="https://plausible.io/js/plausible.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embed & Share Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <script>
-   const baseURL = (function() {
-  // Get current protocol + host (like http://127.0.0.1:5501 or https://formhit.onrender.com)
-  return window.location.protocol + "//" + window.location.host;
-})();
+<style>
+/* ---- Base ---- */
+body{
+  font-family:'Inter',sans-serif;
+  margin:0;
+  background:#f5f6fa;
+  color:#1f2937;
+}
+h2,h3{margin:0;}
 
-console.log("Base URL:", baseURL);
-
-
-  </script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #f9fafc;
-      color: #212529;
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      background-color: #357edd;
-      color: white;
-    }
-
-    .navbar h2 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .back-button {
-      background: white;
-      color: #357edd;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .code-box {
-      background: #f1f3f5;
-      padding: 10px;
-      border-radius: 6px;
-      font-family: monospace;
-      font-size: 14px;
-      position: relative;
-      margin-bottom: 20px;
-      word-break: break-word;
-    }
-
-    .copy-icon {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      color: #555;
-      transition: color 0.2s;
-    }
-
-    .copy-icon:hover {
-      color: #000;
-    }
-
-    .preview-toggle {
-      margin-bottom: 20px;
-    }
-
-    .preview-toggle button {
-      padding: 6px 12px;
-      margin: 0 5px;
-      border: none;
-      border-radius: 5px;
-      background-color: #357edd;
-      color: white;
-      cursor: pointer;
-    }
-
-    .preview-frame {
-      width: 100%;
-      max-width: 375px;
-      height: 600px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 0 auto;
-    }
-
-    .small {
-      max-width: 375px;
-    }
-
-    .large {
-      max-width: 100%;
-    }
-
-   .copy-icon, 
-.open-icon {
-  cursor: pointer;
-margin-left: 50px;
-  font-size: 8px;
-  color: #000000; /* subtle grey */
-  transition: color 0.2s ease, transform 0.2s ease;
+/* ---- Navbar ---- */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 28px;
+  background: linear-gradient(90deg,#4f46e5,#3b82f6);
+  color:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+.navbar h2{font-size:20px;font-weight:600;}
+.back-button{
+  background: #fff;
+  color:#4f46e5;
+  border:none;
+  padding:6px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  transition: all 0.25s ease;
+}
+.back-button:hover{
+  background:#f0f0ff;
+  transform: scale(1.05);
 }
 
-.copy-icon:hover, 
-.open-icon:hover {
-  color: #000; /* dark on hover */
-  transform: scale(1.1);
+/* ---- Container ---- */
+.container{
+  max-width:900px;
+  margin:30px auto;
+  padding:0 20px;
 }
 
-.copied-tooltip {
-  font-size: 9px;
-  color: #28a745; /* nice green */
-  margin-left: 4px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+/* ---- How to Use ---- */
+.how-to{
+  background:#fff;
+  padding:24px 28px;
+  border-radius:16px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.05);
+  margin-bottom:30px;
+}
+.how-to h3{margin-bottom:16px;color:#1f2937;}
+.how-to p{
+  margin-bottom:10px;
+  font-size:15px;
+  line-height:1.6;
+}
+.how-to code{
+  background:#f3f4f6;
+  padding:3px 8px;
+  border-radius:6px;
+  font-family:monospace;
+  font-size:14px;
 }
 
-.copied-tooltip.show {
-  opacity: 1;
+/* ---- Code Box ---- */
+.code-box{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  background:#fff;
+  border-radius:12px;
+  padding:14px 18px;
+  margin-bottom:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+  transition: all 0.2s ease;
+}
+.code-box:hover{transform:translateY(-2px);}
+.code-content{
+  flex:1 1 auto;
+  min-width:0;
+  font-family: monospace;
+  font-size:14px;
+  word-break: break-word;
+  overflow-wrap:anywhere;
+  margin-right:12px;
+}
+.icon-group{
+  display:flex;
+  flex-shrink:0;
+  gap:10px;
+  margin-top:4px;
+}
+.icon-button{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: all 0.25s ease;
+  border:none;
+}
+.copy-icon{
+  background: linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+}
+.copy-icon:hover{
+  transform:scale(1.15);
+}
+.open-icon{
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+  color:#fff;
+}
+.open-icon:hover{transform:scale(1.15);}
+
+/* ---- Tooltip ---- */
+.copied-tooltip{
+  position:absolute;
+  top:-32px;
+  right:16px;
+  background:#22c55e;
+  color:#fff;
+  font-size:12px;
+  padding:5px 12px;
+  border-radius:8px;
+  opacity:0;
+  pointer-events:none;
+  transition: all 0.3s ease;
+}
+.copied-tooltip.show{
+  opacity:1;
+  transform:translateY(-6px);
 }
 
+/* ---- Preview Toggle ---- */
+.preview-toggle{
+  text-align:center;
+  margin:30px 0 20px;
+}
+.preview-toggle button{
+  background:#4f46e5;
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  margin:0 8px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:14px;
+  transition: all 0.3s ease;
+}
+.preview-toggle button:hover{
+  background:#3b82f6;
+  transform:translateY(-2px);
+}
 
-  </style>
+/* ---- Preview Frame ---- */
+.preview-frame{
+  width:100%;
+  max-width:400px;
+  height:620px;
+  border-radius:16px;
+  margin:0 auto 40px;
+  overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+.preview-frame.large{max-width:100%;height:700px;}
+.preview-frame iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  border-radius:16px;
+}
+
+/* ---- Responsive ---- */
+@media(max-width:640px){
+  .preview-frame{height:520px;}
+  .icon-button{width:34px;height:34px;}
+}
+</style>
 </head>
 <body>
 
-  <!-- Inside <body> -->
 <div class="navbar">
   <button class="back-button" onclick="history.back()">← Back</button>
   <h2>Share & Embed Form</h2>
@@ -152,117 +200,83 @@ margin-left: 50px;
 </div>
 
 <div class="container">
-
-  <!-- 📘 How to Use Section -->
-  <section style="text-align: left; margin-bottom: 2rem;">
-    <h3 style="color:#2c3e50;">📘 How to Use This Widget</h3>
-    <p><strong>1. Embed on your website:</strong> Copy the <code>&lt;script&gt;</code> code below and paste it into the <code>&lt;body&gt;</code> of any HTML page on your website where you want the form to appear.</p>
-    <p><strong>2. Share the direct link:</strong> Copy the direct URL and share it with users via email, social media, or anywhere online.</p>
-    <p><strong>3. Preview the form:</strong> Use the preview toggle below to check how your form looks on mobile and desktop devices.</p>
+  <section class="how-to">
+    <h3>📘 How to Use This Widget</h3>
+    <p><strong>1. Embed on your website:</strong> Copy the <code>&lt;script&gt;</code> code below and paste it into your page.</p>
+    <p><strong>2. Share the direct link:</strong> Copy the URL and share it.</p>
+    <p><strong>3. Preview the form:</strong> Toggle mobile/desktop view below.</p>
   </section>
 
-  <!-- Your existing code-boxes and preview follow here -->
-  <!-- ... -->
-</div>
-
-  <div class="container">
-    <div class="code-box">
-      <code id="embedCode">
-        &lt;script src="${baseURL}/widget.js?formId=68794215d2df1f49d57f9353"&gt;&lt;/script&gt;
-      </code>
-      <span class="copy-icon" onclick="copyToClipboard('embedCode', 'embedTooltip')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-      class="lucide lucide-copy">
-      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </svg>
-  </span>
-      <div id="embedTooltip" class="copied-tooltip">Copied!</div>
+  <!-- Embed Code -->
+  <div class="code-box">
+    <div class="code-content">
+      <code id="embedCode">&lt;script src="${baseURL}/widget.js?formId=68794215d2df1f49d57f9353"&gt;&lt;/script&gt;</code>
     </div>
-
-    <div class="code-box">
-  <code id="shareLink">
-    ${baseURL}/html/form.html?formId=68794215d2df1f49d57f9353
-  </code>
-
-  <!-- Copy Icon -->
-  <span class="copy-icon" onclick="copyToClipboard('shareLink', 'linkTooltip')">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-      class="lucide lucide-copy">
-      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </svg>
-  </span>
-
-  <!-- Open Link Icon -->
-  <span class="open-icon" onclick="openLink('shareLink')" title="Open link in new tab"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-      class="lucide lucide-external-link">
-      <path d="M18 13v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
-    </svg></span>
-
-  <div id="linkTooltip" class="copied-tooltip">Copied!</div>
-</div>
-
-
-    <div class="preview-toggle">
-      <button onclick="setPreviewSize('small')">📱 Mobile View</button>
-      <button onclick="setPreviewSize('large')">💻 PC View</button>
+    <div class="icon-group">
+      <div class="icon-button copy-icon" onclick="copyToClipboard('embedCode','embedTooltip')" title="Copy Code">
+        📋
+      </div>
     </div>
-
-    <div class="preview-frame small" id="previewContainer">
-      <iframe id="formPreview" src="${baseURL}/html/form.html?formId=68794215d2df1f49d57f9353" width="100%" height="100%" style="border:none;"></iframe>
-    </div>
+    <div id="embedTooltip" class="copied-tooltip">Copied!</div>
   </div>
 
-  <script>
-    function copyToClipboard(elementId, tooltipId) {
-      const text = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const tooltip = document.getElementById(tooltipId);
-        tooltip.classList.add("show");
-        setTimeout(() => tooltip.classList.remove("show"), 1000);
-      });
-    }
+  <!-- Share Link -->
+  <div class="code-box">
+    <div class="code-content">
+      <code id="shareLink">${baseURL}/html/form.html?formId=68794215d2df1f49d57f9353</code>
+    </div>
+    <div class="icon-group">
+      <div class="icon-button copy-icon" onclick="copyToClipboard('shareLink','linkTooltip')" title="Copy Link">
+        📋
+      </div>
+      <div class="icon-button open-icon" onclick="openLink('shareLink')" title="Open Link">
+        🔗
+      </div>
+    </div>
+    <div id="linkTooltip" class="copied-tooltip">Copied!</div>
+  </div>
 
-    function setPreviewSize(size) {
-      const preview = document.getElementById("previewContainer");
-      preview.className = "preview-frame " + size;
-    }
+  <!-- Preview Toggle -->
+  <div class="preview-toggle">
+    <button onclick="setPreviewSize('small')">📱 Mobile View</button>
+    <button onclick="setPreviewSize('large')">💻 PC View</button>
+  </div>
 
-    // Optional: Make dynamic with formId from query param
-    const params = new URLSearchParams(window.location.search);
-    const formId = params.get('formId');
-    if (formId) {
-      const embedScript = `&lt;script src="${baseURL}/js/widget.js?formId=${formId}"&gt;&lt;/script&gt;`;
-      const shareUrl = `${baseURL}/html/form.html?formId=${formId}`;
+  <div class="preview-frame small" id="previewContainer">
+    <iframe id="formPreview" src="${baseURL}/html/form.html?formId=68794215d2df1f49d57f9353"></iframe>
+  </div>
+</div>
 
-      document.getElementById("embedCode").innerHTML = embedScript;
-      document.getElementById("shareLink").innerText = shareUrl;
-      document.getElementById("formPreview").src = shareUrl;
-    }
-
-    function copyToClipboard(elementId, tooltipId) {
-  const text = document.getElementById(elementId).innerText.trim();
-  navigator.clipboard.writeText(text).then(() => {
-    const tooltip = document.getElementById(tooltipId);
-    tooltip.style.opacity = 1;
-    setTimeout(() => tooltip.style.opacity = 0, 1500);
+<script>
+function copyToClipboard(elementId, tooltipId){
+  const text=document.getElementById(elementId).innerText.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    const tooltip=document.getElementById(tooltipId);
+    tooltip.classList.add('show');
+    setTimeout(()=>tooltip.classList.remove('show'),1200);
   });
 }
-
-function openLink(elementId) {
-  const link = document.getElementById(elementId).innerText.trim();
-  window.open(link, "_blank");
+function openLink(elementId){
+  const link=document.getElementById(elementId).innerText.trim();
+  window.open(link,"_blank");
+}
+function setPreviewSize(size){
+  const preview=document.getElementById("previewContainer");
+  preview.className="preview-frame "+size;
 }
 
-  </script>
+// Dynamic formId from query param
+const params=new URLSearchParams(window.location.search);
+const formId=params.get('formId');
+if(formId){
+  const embedScript=`&lt;script src="${baseURL}/js/widget.js?formId=${formId}"&gt;&lt;/script&gt;`;
+  const shareUrl=`${baseURL}/html/form.html?formId=${formId}`;
+  document.getElementById("embedCode").innerHTML=embedScript;
+  document.getElementById("shareLink").innerText=shareUrl;
+  document.getElementById("formPreview").src=shareUrl;
+}
+</script>
 
-      <script src="/js/authCheak.js"></script>
-
+<script src="/js/authCheak.js"></script>
 </body>
 </html>
