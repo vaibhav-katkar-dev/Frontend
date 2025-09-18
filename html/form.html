@@ -9,9 +9,51 @@
 
 
   <link rel="stylesheet" href="/css/form.css">
+  <style>
+  /* Loading overlay spinner */
+  #loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  #loading-overlay .spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #007bff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Optional: scrollable form */
+  .form-container {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+</style>
+
 </head>
 
 <body>
+  <div id="loading-overlay">
+  <div class="spinner"></div>
+</div>
+
   <div class="form-wrapper">
     <h2 id="form-title">Untitled Form</h2>
     <div class="form-container">
@@ -35,6 +77,9 @@
 
     let number;
     document.addEventListener("DOMContentLoaded", () => {
+      const overlay = document.getElementById("loading-overlay");
+overlay.style.display = "flex"; // show overlay while loading
+
       const urlParams = new URLSearchParams(window.location.search);
       const formId = urlParams.get("formId"); // ✅ Use 'formId', not 'id'
 
@@ -51,11 +96,14 @@
           return res.json();
         })
         .then((data) => {
+          
           document.getElementById("form-title").innerText = data.title;
           number = data.description;
 
           const form = document.getElementById("dynamic-form");
           form.innerHTML = ""; // Clear any existing content
+                      overlay.style.display = "none"; // hide overlay on error
+
 
           data.fields.forEach((field) => {
             if (!field || !field.type || !field.label) return;
@@ -153,6 +201,7 @@
             }
 
             form.appendChild(div);
+
           });
 
           const submitBtn = document.createElement("button");
@@ -165,7 +214,7 @@
           form.addEventListener("submit", function (e) {
             e.preventDefault();
            submitBtn.disabled = true;
-submitBtn.textContent = "⏳ Submitting...";
+            submitBtn.textContent = "⏳ Submitting...";
 
 
             const inputs = form.querySelectorAll("input, textarea, select");
@@ -239,6 +288,8 @@ submitBtn.textContent = "⏳ Submitting...";
 
         })
         .catch((err) => {
+          overlay.style.display = "none"; // hide overlay on error
+
           console.error("Error loading form:", err);
           document.getElementById("form-title").innerText = "Failed to load form.";
         });

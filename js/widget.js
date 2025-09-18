@@ -95,44 +95,7 @@
   iframeWrapper.appendChild(closeBtn);
   iframeWrapper.appendChild(iframe);
   widgetContainer.appendChild(iframeWrapper);
-  // Add this after creating iframeWrapper
-const spinner = document.createElement("div");
-spinner.innerHTML = `<div style="
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-"></div>`;
-Object.assign(spinner.style, {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  zIndex: "10002",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-});
-iframeWrapper.appendChild(spinner);
-
-// CSS animation
-const styleTag = document.createElement("style");
-styleTag.innerHTML = `
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}`;
-document.head.appendChild(styleTag);
-
-// Show spinner until iframe loads
-iframe.style.visibility = "hidden";
-iframe.onload = () => {
-  spinner.style.display = "none";
-  iframe.style.visibility = "visible";
-};
-
+  
 
   // Click outside closes modal
   widgetContainer.onclick = (e) => {
