@@ -9,7 +9,9 @@
     return;
   }
 
-  const baseURL = "https://form2chat.me";
+      const baseURL ='https://form2chat.me';
+
+
   const formURL = `${baseURL}/html/form.html?formId=${formId}`;
 
   // Step 2: Create floating widget button
@@ -48,39 +50,6 @@
     zIndex: "10000",
   });
 
-  // Inner wrapper for iframe + close button
-  const modalWrapper = document.createElement("div");
-  Object.assign(modalWrapper.style, {
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-  });
-
-  // Close button ❌
-  const closeBtn = document.createElement("button");
-  closeBtn.innerText = "✖";
-  Object.assign(closeBtn.style, {
-    position: "absolute",
-    top: "-12px",
-    right: "-12px",
-    background: "#ff4444",
-    color: "#fff",
-    border: "none",
-    borderRadius: "50%",
-    width: "32px",
-    height: "32px",
-    cursor: "pointer",
-    fontSize: "16px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-  });
-  closeBtn.onclick = () => {
-    widgetContainer.style.display = "none";
-  };
-
   const iframe = document.createElement("iframe");
   iframe.src = formURL;
   Object.assign(iframe.style, {
@@ -100,17 +69,8 @@
     }
   };
 
-  // Step 5: Auto-close after successful form submission
-  window.addEventListener("message", (event) => {
-    if (event.data === "formSubmitted") {
-      widgetContainer.style.display = "none";
-    }
-  });
-
-  // Step 6: Append everything
-  modalWrapper.appendChild(closeBtn);
-  modalWrapper.appendChild(iframe);
-  widgetContainer.appendChild(modalWrapper);
+  // Step 5: Append all to document
+  widgetContainer.appendChild(iframe);
   document.body.appendChild(widgetBtn);
   document.body.appendChild(widgetContainer);
 })();
