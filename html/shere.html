@@ -247,7 +247,12 @@ h2,h3{margin:0;}
   </div>
 </div>
 
+
 <script>
+// Base URL
+const baseURL = window.location.protocol + "//" + window.location.host;
+
+// Copy to clipboard
 function copyToClipboard(elementId, tooltipId){
   const text=document.getElementById(elementId).innerText.trim();
   navigator.clipboard.writeText(text).then(()=>{
@@ -256,16 +261,20 @@ function copyToClipboard(elementId, tooltipId){
     setTimeout(()=>tooltip.classList.remove('show'),1200);
   });
 }
+
+// Open link in new tab
 function openLink(elementId){
   const link=document.getElementById(elementId).innerText.trim();
   window.open(link,"_blank");
 }
+
+// Set preview size
 function setPreviewSize(size){
   const preview=document.getElementById("previewContainer");
   preview.className="preview-frame "+size;
 }
 
-// Dynamic formId from query param
+// Dynamic formId
 const params=new URLSearchParams(window.location.search);
 const formId=params.get('formId');
 if(formId){
@@ -276,6 +285,7 @@ if(formId){
   document.getElementById("formPreview").src=shareUrl;
 }
 </script>
+
 
 <script src="/js/authCheak.js"></script>
 </body>
