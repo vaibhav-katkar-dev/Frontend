@@ -77,7 +77,37 @@
     widgetContainer.style.display = "none";
   };
 
-  // iframe
+  // Loading overlay
+  const loader = document.createElement("div");
+  loader.innerHTML = `
+    <div style="
+      position: absolute;
+      top:0; left:0; right:0; bottom:0;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,0.8);
+      z-index:10002;
+    ">
+      <div style="
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid #007bff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      "></div>
+    </div>
+  `;
+  // Spin animation
+  const style = document.createElement("style");
+  style.innerHTML = `
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+  `;
+  document.head.appendChild(style);
+
+  // iframe (preload hidden)
   const iframe = document.createElement("iframe");
   iframe.src = formURL;
   Object.assign(iframe.style, {
@@ -85,17 +115,19 @@
     height: "90vh",
     border: "none",
     borderRadius: "10px",
+    display: "none", // hidden until fully loaded
   });
-//   iframe.style.width = "100%";
-// iframe.style.height = "90vh"; // allow scrolling for smaller/large forms
-// iframe.style.border = "none";
-// iframe.style.borderRadius = "10px";
 
+  // Show iframe and hide loader when loaded
+  iframe.onload = () => {
+    loader.style.display = "none";
+    iframe.style.display = "block";
+  };
 
   iframeWrapper.appendChild(closeBtn);
+  iframeWrapper.appendChild(loader);
   iframeWrapper.appendChild(iframe);
   widgetContainer.appendChild(iframeWrapper);
-  
 
   // Click outside closes modal
   widgetContainer.onclick = (e) => {
@@ -111,11 +143,13 @@
   // Open modal on button click
   widgetBtn.onclick = () => {
     widgetContainer.style.display = "flex";
-    // Adjust wrapper height dynamically
     iframeWrapper.style.height = "auto";
     setTimeout(() => {
-      // Fit wrapper to iframe content
-      iframeWrapper.style.height = iframe.contentWindow.document.body.scrollHeight + 40 + "px";
+      try {
+        iframeWrapper.style.height = iframe.contentWindow.document.body.scrollHeight + 40 + "px";
+      } catch(e) {
+        // ignore cross-origin issues
+      }
     }, 300);
   };
 
