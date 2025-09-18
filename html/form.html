@@ -94,6 +94,8 @@ overlay.style.display = "flex"; // show overlay while loading
         .then((res) => {
           if (!res.ok) throw new Error("Form not found");
           return res.json();
+          overlay.style.display = "none"; // hide overlay on error
+
         })
         .then((data) => {
           
@@ -102,7 +104,6 @@ overlay.style.display = "flex"; // show overlay while loading
 
           const form = document.getElementById("dynamic-form");
           form.innerHTML = ""; // Clear any existing content
-                      overlay.style.display = "none"; // hide overlay on error
 
 
           data.fields.forEach((field) => {
