@@ -9,9 +9,7 @@
     return;
   }
 
-      const baseURL ='https://form2chat.me';
-
-
+  const baseURL = 'https://form2chat.me';
   const formURL = `${baseURL}/html/form.html?formId=${formId}`;
 
   // Step 2: Create floating widget button
@@ -62,6 +60,28 @@
     background: "#fff",
   });
 
+  // Step 3b: Create close button inside modal
+  const closeBtn = document.createElement("button");
+  closeBtn.innerText = "✖";
+  Object.assign(closeBtn.style, {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    zIndex: "10001",
+    background: "#ff5c5c",
+    border: "none",
+    borderRadius: "50%",
+    width: "30px",
+    height: "30px",
+    color: "#fff",
+    fontSize: "16px",
+    cursor: "pointer",
+  });
+  closeBtn.onclick = () => {
+    widgetContainer.style.display = "none";
+  };
+  widgetContainer.appendChild(closeBtn);
+
   // Step 4: Close widget on outside click
   widgetContainer.onclick = (e) => {
     if (e.target === widgetContainer) {
@@ -69,8 +89,18 @@
     }
   };
 
-  // Step 5: Append all to document
+  // Step 5: Append iframe and button to document
   widgetContainer.appendChild(iframe);
   document.body.appendChild(widgetBtn);
   document.body.appendChild(widgetContainer);
+
+  // Step 6: Listen for form submission from iframe
+  window.addEventListener("message", (event) => {
+    // Only accept messages from the trusted origin
+    if (event.origin !== baseURL) return;
+    if (event.data?.type === "formSubmitted") {
+      widgetContainer.style.display = "none";
+      alert("Form submitted successfully!");
+    }
+  });
 })();
