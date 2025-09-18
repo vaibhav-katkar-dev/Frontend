@@ -79,25 +79,28 @@
 
   // Loading overlay
   const loader = document.createElement("div");
+  Object.assign(loader.style, {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "rgba(255,255,255,0.8)",
+    zIndex: "10002",
+  });
   loader.innerHTML = `
     <div style="
-      position: absolute;
-      top:0; left:0; right:0; bottom:0;
-      display:flex; align-items:center; justify-content:center;
-      background: rgba(255,255,255,0.8);
-      z-index:10002;
-    ">
-      <div style="
-        border: 6px solid #f3f3f3;
-        border-top: 6px solid #007bff;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-      "></div>
-    </div>
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #007bff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    "></div>
   `;
-  // Spin animation
   const style = document.createElement("style");
   style.innerHTML = `
     @keyframes spin {
@@ -124,6 +127,7 @@
     iframe.style.display = "block";
   };
 
+  // Append elements
   iframeWrapper.appendChild(closeBtn);
   iframeWrapper.appendChild(loader);
   iframeWrapper.appendChild(iframe);
@@ -136,7 +140,6 @@
     }
   };
 
-  // Append elements
   document.body.appendChild(widgetBtn);
   document.body.appendChild(widgetContainer);
 
@@ -147,17 +150,15 @@
     setTimeout(() => {
       try {
         iframeWrapper.style.height = iframe.contentWindow.document.body.scrollHeight + 40 + "px";
-      } catch(e) {
-        // ignore cross-origin issues
-      }
+      } catch(e) {}
     }, 300);
   };
 
   // Listen for form submission message from iframe
   window.addEventListener("message", (event) => {
-    if (event.origin !== baseURL) return; // security
+    if (event.origin !== baseURL) return;
     if (event.data?.type === "formSubmitted") {
-      widgetContainer.style.display = "none"; // auto-close
+      widgetContainer.style.display = "none";
       alert("Form submitted successfully!");
     }
   });
