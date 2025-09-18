@@ -220,6 +220,8 @@ submitBtn.textContent = "⏳ Submitting...";
 
                 // Log full submitted response data
                 console.log("📦 Submitted Data:", responseData);
+                window.parent.postMessage("formSubmitted", "*");
+
                 
               })
 
