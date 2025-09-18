@@ -219,7 +219,10 @@ submitBtn.textContent = "⏳ Submitting...";
                 form.reset();
 
                 // Log full submitted response data
-                console.log("📦 Submitted Data:", responseData);
+                // console.log("📦 Submitted Data:", responseData);
+                window.parent.postMessage("formSubmitted", "*");
+
+
               })
 
               .catch((err) => {
