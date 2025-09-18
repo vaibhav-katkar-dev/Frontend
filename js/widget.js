@@ -77,39 +77,8 @@
     widgetContainer.style.display = "none";
   };
 
-  // Loading overlay
-  const loader = document.createElement("div");
-  Object.assign(loader.style, {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "rgba(255,255,255,0.8)",
-    zIndex: "10002",
-  });
-  loader.innerHTML = `
-    <div style="
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #007bff;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    "></div>
-  `;
-  const style = document.createElement("style");
-  style.innerHTML = `
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-  `;
-  document.head.appendChild(style);
-
+ 
+ 
   // iframe (preload hidden)
   const iframe = document.createElement("iframe");
   iframe.src = formURL;
@@ -122,11 +91,7 @@
   });
 
   // Show iframe and hide loader when loaded
-  iframe.onload = () => {
-    loader.style.display = "none";
-    iframe.style.display = "block";
-  };
-
+  
   // Append elements
   iframeWrapper.appendChild(closeBtn);
   iframeWrapper.appendChild(loader);
