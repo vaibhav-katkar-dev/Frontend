@@ -51,8 +51,8 @@ function saveForm() {
   document.querySelector('#previewBtn').disabled = false;
   
   const url = formId
-    ? `https://fback-lemon.vercel.app/api/forms/by-id/${formId}`
-    : 'https://fback-lemon.vercel.app/api/forms';
+    ? `https://api.form2chat.me/api/forms/by-id/${formId}`
+    : 'https://api.form2chat.me/api/forms';
 
   const method = formId ? 'PUT' : 'POST';
 

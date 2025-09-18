@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = formId.trim();
     console.log("Editing form with ID:", id);
     // Editing mode
-    fetch(`https://fback-lemon.vercel.app/api/forms/by-id/${formId}`)
+    fetch(`https://api.form2chat.me/api/forms/by-id/${formId}`)
       .then(res => res.json())
       .then(data => {
   console.log("Editing form with ID:", data);

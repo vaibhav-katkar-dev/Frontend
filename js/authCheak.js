@@ -1,5 +1,5 @@
 // authCheck.js
-const API_URL = "https://fback-lemon.vercel.app/api/auth";
+const API_URL = "https://api.form2chat.me/api/auth";
 let token = localStorage.getItem("token") || "";
 
 // Function to check authentication

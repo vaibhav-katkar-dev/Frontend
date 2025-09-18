@@ -14,7 +14,7 @@
         // After auth check passes, fetch user data
         async function loadProfile() {
             const token = localStorage.getItem("token");
-            const res = await fetch("https://fback-lemon.vercel.app/api/auth/me", {
+            const res = await fetch("https://api.form2chat.me/api/auth/me", {
                 headers: { "Authorization": token }
             });
             const data = await res.json();

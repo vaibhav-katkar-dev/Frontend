@@ -526,7 +526,7 @@ previewBtn.onclick = () => {
 }
 
 // Fetch templates
-fetch("https://fback-lemon.vercel.app/api/templates")
+fetch("https://api.form2chat.me/api/templates")
   .then(res => res.json())
   .then(templates => {
     templates.forEach(t => createTemplateCard(t));
@@ -584,7 +584,7 @@ fetch("https://fback-lemon.vercel.app/api/templates")
       deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i> `;
       deleteBtn.onclick = () => {
         if (confirm("Are you sure you want to delete this form?")) {
-          fetch(`https://fback-lemon.vercel.app/api/forms/by-id/${form._id}`, {
+          fetch(`https://api.form2chat.me/api/forms/by-id/${form._id}`, {
             method: "DELETE",
           })
           .then((res) => res.json())
@@ -603,7 +603,7 @@ fetch("https://fback-lemon.vercel.app/api/templates")
 
     userId = localStorage.getItem("userId");
     console.log(userId);
-    fetch(`https://fback-lemon.vercel.app/api/forms/by-token/${userId}`)
+    fetch(`https://api.form2chat.me/api/forms/by-token/${userId}`)
       .then(res => res.json())
       .then(forms => {
         createNewFormCard();
