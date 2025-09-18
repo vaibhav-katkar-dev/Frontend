@@ -1,461 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>All Forms</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-color: #f1f3f5;
-      color: #333;
-    }
-
-
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      height: 32px;
-      width: 32px;
-      object-fit: contain;
-    }
-
-    .logo-text {
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: #1f2937;
-    }
-
-    .dashboard {
-      padding: 2.5rem;
-    }
-
-    .dashboard h2 {
-      font-size: 1.75rem;
-      margin-bottom: 2rem;
-      color: #1e293b;
-    }
-
-    /* Form Grid Layout */
-    .form-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .form-card {
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      padding: 1.25rem 1.5rem;
-      width: 320px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid transparent;
-    }
-
-    .form-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      border-color: #dbeafe;
-    }
-
-    .form-card h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1.1rem;
-      color: #0f172a;
-    }
-
-    .form-card p {
-      margin: 0 0 1rem;
-      color: #6b7280;
-      font-size: 0.95rem;
-    }
-
-    .form-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .form-actions a,
-    .form-actions button {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0.45rem 0.9rem;
-      font-size: 0.75rem;
-      border-radius: 6px;
-      border: none;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .form-actions a {
-      background-color: #e2e8f0;
-      color: #1e293b;
-    }
-
-    .form-actions a:hover {
-      background-color: #cbd5e1;
-    }
-
-    .form-actions .edit {
-      background-color: #3b82f6;
-      color: white;
-    }
-
-    .form-actions .edit:hover {
-      background-color: #2563eb;
-    }
-
-    .form-actions .delete {
-      background-color: #ef4444;
-      color: white;
-    }
-
-    .form-actions .delete:hover {
-      background-color: #dc2626;
-    }
-
-    .new-form-card {
-      width: 320px;
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px dashed #d1d5db;
-      border-radius: 12px;
-      background: #ffffff;
-      cursor: pointer;
-      transition: border 0.25s ease, background 0.25s ease, transform 0.2s;
-    }
-
-    .new-form-card span {
-      color: #9ca3af;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
-    .new-form-card:hover {
-      border-color: #6b7280;
-      background-color: #f9fafb;
-      transform: scale(1.02);
-    }
-
-    /* Templates Grid */
-    #template-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      padding: 30px;
-    }
-
-    .template-card {
-      background: #ffffff;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      width: 320px;
-      min-width: 250px;
-      padding: 1.25rem 1.5rem;
-      box-sizing: border-box;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-    }
-
-    .template-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    }
-
-    .template-card h4 {
-      margin: 0 0 10px;
-      font-size: 1.2rem;
-      color: #0f172a;
-    }
-
-    .template-card p {
-      font-size: 0.95rem;
-      color: #6b7280;
-      line-height: 1.4;
-    }
-
-    /* Tabs */
-    .tab-container {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 15px;
-      padding: 10px;
-      border-bottom: 2px solid #ddd;
-      justify-content: center;
-    }
-
-    .tab {
-      cursor: pointer;
-
-      padding: 8px 15px;
-      transition: color 0.3s, border-bottom 0.3s;
-      border-bottom: 2px solid transparent;
-    }
-
-    .tab.active {
-      color: #007bff;
-      border-bottom: 2px solid #007bff;
-      font-weight: bold;
-    }
-
-    /* Animation */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(5px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-
-      .form-grid,
-      #template-list {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .form-card,
-      .new-form-card,
-      .template-card {
-        width: 90%;
-      }
-
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .logo-text {
-        font-size: 1rem;
-      }
-    }
-
-    .logout-btn {
-      background: linear-gradient(45deg, #ff4b2b, #ff416c);
-      color: white;
-      padding: 10px 18px;
-      font-size: 14px;
-      font-weight: bold;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
-    }
-
-    .logout-btn:hover {
-      background: linear-gradient(45deg, #ff416c, #ff4b2b);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(255, 65, 108, 0.4);
-    }
-
-    .logout-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* --- Body --- */
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-color: #f1f3f5;
-      color: #333;
-    }
-
-    /* --- Navbar --- */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      background: #ffffff;
-      border-bottom: 1px solid #e0e0e0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      height: 60px;
-      /* Minimal height */
-      gap: 20px;
-    }
-
-    /* --- Logo Section --- */
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo {
-      height: 32px;
-      width: 32px;
-      object-fit: contain;
-    }
-
-    .logo-text {
-      font-weight: 600;
-      font-size: 1.2rem;
-      color: #1f2937;
-    }
-
-    /* --- Centered Tabs --- */
-    .nav-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex: 1;
-    }
-
-    .tab {
-      cursor: pointer;
-      padding: 6px 14px;
-      border-radius: 10px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: #4b5563;
-      transition: all 0.3s ease;
-    }
-
-    .tab:hover {
-      background: #3b82f6;
-      color: #fff;
-    }
-
-    .tab.active {
-      background: #2563eb;
-      color: #fff;
-      font-weight: 600;
-      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
-    }
-
-    /* --- Logout Button --- */
-    .logout-btn {
-      background: #ef4444;
-      color: white;
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .logout-btn:hover {
-      background: #dc2626;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
-    }
-
-    .logout-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* --- Responsive --- */
-    @media (max-width: 768px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        height: auto;
-        padding: 10px;
-      }
-
-      .nav-tabs {
-        justify-content: flex-start;
-        width: 100%;
-        margin: 5px 0;
-      }
-    }
-
-    .form-grid {
-      gap: 1.5rem;
-      animation: fadeIn 0.3s ease-in-out;
-      padding: 14px;
-    }
-
-    .form-actions .preview {
-      background-color: #22c55e;
-      /* green */
-      color: white;
-    }
-
-    .form-actions .preview:hover {
-      background-color: #16a34a;
-      /* darker green */
-    }
-  </style>
-
-  <style>
-    /* Loading overlay spinner */
-    #loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(5px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    #loading-overlay .spinner {
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #007bff;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* Optional: scrollable form */
-    .form-container {
-      max-height: 80vh;
-      overflow-y: auto;
-      padding-right: 10px;
-    }
-  </style>
-  <script defer data-domain="form2chat.me" src="https://plausible.io/js/plausible.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+ <style>
+ body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #f1f3f5;
+  color: #333;
+}
+
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.dashboard {
+  padding: 2.5rem;
+}
+
+.dashboard h2 {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  color: #1e293b;
+}
+
+/* Form Grid Layout */
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.form-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.25rem 1.5rem;
+  width: 320px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid transparent;
+}
+
+.form-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #dbeafe;
+}
+
+.form-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+.form-card p {
+  margin: 0 0 1rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.form-actions a,
+.form-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-actions a {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.form-actions a:hover {
+  background-color: #cbd5e1;
+}
+
+.form-actions .edit {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.form-actions .edit:hover {
+  background-color: #2563eb;
+}
+
+.form-actions .delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.form-actions .delete:hover {
+  background-color: #dc2626;
+}
+
+.new-form-card {
+  width: 320px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border 0.25s ease, background 0.25s ease, transform 0.2s;
+}
+
+.new-form-card span {
+  color: #9ca3af;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.new-form-card:hover {
+  border-color: #6b7280;
+  background-color: #f9fafb;
+  transform: scale(1.02);
+}
+
+/* Templates Grid */
+#template-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 30px ;
+}
+
+.template-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  width: 320px;
+  min-width: 250px;
+  padding: 1.25rem 1.5rem;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.template-card h4 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #0f172a;
+}
+
+.template-card p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* Tabs */
+.tab-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 2px solid #ddd;
+  justify-content: center;
+}
+
+.tab {
+  cursor: pointer;
+
+  padding: 8px 15px;
+  transition: color 0.3s, border-bottom 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  font-weight: bold;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-grid, #template-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-card, .new-form-card, .template-card {
+    width: 90%;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+}
+.logout-btn {
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
+  color: white;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+}
+
+.logout-btn:hover {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 65, 108, 0.4);
+}
+
+.logout-btn:active {
+  transform: scale(0.95);
+}
+/* --- Body --- */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #f1f3f5;
+  color: #333;
+}
+
+/* --- Navbar --- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  height: 60px; /* Minimal height */
+  gap: 20px;
+}
+
+/* --- Logo Section --- */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1f2937;
+}
+
+/* --- Centered Tabs --- */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex: 1;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #4b5563;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.tab.active {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(59,130,246,0.3);
+}
+
+/* --- Logout Button --- */
+.logout-btn {
+  background: #ef4444;
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220,38,38,0.3);
+}
+
+.logout-btn:active {
+  transform: scale(0.95);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px;
+  }
+  .nav-tabs {
+    justify-content: flex-start;
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+.form-grid {
+  gap: 1.5rem;
+  animation: fadeIn 0.3s ease-in-out;
+  padding: 14px;
+  }
+
+.form-actions .preview {
+  background-color: #22c55e; /* green */
+  color: white;
+}
+
+.form-actions .preview:hover {
+  background-color: #16a34a; /* darker green */
+}
+
+
+  
+ </style>
+   <script defer data-domain="form2chat.me" src="https://plausible.io/js/plausible.js"></script>
 
 </head>
 
@@ -463,60 +409,54 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="logo-section">
-      <img
-        src="data:image/jpeg;base64,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"
-        alt="Logo" class="logo" />
+      <img src="data:image/jpeg;base64,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" alt="Logo" class="logo" />
       <span class="logo-text">FormBuilder</span>
 
     </div>
     <div>
-      <button class="logout-btn" style="background:red;" onclick="logout()">Logout</button>
+              <button class="logout-btn" style="background:red;" onclick="logout()">Logout</button>
 
     </div>
-
+  
   </nav>
 
-  <!-- Tabs -->
-  <div class="tab-container">
-    <div class="tab active" onclick="showSection('template-list', this)">Templates</div>
-    <div class="tab" onclick="showSection('form-list', this)">My Forms</div>
-    <!-- <div class="tab" onclick="showSection('new-section', this)">New Section</div> -->
-  </div>
+ <!-- Tabs -->
+<div class="tab-container">
+  <div class="tab active" onclick="showSection('template-list', this)">Templates</div>
+  <div class="tab" onclick="showSection('form-list', this)">My Forms</div>
+  <!-- <div class="tab" onclick="showSection('new-section', this)">New Section</div> -->
+</div>
 
-  <!-- Sections -->
-  <div id="template-list" class="form-grid">
-    <div id="loading-overlay">
-      <div class="spinner"></div>
-    </div>
-  </div>
-  <div id="form-list" class="form-grid" style="display:none;"></div>
-  <div id="new-section" class="form-grid" style="display:none;">
-    <p style="color:#555;">This is your new section content</p>
-  </div>
+<!-- Sections -->
+<div id="template-list" class="form-grid"></div>
+<div id="form-list" class="form-grid" style="display:none;"></div>
+<div id="new-section" class="form-grid" style="display:none;">
+  <p style="color:#555;">This is your new section content</p>
+</div>
 
-  <script>
-    function showSection(sectionId, tabElement) {
-      // Hide all sections
-      document.querySelectorAll('.form-grid').forEach(div => {
-        div.style.display = 'none';
-      });
+<script>
+function showSection(sectionId, tabElement) {
+  // Hide all sections
+  document.querySelectorAll('.form-grid').forEach(div => {
+    div.style.display = 'none';
+  });
 
-      // Show the clicked section
-      document.getElementById(sectionId).style.display = 'flex';
+  // Show the clicked section
+  document.getElementById(sectionId).style.display = 'flex';
 
-      // Remove 'active' from all tabs
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
+  // Remove 'active' from all tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
 
-      // Add 'active' to clicked tab
-      tabElement.classList.add('active');
-    }
-  </script>
+  // Add 'active' to clicked tab
+  tabElement.classList.add('active');
+}
+</script>
 
 
 
-  <!-- <script>
+<!-- <script>
 function showSection(sectionId, tabElement) {
   // Hide all sections
   document.querySelectorAll('.form-grid').forEach(div => {
@@ -536,79 +476,71 @@ function showSection(sectionId, tabElement) {
 }
 
 </script> -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const overlay = document.getElementById("loading-overlay");
+<script>
+const templateList = document.getElementById("template-list");
 
-    });
-    const templateList = document.getElementById("template-list");
+function createTemplateCard(template) {
+  const card = document.createElement("div");
+  card.className = "form-card"; // same CSS as forms
 
-    function createTemplateCard(template) {
-      const card = document.createElement("div");
-      card.className = "form-card"; // same CSS as forms
+  const title = document.createElement("h3");
+  title.innerText = template.title || "Untitled Template";
 
-      const title = document.createElement("h3");
-      title.innerText = template.title || "Untitled Template";
+  const desc = document.createElement("p");
+  desc.innerText = template.info || "No description available";
 
-      const desc = document.createElement("p");
-      desc.innerText = template.info || "No description available";
+  const actions = document.createElement("div");
+  actions.className = "form-actions";
 
-      const actions = document.createElement("div");
-      actions.className = "form-actions";
+  const useBtn = document.createElement("button");
+  useBtn.className = "edit"; // same style as edit button
+  useBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Use Template`;
 
-      const useBtn = document.createElement("button");
-      useBtn.className = "edit"; // same style as edit button
-      useBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Use Template`;
-
-      // Preview Button
-      const previewBtn = document.createElement("button");
-      previewBtn.className = "edit preview"; // same style as edit button
-      previewBtn.innerHTML = `<i class="fa-solid fa-eye"></i> Preview`;
+    // Preview Button
+const previewBtn = document.createElement("button");
+previewBtn.className = "edit preview"; // same style as edit button
+previewBtn.innerHTML = `<i class="fa-solid fa-eye"></i> Preview`;
 
 
-      previewBtn.onclick = () => {
-        const formId = template.id || template._id; // dynamic id
-        window.location.href = `/html/form.html?formId=${formId}`;
-      };
+previewBtn.onclick = () => {
+    const formId = template.id || template._id; // dynamic id
+    window.location.href = `/html/form.html?formId=${formId}`;
+};
 
-      useBtn.onclick = () => {
-        const formId = template.id || template._id; // make sure you get the correct id key
-        localStorage.setItem("selectedTemplate", JSON.stringify(template));
-        window.location.href = `/html/index.html?formId=${formId}`;
+ useBtn.onclick = () => {
+  const formId = template.id || template._id; // make sure you get the correct id key
+  localStorage.setItem("selectedTemplate", JSON.stringify(template));
+  window.location.href = `/html/index.html?formId=${formId}`;
+  
 
 
-
-      };
+};
 
 
 
-      actions.appendChild(useBtn);
-      actions.appendChild(previewBtn);  // <-- append inside actions
+  actions.appendChild(useBtn);
+  actions.appendChild(previewBtn);  // <-- append inside actions
 
-      card.append(title, desc, actions);
-      templateList.appendChild(card);
-    }
+  card.append(title, desc, actions);
+  templateList.appendChild(card);
+}
 
-    // Fetch templates
-    fetch("https://api.form2chat.me/api/templates")
-      .then(res => res.json())
-      .then(templates => {
+// Fetch templates
+fetch("https://api.form2chat.me/api/templates")
+  .then(res => res.json())
+  .then(templates => {
 
-        overlay.style.display = "none"; // hide overlay on error
-
-        templates.forEach(t => createTemplateCard(t));
-      })
-      .catch((err) => {
-        overlay.style.display = "none"; // hide overlay on error
-        console.error("Error loading templates:", err);
-      });
-  </script>
+    
+    templates.forEach(t => createTemplateCard(t));
+  })
+  .catch(err => console.error("Error loading templates:", err));
+</script>
 
 
-  <script src="/js/authCheak.js"></script>
+      <script src="/js/authCheak.js"></script>
 
   <script>
-
+   
 
     const list = document.getElementById("form-list");
 
@@ -657,17 +589,12 @@ function showSection(sectionId, tabElement) {
           fetch(`https://api.form2chat.me/api/forms/by-id/${form._id}`, {
             method: "DELETE",
           })
-            .then((res) => res.json())
-            .then(() => {
-              overlay.style.display = "none";
-              document.getElementById(`form-${form._id}`).remove();
-            })
-            .catch(() => {
-              overlay.style.display = "none";
-              alert("Failed to delete form");
-            });
+          .then((res) => res.json())
+          .then(() => {
+            document.getElementById(`form-${form._id}`).remove();
+          })
+          .catch(() => alert("Failed to delete form"));
         }
-
       };
 
       actions.append(shareBtn, editBtn, responsesBtn, deleteBtn);
@@ -690,15 +617,14 @@ function showSection(sectionId, tabElement) {
   </script>
 
 
-  <script>
-    function logout() {
-      // console.log(token);
-      localStorage.removeItem("token");
-      token = "";
-
-      window.location.href = "login.html";
+      <script>
+  function logout() {
+    // console.log(token);
+        localStorage.removeItem("token");
+        token = "";
+       
+        window.location.href = "login.html";
     }
-  </script>
+</script>
 </body>
-
 </html>
