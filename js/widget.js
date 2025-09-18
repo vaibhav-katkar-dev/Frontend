@@ -1,5 +1,4 @@
 (function () {
-  // Step 1: Get current script and its formId param
   const script = document.currentScript;
   const params = new URLSearchParams(script.src.split("?")[1]);
   const formId = params.get("formId");
@@ -12,7 +11,7 @@
   const baseURL = 'https://form2chat.me';
   const formURL = `${baseURL}/html/form.html?formId=${formId}`;
 
-  // Step 2: Create floating widget button
+  // Floating button
   const widgetBtn = document.createElement("button");
   widgetBtn.innerText = "📝 Open Form";
   Object.assign(widgetBtn.style, {
@@ -29,11 +28,8 @@
     cursor: "pointer",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
   });
-  widgetBtn.onclick = () => {
-    widgetContainer.style.display = "flex";
-  };
 
-  // Step 3: Create modal container with iframe
+  // Modal container
   const widgetContainer = document.createElement("div");
   Object.assign(widgetContainer.style, {
     position: "fixed",
@@ -48,19 +44,19 @@
     zIndex: "10000",
   });
 
-  const iframe = document.createElement("iframe");
-  iframe.src = formURL;
-  Object.assign(iframe.style, {
-    width: "90%",
-    maxWidth: "600px",
-    height: "90vh",
-    border: "none",
+  // Inner wrapper to only cover form size
+  const iframeWrapper = document.createElement("div");
+  Object.assign(iframeWrapper.style, {
+    position: "relative",
+    background: "#fff",
     borderRadius: "10px",
     boxShadow: "0 10px 25px rgba(0,0,0,0.3)",
-    background: "#fff",
+    maxWidth: "90%",
+    width: "600px",
+    padding: "0",
   });
 
-  // Step 3b: Create close button inside modal
+  // Close button
   const closeBtn = document.createElement("button");
   closeBtn.innerText = "✖";
   Object.assign(closeBtn.style, {
@@ -80,26 +76,53 @@
   closeBtn.onclick = () => {
     widgetContainer.style.display = "none";
   };
-  widgetContainer.appendChild(closeBtn);
 
-  // Step 4: Close widget on outside click
+  // iframe
+  const iframe = document.createElement("iframe");
+  iframe.src = formURL;
+  Object.assign(iframe.style, {
+    width: "100%",
+    height: "90vh",
+    border: "none",
+    borderRadius: "10px",
+  });
+//   iframe.style.width = "100%";
+// iframe.style.height = "90vh"; // allow scrolling for smaller/large forms
+// iframe.style.border = "none";
+// iframe.style.borderRadius = "10px";
+
+
+  iframeWrapper.appendChild(closeBtn);
+  iframeWrapper.appendChild(iframe);
+  widgetContainer.appendChild(iframeWrapper);
+
+  // Click outside closes modal
   widgetContainer.onclick = (e) => {
     if (e.target === widgetContainer) {
       widgetContainer.style.display = "none";
     }
   };
 
-  // Step 5: Append iframe and button to document
-  widgetContainer.appendChild(iframe);
+  // Append elements
   document.body.appendChild(widgetBtn);
   document.body.appendChild(widgetContainer);
 
-  // Step 6: Listen for form submission from iframe
+  // Open modal on button click
+  widgetBtn.onclick = () => {
+    widgetContainer.style.display = "flex";
+    // Adjust wrapper height dynamically
+    iframeWrapper.style.height = "auto";
+    setTimeout(() => {
+      // Fit wrapper to iframe content
+      iframeWrapper.style.height = iframe.contentWindow.document.body.scrollHeight + 40 + "px";
+    }, 300);
+  };
+
+  // Listen for form submission message from iframe
   window.addEventListener("message", (event) => {
-    // Only accept messages from the trusted origin
-    if (event.origin !== baseURL) return;
+    if (event.origin !== baseURL) return; // security
     if (event.data?.type === "formSubmitted") {
-      widgetContainer.style.display = "none";
+      widgetContainer.style.display = "none"; // auto-close
       alert("Form submitted successfully!");
     }
   });
