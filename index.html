@@ -1,0 +1,1431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form2Chat.me — Turn Forms into Instant Chat Leads</title>
+  <meta name="description" content="Instantly deliver form submissions into WhatsApp, Telegram, Slack, Email & more. Respond faster, close deals quicker." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent-start: #3b82f6;
+      --accent-end: #10b981;
+      --card-bg: #fff;
+      --radius: 14px;
+      --shadow-light: rgba(0, 0, 0, 0.06);
+      --shadow-strong: rgba(0, 0, 0, 0.1);
+      --transition: 0.3s ease;
+      color-scheme: light;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline-offset: 2px;
+    }
+    /* Container */
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    /* Sticky Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--card-bg);
+      box-shadow: 0 2px 8px var(--shadow-light);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      /* gap: 12px; */
+    }
+    
+   .logo {
+  width: clamp(40px, 5vw, 64px); /* responsive width */
+  height: clamp(40px, 5vw, 64px); /* responsive height */
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  font-size: clamp(14px, 2vw, 20px); /* responsive font */
+  user-select: none;
+  letter-spacing: 0.05em;
+}
+
+.logo img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+    .brand h1 {
+      font-size: 20px;
+      margin: 0;
+      font-weight: 700;
+      color: var(--text);
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .menu-button {
+      display: none; /* Hidden by default on desktop */
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 1010; /* Ensure it's above the nav panel */
+    }
+    .menu-button svg {
+      width: 28px;
+      height: 28px;
+      color: var(--text);
+    }
+    .btn {
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 14px;
+      transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid transparent;
+      transition: background-color var(--transition), border-color var(--transition);
+    }
+    .btn-ghost:hover,
+    .btn-ghost:focus-visible {
+      background-color: #f3f4f6;
+      border-color: var(--accent-start);
+      color: var(--accent-start);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-start);
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+          border-radius: 50px;
+    padding: 10px;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      opacity: 0.9;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    /* Hero Section */
+    .hero {
+      position: relative; /* For bg animation */
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 40px;
+      align-items: center;
+      padding: 80px 0 120px;
+    }
+    .hero-left, .hero-right {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-bg-animation {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .hero-bg-animation span {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233b82f6" opacity="0.2"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      bottom: -150px;
+      animation: floatUp 25s linear infinite;
+    }
+    .hero-bg-animation span:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+    .hero-bg-animation span:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+    .hero-bg-animation span:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+    .hero-bg-animation span:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+    .hero-bg-animation span:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+    .hero-bg-animation span:nth-child(6) { left: 85%; width: 110px; height: 110px; animation-delay: 3s; }
+    .hero-left {
+      max-width: 600px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e5f2ff;
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+      user-select: none;
+    }
+    .hero-left h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0 0 16px;
+      line-height: 1.1;
+      color: var(--text);
+    }
+    .hero-left p {
+      font-size: 1.125rem;
+      color: var(--muted);
+      margin: 0 0 32px;
+      line-height: 1.5;
+      max-width: 480px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    /* Animated Demo Mockup */
+    .hero-right {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 30px var(--shadow-light);
+      border: 1px solid #e5e7eb;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+      width: 550px;
+    }
+    .mock-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .tab {
+      flex: 1;
+      padding: 10px 0;
+      border-radius: var(--radius);
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--muted);
+      text-align: center;
+      user-select: none;
+      cursor: default;
+      user-select: none;
+    }
+    .mock-viewport {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    /* Form mock */
+    .fake-form {
+      flex: 1;
+      background: #f9fafb;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: inset 0 0 6px #d1d5db;
+      position: relative;
+      animation: attractGlow 2.5s ease-in-out infinite 1.5s;
+      min-height: 400px; /* Prevent collapsing on form reset */
+      min-width: 210px;
+    }
+    .fake-form label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      user-select: none;
+    }
+    .fake-form input,
+    .fake-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 400;
+      transition: border-color var(--transition);
+      resize: vertical;
+      min-height: 40px;
+    }
+    .fake-form input:focus,
+    .fake-form textarea:focus {
+      border-color: var(--accent-start);
+      outline: none;
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+    }
+    .fake-form textarea {
+      min-height: 80px;
+    }
+    .send {
+      margin-top: 12px;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      user-select: none;
+      transition: background-color var(--transition), box-shadow var(--transition);
+      border: none;
+    }
+    .send:hover,
+    .send:focus-visible {
+      background: linear-gradient(90deg, var(--accent-end), var(--accent-start));
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    .status {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+      user-select: none;
+    }
+    /* Chat mock */
+    .chat-mock {
+      width: auto;
+      background: #f3f4f6;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: inset 0 0 6px #d1d5db;
+      position: relative;
+      min-height: 220px;
+    }
+    .msg {
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.3;
+      max-width: 100%;
+      word-wrap: break-word;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(10px);
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+    }
+    .msg.from-form {
+      background: #e0f2fe;
+      color: #0369a1;
+      align-self: flex-start;
+      font-weight: 600;
+      animation-name: fadeInUp;
+      animation-duration: 0.5s;
+      animation-delay: 0.3s;
+    }
+    .msg.self {
+      background: #dcfce7;
+      color: #166534;
+      align-self: flex-end;
+      font-weight: 600;
+      animation-name: fadeInUp;
+      animation-duration: 0.5s;
+      animation-delay: 1.2s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes attractGlow {
+      50% {
+        box-shadow: inset 0 0 6px #d1d5db, 0 0 16px rgba(59, 130, 246, 0.5);
+        border-color: var(--accent-start);
+      }
+      100% {
+        box-shadow: inset 0 0 6px #d1d5db, 0 0 0 rgba(59, 130, 246, 0);
+        border-color: #d1d5db;
+      }
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+    }
+    /* Features Section */
+    .docs {
+      margin-top: 100px;
+      text-align: center;
+    }
+    .docs h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+    .step-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+    .step-content p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .fade-up {
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      max-width: 1150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: 0 6px 20px var(--shadow-light);
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: box-shadow var(--transition), transform var(--transition);
+      cursor: default;
+    }
+    .feature-card:hover,
+    .feature-card:focus-within {
+      box-shadow: 0 10px 30px var(--shadow-strong);
+      transform: translateY(-6px);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-start);
+    }
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 16px;
+      fill: var(--accent-start);
+      user-select: none;
+    }
+    .feature-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--text);
+      user-select: none;
+    }
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      user-select: none;
+    }
+    /* Integrations Section */
+    .integrations {
+      margin-top: 80px;
+      text-align: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .integrations, h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      user-select: none;
+    }
+    .integration-logos {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .integration-logos img {
+      max-height: 48px;
+      filter: grayscale(100%);
+      opacity: 0.6;
+      transition: filter var(--transition), opacity var(--transition);
+      user-select: none;
+    }
+    .integration-logos img:hover,
+    .integration-logos img:focus-visible {
+      filter: none;
+      opacity: 1;
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-start);
+      border-radius: 8px;
+    }
+    /* Pricing Section */
+    .pricing {
+      margin-top: 80px;
+      max-width: 1150px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .pricing h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      user-select: none;
+    }
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .pricing-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      box-shadow: 0 6px 20px var(--shadow-light);
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow var(--transition), transform var(--transition);
+      cursor: default;
+    }
+    .pricing-card:hover,
+    .pricing-card:focus-within {
+      box-shadow: 0 10px 30px var(--shadow-strong);
+      transform: translateY(-6px);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    .plan-name {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    .plan-price {
+      font-weight: 800;
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: var(--accent-start);
+      user-select: none;
+    }
+    .plan-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      user-select: none;
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px 0;
+      width: 100%;
+      text-align: left;
+      color: var(--text);
+      font-size: 0.95rem;
+      user-select: none;
+    }
+    .plan-features li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .plan-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent-end);
+      font-weight: 700;
+    }
+    .plan-cta {
+      width: 100%;
+    }
+    .plan-cta button {
+      width: 100%;
+      padding: 14px 0;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: none;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      transition: background-color var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      user-select: none;
+    }
+    .plan-cta button:hover,
+    .plan-cta button:focus-visible {
+      background: linear-gradient(90deg, var(--accent-end), var(--accent-start));
+      box-shadow: 0 8px 28px rgba(59, 130, 246, 0.6);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    /* Testimonials Section */
+    .testimonials {
+      margin-top: 80px;
+      max-width: 1150px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .testimonials h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      user-select: none;
+    }
+    .testimonial-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e5e7eb;
+      font-style: normal;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      user-select: none;
+      transition: box-shadow 0.3s ease, transform 0.4s ease, opacity 0.4s ease;
+    }
+    .testimonial-card:hover, .testimonial-card:focus-within {
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+      outline: none;
+    }
+    .testimonial-text {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--muted);
+      flex-grow: 1;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent-start);
+    }
+    /* FAQ */
+    .faq {
+      margin-top: 100px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 24px;
+    }
+    .faq h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: var(--text);
+      text-align: center;
+    }
+    .accordion-item {
+      border-bottom: 1.5px solid #e2e8f0;
+    }
+    .accordion-header {
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 18px 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .accordion-header:hover, .accordion-header:focus {
+      color: var(--accent-start);
+      outline: none;
+    }
+    .accordion-icon {
+      font-size: 1.4rem;
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+    .accordion-icon.rotate {
+      transform: rotate(45deg);
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      font-size: 0.95rem;
+      color: var(--muted);
+      padding-bottom: 0;
+      line-height: 1.5;
+    }
+    .accordion-content.open {
+      padding-top: 12px;
+      padding-bottom: 18px;
+      max-height: 500px; /* enough for content */
+    }
+    /* Social Proof Logos */
+    .social-proof {
+      margin-top: 100px;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .social-proof h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 36px;
+      color: var(--text);
+    }
+    .social-logos {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .social-logos img {
+      max-height: 36px;
+      filter: grayscale(70%);
+      transition: filter 0.3s ease;
+      user-select: none;
+    }
+    .social-logos img:hover, .social-logos img:focus {
+      filter: none;
+      outline: none;
+    }
+    /* Get Started Section */
+    .get-started {
+      margin-top: 100px;
+      text-align: center;
+      padding: 60px 24px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 30px var(--shadow-light);
+    }
+    .get-started h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .get-started p {
+      color: var(--muted);
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .signup-form {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+    .signup-form input {
+      flex-grow: 1;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      border: 1px solid #d1d5db;
+      font-size: 1rem;
+    }
+    .signup-form button {
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    }
+    /* CTA Strip */
+    .cta-strip {
+      margin: 100px 0 60px;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: white;
+      padding: 28px 24px;
+      border-radius: var(--radius);
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      user-select: none;
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
+      cursor: default;
+    }
+    /* Footer */
+    footer {
+      background: var(--card);
+      border-top: 1.5px solid #e2e8f0;
+      padding: 40px 24px;
+      margin-top: 80px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .footer-container {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      justify-content: space-between;
+    }
+    .footer-col {
+      min-width: 140px;
+      flex: 1 1 140px;
+    }
+    .footer-col h4 {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .footer-col ul li a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-col ul li a:hover, .footer-col ul li a:focus {
+      color: var(--accent-start);
+      outline: none;
+    }
+    .social-icons {
+      display: flex;
+      gap: 20px;
+      margin-top: 8px;
+    }
+    .social-icons a {
+      color: var(--muted);
+      font-size: 1.4rem;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+    .social-icons a:hover, .social-icons a:focus {
+      color: var(--accent-start);
+      outline: none;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      /* Show the menu button and prepare the nav panel */
+      .menu-button {
+        display: block;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 280px;
+        background: var(--card-bg);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 24px 24px;
+        gap: 24px;
+        transform: translateX(100%); /* Hide it off-screen */
+        transition: transform var(--transition);
+        box-shadow: -4px 0 15px var(--shadow-strong);
+        z-index: 1005;
+      }
+      nav.nav-open {
+        transform: translateX(0); /* Show the panel */
+      }
+      nav a {
+        font-size: 1.1rem;
+      }
+      nav .btn-primary {
+        width: 100%;
+        text-align: center;
+      }
+      /* Adjust footer for better mobile appearance */
+      footer {
+        margin-top: 60px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }
+      .social-icons {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-bottom: 80px;
+      }
+      .hero-right {
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .pricing-cards {
+        grid-template-columns: 1fr;
+      }
+      .testimonial-cards {
+        grid-template-columns: 1fr;
+      }
+      .footer-container {
+        flex-direction: column;
+        gap: 32px;
+        text-align: center;
+      }
+    }
+    @media (max-width: 520px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+      .integration-logos {
+        gap: 24px;
+      }
+      .social-logos {
+        gap: 24px;
+      }
+      .cta-strip {
+        font-size: 1.25rem;
+        padding: 20px 16px;
+      }
+      /* Stack the hero demo on small screens */
+      .mock-viewport {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .fake-form,
+      .chat-mock {
+        width: 100%;
+      }
+      .signup-form {
+        flex-direction: column;
+      }
+      .docs h2 { font-size: 1.75rem; }
+      .step { flex-direction: column; text-align: center; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand" aria-label="Form2Chat logo and brand name">
+      <div class="logo" aria-hidden="true"><img src="/Frontend/logo.svg" alt=""></div>
+      <div>
+        <h1 style="font-size: 1.25rem; margin: 0; color: var(--text);">Form2<span style="color: #31ce26;">Chat</span><span style="color:rgb(214, 40, 40)">.me</span></h1>
+        <p style="font-size: 0.85rem; margin: 0; color: var(--muted); user-select:none;">Instant form notifications — simple & fast</p>
+      </div>
+    </div>
+    <button class="menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+    </button>
+    <nav id="primary-nav" aria-label="Primary navigation">
+      <a href="#features" tabindex="0">Features</a>
+      <a href="#pricing" tabindex="0">Pricing</a>
+      <a href="#docs" tabindex="0">Docs</a>
+      <a href="#faq" tabindex="0">FAQ</a>
+      <a href="https://www.form2chat.me/" class="btn-primary" tabindex="0" role="button">Get Started</a>
+    </nav> 
+  </header>
+
+  <main class="container" role="main">
+    <!-- Hero Section -->
+    <section class="hero" aria-label="Hero section with headline, subheadline, CTAs and demo mockup">
+      <div class="hero-bg-animation" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="hero-left">
+        <div class="eyebrow" aria-hidden="true">⚡ Real-time • No-code • Works anywhere</div>
+        <h1>Turn Forms into Instant Chat Leads</h1>
+        <p>Instantly deliver form submissions into WhatsApp. Respond faster, close deals quicker, and never miss a lead.</p>
+        <div class="cta-row">
+          <a href="https://www.form2chat.me/" class="btn-primary cta" role="button" tabindex="0">Start Free</a>
+          <a href="#docs" class="btn-secondary cta" role="button" tabindex="0">View Docs</a>
+        </div>
+       </div>
+       
+
+      <!-- Hero Right: Animated Demo Mockup -->
+      <div class="hero-right" aria-label="Demo of form submission triggering chat message">
+        <div class="mock-tabs" role="tablist" aria-label="Demo and Preview tabs">
+          <div class="tab" role="tab" aria-selected="true" tabindex="0">Demo</div>
+          <div class="tab" role="tab" aria-selected="false" tabindex="-1">Preview</div>
+        </div>
+        <div class="mock-viewport">
+          <form class="fake-form" aria-label="Demo form to submit lead" onsubmit="handleDemoSubmit(event)">
+            <label for="demo-name">Name</label>
+            <input id="demo-name" name="name" type="text" placeholder="Jane Doe" required autocomplete="name" />
+            <label for="demo-email" style="margin-top:10px">Email</label>
+            <input id="demo-email" name="email" type="email" placeholder="jane@example.com" required autocomplete="email" />
+            <label for="demo-message" style="margin-top:10px">Message</label>
+            <textarea id="demo-message" name="message" placeholder="Tell us about your project" required></textarea>
+            <button type="submit" class="send" aria-live="polite" aria-atomic="true">Send demo →</button>
+            <div class="status" id="demo-status" aria-live="polite" aria-atomic="true">Try it: submit and see it appear in chat.</div>
+          </form>
+
+          <div class="chat-mock" aria-label="Chat messages preview" role="log" aria-live="polite" aria-relevant="additions">
+            <div class="msg from-form" id="msg-lead" style="opacity:1; transform:none;">
+              <strong>New lead</strong><br />
+              <small>No messages yet — try the demo</small>
+            </div>
+            <div class="msg self" id="msg-reply" style="opacity:1; transform:none;">
+              This will be your reply!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="features">
+         <!-- Features -->
+                  <h2 style=" font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      user-select: none;text-align: center;">Features</h2>
+
+        <div class="features" aria-label="Key features of Form2Chat">
+
+          <article class="feature-card" tabindex="0" aria-labelledby="feature1-title" role="region">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m4 4h-1v-4h-1m-4 4h-1v-4H7m10-4v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6a2 2 0 012-2h6a2 2 0 012 2z" />
+            </svg>
+            <h3 id="feature1-title" class="feature-title">Instant Alerts</h3>
+            <p class="feature-desc">Receive submissions as chat messages with optional attachments in real-time.</p>
+          </article>
+          <article class="feature-card" tabindex="0" aria-labelledby="feature2-title" role="region">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4l3 8 4-16 3 8h4" />
+            </svg>
+            <h3 id="feature2-title" class="feature-title">Works Everywhere</h3>
+            <p class="feature-desc">Compatible with HTML forms, Google Forms, Typeform, and more platforms.</p>
+          </article>
+          <article class="feature-card" tabindex="0" aria-labelledby="feature3-title" role="region">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d                M12 8v4l3 3
+              " />
+            </svg>
+            <h3 id="feature3-title" class="feature-title">Easy Setup</h3>
+            <p class="feature-desc">Just paste your snippet or webhook. No complex setup required.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works (Docs) Section -->
+    <section id="docs" class="docs" aria-label="How it works documentation">
+      <h2>How It Works in 3 Simple Steps</h2>
+      <div class="steps-container">
+        <div class="step fade-up">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Create Your Endpoint</h3>
+            <p>Sign up and get a unique URL endpoint for your form.</p>
+          </div>
+        </div>
+        <div class="step fade-up">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Connect Your Chat App</h3>
+            <p>Choose WhatsApp, Telegram, or another app and authorize it.</p>
+          </div>
+        </div>
+        <div class="step fade-up">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Update Your Form</h3>
+            <p>Set your form's 'action' attribute to your new endpoint URL and you're live!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integrations Section -->
+    <section id="integrations" class="integrations" aria-label="Supported integrations">
+      <h2>Integrations</h2>
+      <div class="integration-logos" role="list">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp logo" role="listitem" tabindex="0" />
+        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram logo" role="listitem" tabindex="0" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" alt="Slack logo" role="listitem" tabindex="0" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email icon" role="listitem" tabindex="0" />
+      </div> -->
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing" aria-label="Pricing plans">
+      <h2>Pricing</h2>
+      <div class="pricing-cards">
+        <article class="pricing-card" tabindex="0" aria-labelledby="plan-starter" role="region">
+          <h3 id="plan-starter" class="plan-name">Starter</h3>
+          <p class="plan-price">$0<span class="plan-period">/month</span></p>
+          <ul class="plan-features">
+            <li>Up to 100 leads/month</li>
+            <li>Email notifications</li>
+            <li>Basic integrations</li>
+          </ul>
+          <div class="plan-cta">
+            <a href="https://www.form2chat.me/" class="btn-primary plan-btn" role="button" tabindex="0">Start Free</a>
+          </div>
+        </article>
+        <article class="pricing-card" tabindex="0" aria-labelledby="plan-pro" role="region">
+          <h3 id="plan-pro" class="plan-name">Pro</h3>
+          <p class="plan-price">$29<span class="plan-period">/month</span></p>
+          <ul class="plan-features">
+            <li>Up to 1,000 leads/month</li>
+            <li>All chat integrations</li>
+            <li>Priority support</li>
+          </ul>
+          <div class="plan-cta">
+            <a href="https://www.form2chat.me/" class="btn-primary plan-btn" role="button" tabindex="0">Get Pro</a>
+          </div>
+        </article>
+        <article class="pricing-card" tabindex="0" aria-labelledby="plan-business" role="region">
+          <h3 id="plan-business" class="plan-name">Business</h3>
+          <p class="plan-price">Custom<span class="plan-period"></span></p>
+          <ul class="plan-features">
+            <li>Unlimited leads</li>
+            <li>Dedicated account manager</li>
+            <li>Custom integrations & SLA</li>
+          </ul>
+          <div class="plan-cta">
+            <a href="#contact" class="btn-primary plan-btn" role="button" tabindex="0">Contact Sales</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" aria-label="User  testimonials">
+      <h2>What Our Users Say</h2>
+      <div class="testimonial-cards">
+        <blockquote class="testimonial-card fade-up" tabindex="0" role="article" aria-label="Testimonial from Sarah K.">
+          <p class="testimonial-text">"Form2Chat transformed how we handle leads. Instant notifications in Slack mean we never miss a hot prospect."</p>
+          <footer class="testimonial-author">Sarah K., Marketing Manager</footer>
+        </blockquote>
+        <blockquote class="testimonial-card fade-up" tabindex="0" role="article" aria-label="Testimonial from James L.">
+          <p class="testimonial-text">"Setup was a breeze. Our team loves getting form submissions directly in WhatsApp. Response times have improved dramatically."</p>
+          <footer class="testimonial-author">James L., Sales Director</footer>
+        </blockquote>
+        <blockquote class="testimonial-card fade-up" tabindex="0" role="article" aria-label="Testimonial from Priya M.">
+          <p class="testimonial-text">"The integrations with Telegram and Email are seamless. Form2Chat is a must-have for any business relying on forms."</p>
+          <footer class="testimonial-author">Priya M., Product Owner</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq" aria-label="Frequently Asked Questions">
+      <h2>Frequently Asked Questions</h2>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false" aria-controls="faq1-content" id="faq1-header">
+          How does Form2Chat work?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq1-content" class="accordion-content" role="region" aria-labelledby="faq1-header" hidden>
+          <p>Form2Chat connects your forms to chat apps via webhook or snippet. When a form is submitted, the data is instantly sent as a chat message.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false" aria-controls="faq2-content" id="faq2-header">
+          Which chat apps are supported?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq2-content" class="accordion-content" role="region" aria-labelledby="faq2-header" hidden>
+          <p>We support WhatsApp, Telegram, Slack, Email, and many more via webhook integrations.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header" aria-expanded="false" aria-controls="faq3-content" id="faq3-header">
+          Is there a free plan?
+          <span class="accordion-icon" aria-hidden="true">+</span>
+        </button>
+        <div id="faq3-content" class="accordion-content" role="region" aria-labelledby="faq3-header" hidden>
+          <p>Yes, our Starter plan is free and includes up to 100 leads per month with email notifications.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <!-- <section class="social-proof" aria-label="Companies using Form2Chat">
+      <h2>Trusted by Leading Companies</h2>
+      <div class="social-logos" role="list">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix logo" role="listitem" tabindex="0" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft logo" role="listitem" tabindex="0" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google.svg" alt="Google logo" role="listitem" tabindex="0" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Apple_logo_black.svg" alt="Apple logo" role="listitem" tabindex="0" />
+      </div>
+    </section> -->
+
+    <!-- Get Started Section -->
+    <section id="get-started" class="get-started fade-up" aria-label="Sign up to get started">
+      <h2>Ready to Start?</h2>
+      <p>Create your free account and start receiving form leads in your chat apps today.</p>
+      <form class="signup-form" onsubmit="event.preventDefault(); alert('Signup form submitted!');">
+        <input type="email" placeholder="Enter your email" required aria-label="Email for signup">
+        <button type="submit" class="btn-primary">Sign Up Free</button>
+      </form>
+    </section>
+
+    <!-- CTA Strip -->
+    <section class="cta-strip" aria-label="Call to action strip">
+      Start Collecting Leads in Seconds — <a href="https://www.form2chat.me/" style="color: white; font-weight: 800; text-decoration: underline;">Get Started Free</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-col" aria-label="Product links">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features" tabindex="0">Features</a></li>
+          <li><a href="#integrations" tabindex="0">Integrations</a></li>
+          <li><a href="#pricing" tabindex="0">Pricing</a></li>
+          <li><a href="#faq" tabindex="0">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" aria-label="Support links">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#docs" tabindex="0">Docs</a></li>
+          <li><a href="#contact" tabindex="0">Contact</a></li>
+          <li><a href="#status" tabindex="0">Status</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" aria-label="Company information">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about" tabindex="0">About Us</a></li>
+          <li><a href="#careers" tabindex="0">Careers</a></li>
+          <li><a href="#blog" tabindex="0">Blog</a></li>
+          <li><a href="#privacy" tabindex="0">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" aria-label="Social media links">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://twitter.com/form2chat" aria-label="Twitter" target="_blank" rel="noopener" tabindex="0" title="Twitter">
+            <svg width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4.36a9.05 9.05 0 01-2.88 1.1A4.52 4.52 0 0016.67 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03A12.8 12.8 0 013 1.67a4.52 4.52 0 001.4 6.04 4.48 4.48 0 01-2.05-.57v.06c0 2.2 1.56 4.04 3.63 4.46a4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.22 3.14A9.05 9.05 0 012 19.54a12.8 12.8 0 006.92 2.03c8.3 0 12.85-6.88 12.85-12.85 0-.2 0-.42-.02-.63A9.22 9.22 0 0023 3z"/></svg>
+          </a>
+          <a href="https://linkedin.com/company/form2chat" aria-label="LinkedIn" target="_blank" rel="noopener" tabindex="0" title="LinkedIn">
+            <svg width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 11-.001 5.001A2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3v-12zm7.5 0h3.75v1.64h.05c.52-.98 1.8-2.01 3.7-2.01 3.96 0 4.7 2.6 4.7 5.98v6.39h-4v-5.66c0-1.35-.03-3.08-1.88-3.08-1.88 0-2.17 1.47-2.17 2.99v5.75h-4v-12z"/></svg>
+          </a>
+          <a href="https://github.com/form2chat" aria-label="GitHub" target="_blank" rel="noopener" tabindex="0" title="GitHub">
+            <svg width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 0a12 12 0 00-3.79 23.4c.6.11.82-.26.82-.58v-2.17c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.34-1.76c-1.1-.75.08-.74.08-.74a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.6c-2.67-.3-5.47-1.34-5.47-5.95a4.66 4.66 0 011.24-3.23 4.33 4.33 0 01.12-3.18s1-.32 3.3 1.23a11.4 11.4 0 016 0c2.3-1.55 3.3-1.23 3.3-1.23a4.33 4.33 0 01.12 3.18 4.66 4.66 0 011.24 3.23c0 4.62-2.8 5.65-5.48 5.95a2.87 2.87 0 01.82 2.22v3.3c0 .32.22.7.82.58A12 12 0 0012 0z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Demo form submission animation
+    const form = document.querySelector('.fake-form');
+    const msgLead = document.getElementById('msg-lead');
+    const msgReply = document.getElementById('msg-reply');
+    const status = document.getElementById('demo-status');
+
+    function handleDemoSubmit(event) {
+      event.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      if (!name || !email || !message) return;
+
+      // Disable form during animation
+      form.querySelector('button.send').disabled = true;
+      status.textContent = 'Sending...';
+
+      // Animate new lead message
+      msgLead.style.opacity = '0';
+      msgLead.style.transform = 'translateY(12px)';
+      setTimeout(() => {
+        msgLead.innerHTML = `<strong>New lead</strong><br><small><strong>${name}</strong> (${email})<br>${message}</small>`;
+        msgLead.style.opacity = '1';
+        msgLead.style.transform = 'translateY(0)';
+
+        // On mobile, scroll the chat into view
+        if (window.innerWidth <= 520) {
+          msgLead.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 400);
+
+      // Animate reply message after delay
+      setTimeout(() => {
+        msgReply.style.opacity = '0';
+        msgReply.style.transform = 'translateY(12px)';
+      }, 600);
+      setTimeout(() => {
+        msgReply.textContent = 'Thanks for reaching out! We will get back to you shortly.';
+        msgReply.style.opacity = '1';
+        msgReply.style.transform = 'translateY(0)';
+      }, 1000);
+
+           // Reset form and status after animation
+      setTimeout(() => {
+        form.reset();
+        form.querySelector('button.send').disabled = false;
+        status.textContent = 'Try it: submit and see it appear in chat.';
+      }, 4000);
+    }
+
+    // --- Mobile Navigation Toggle ---
+    const menuButton = document.querySelector('.menu-button');
+    const nav = document.getElementById('primary-nav');
+
+    menuButton.addEventListener('click', () => {
+      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', !isExpanded);
+      nav.classList.toggle('nav-open');
+    });
+
+    // Close menu when a nav link is clicked (good for single-page sites)
+    nav.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        nav.classList.remove('nav-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // FAQ Accordion functionality
+    const accordions = document.querySelectorAll('.accordion-header');
+    accordions.forEach(button => {
+      button.addEventListener('click', () => {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        // Close all accordions
+        accordions.forEach(btn => {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.querySelector('.accordion-icon').classList.remove('rotate');
+          const content = document.getElementById(btn.getAttribute('aria-controls'));
+          content.hidden = true;
+          content.classList.remove('open');
+        });
+        // Toggle current accordion
+        if (!expanded) {
+          button.setAttribute('aria-expanded', 'true');
+          button.querySelector('.accordion-icon').classList.add('rotate');
+          const content = document.getElementById(button.getAttribute('aria-controls'));
+          content.hidden = false;
+          content.classList.add('open');
+        }
+      });
+      // Keyboard accessibility: toggle on Enter or Space
+      button.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          button.click();
+        }
+      });
+    });
+
+    // Smooth fade-in on scroll for elements with fade-up class
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observerOptions = {
+      threshold: 0.1
+    };
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'none';
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    fadeElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(12px)';
+      fadeObserver.observe(el);
+    });
+  </script>
+</body>
+</html>
