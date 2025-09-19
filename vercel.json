@@ -7,7 +7,8 @@
     { "src": "images/**/*", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/", "dest": "/$1" },
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/$1" },
     { "src": "/(.*\\.html)", "dest": "/html/$1" },
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/css/(.*)", "dest": "/css/$1" },
