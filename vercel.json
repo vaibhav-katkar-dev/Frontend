@@ -11,8 +11,6 @@
     { "src": "/(.*\\.html)", "dest": "/html/$1" },
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/css/(.*)", "dest": "/css/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" },
-     { "src": "/sitemap.xml", "dest": "/public/sitemap.xml" },
-    { "src": "/robots.txt", "dest": "/public/robots.txt" }
+    { "src": "/images/(.*)", "dest": "/images/$1" }
   ]
 }
