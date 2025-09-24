@@ -424,14 +424,37 @@ function handleCredentialResponse(response) {
   .catch(() => alert("Google login failed!"));
 }
 // ==================== ON LOAD ====================
-window.addEventListener("load", ()=>{
+window.addEventListener("load", async ()=>{
   initGoogle();
-  // Check if reset link is opened
-  const token = new URLSearchParams(window.location.search).get("token");
-  if(token) showReset();
-  else if(token) verifyToken();
-  else showLogin();
+
+  // Check if reset link opened
+  const resetToken = new URLSearchParams(window.location.search).get("token");
+  if(resetToken){
+    showReset();
+  } else {
+    // Check localStorage token for auto-login
+    const localToken = localStorage.getItem("token");
+    if(localToken){
+      // verify token with API
+      const res = await fetch(`${API_URL}/me`, {
+        headers: { "Authorization": `Bearer ${localToken}` }
+      });
+
+      if(res.ok){
+        // valid token → auto redirect
+        window.location.href = "allForms.html";
+      } else {
+        // invalid token → clear storage + show login
+        localStorage.removeItem("token");
+        showLogin();
+      }
+    } else {
+      // no token → show login
+      showLogin();
+    }
+  }
 });
+
 </script>
 </body>
 </html>
