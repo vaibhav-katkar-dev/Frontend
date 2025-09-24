@@ -8,6 +8,11 @@
   ],
   "routes": [
     { "src": "/", "dest": "/html/main/index.html" },    
+    { "src": "/blogs", "dest": "/html/main/blog.html" },    
+    { "src": "/create-lead-generation-form", "dest": "/html/main/create-lead-generation-form.html" },    
+    { "src": "/custom-online-form-builder", "dest": "/html/main/custom-online-form-builder.html" },    
+    { "src": "/logo", "dest": "/html/main/logo.svg" },    
+
     { "src": "/(.*\\.html)", "dest": "/html/$1" },
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/css/(.*)", "dest": "/css/$1" },

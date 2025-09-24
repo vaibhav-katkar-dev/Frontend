@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="n6oFUA-rmLT1NpO-4hP7zPaTJrOFoeTbALSudy08HZY" />
+  <meta name="description" content="Why Every Business Needs a Custom Online Form Builder">
+<meta name="keywords" content="custom form builder, online forms for business, lead collection tool">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How to Integrate Forms with WhatsApp for Faster Responses — Form2Chat.me Blog</title>
+  <meta name="description" content="Step-by-step guide to connecting your website forms to WhatsApp using Form2Chat. Get instant notifications and respond to leads in seconds for better conversion rates." />
+  <meta property="og:title" content="How to Integrate Forms with WhatsApp for Faster Responses" />
+  <meta property="og:description" content="Learn how Form2Chat turns form submissions into real-time WhatsApp alerts, boosting response times and sales." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.form2chat.me/blog/whatsapp-integration-guide" />
+  <meta property="og:image" content="https://www.form2chat.me/images/blog/whatsapp-guide-og.jpg" /> <!-- Replace with real image -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Integrate Forms with WhatsApp for Faster Responses" />
+  <meta name="twitter:description" content="Instant form-to-WhatsApp integration with Form2Chat." />
+  <link rel="canonical" href="https://www.form2chat.me/blog/whatsapp-integration-guide" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Integrate Forms with WhatsApp for Faster Responses",
+    "description": "Step-by-step guide to connecting your website forms to WhatsApp using Form2Chat.",
+    "datePublished": "2023-10-15",
+    "author": {
+      "@type": "Organization",
+      "name": "Form2Chat Team"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Form2Chat.me",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.form2chat.me/logo.svg"
+      }
+    }
+  }
+  </script>
+  <style>
+    /* Reuse all CSS from main site and blog index here for consistency */
+    :root {
+      --bg: #f9fafb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent-start: #3b82f6;
+      --accent-end: #10b981;
+      --card-bg: #fff;
+      --radius: 14px;
+      --shadow-light: rgba(0, 0, 0, 0.06);
+      --shadow-strong: rgba(0, 0, 0, 0.1);
+      --transition: 0.3s ease;
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; cursor: pointer; border: none; outline-offset: 2px; }
+    /* Container */
+    .container { max-width: 1150px; margin: 0 auto; padding: 0 24px; }
+    /* Header styles (same as main site) */
+    header {
+      position: sticky; top: 0; background: var(--card-bg); box-shadow: 0 2px 8px var(--shadow-light);
+      z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; gap: 24px;
+    }
+    .brand { display: flex; align-items: center; }
+    .logo {
+      width: clamp(40px, 5vw, 64px); height: clamp(40px, 5vw, 64px); border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff;
+      font-size: clamp(14px, 2vw, 20px); user-select: none; letter-spacing: 0.05em;
+    }
+    .logo img { max-width: 80%; max-height: 80%; object-fit: contain; }
+    .brand h1 { font-size: 20px; margin: 0; font-weight: 700; color: var(--text); user-select: none; }
+    nav { display: flex; align-items: center; gap: 16px; }
+    .menu-button { display: none; background: none; border: none; padding: 8px; cursor: pointer; z-index: 1010; }
+    .menu-button svg { width: 28px; height: 28px; color: var(--text); }
+    .btn { padding: 10px 18px; border-radius: var(--radius); font-weight: 600; font-size: 14px;
+      transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+      user-select: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-primary { background: linear-gradient(90deg, var(--accent-start), var(--accent-end)); color: #fff; border: none;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); border-radius: 50px; padding: 10px;
+    }
+    .btn-primary:hover, .btn-primary:focus-visible { opacity: 0.9; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5); outline-offset: 2px; outline: 2px solid var(--accent-end); }
+    /* Blog Post Hero */
+    .post-hero {
+      text-align: center; padding: 80px 0 60px; background: var(--bg);
+    }
+    .post-hero h1 {
+      font-size: 3rem; font-weight: 800; margin: 0 0 16px; line-height: 1.1; color: var(--text);
+    }
+    .post-meta { display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 32px; font-size: 1rem; color: var(--muted); }
+    .post-date { background: #f3f4f6; padding: 6px 12px; border-radius: 6px; font-weight: 600; }
+    /* Article Styles */
+    .article {
+      max-width: 800px; margin: 0 auto 80px; padding: 0 24px;
+    }
+    .article img { border-radius: var(--radius); box-shadow: 0 8px 24px var(--shadow-light); margin: 32px 0; }
+    .article h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 24px; color: var(--text); }
+    .article h3 { font-size: 1.5rem; font-weight: 700; margin: 32px 0 16px; color: var(--text); }
+    .article p { margin-bottom: 24px; line-height: 1.7; color: var(--text); }
+    .article ul, .article ol { margin-bottom: 24px; padding-left: 24px; }
+    .article li { margin-bottom: 8px; line-height: 1.6; }
+    .article code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: var(--accent-start); }
+    .article blockquote { border-left: 4px solid var(--accent-start); padding-left: 20px; margin: 32px 0; font-style: italic; color: var(--muted); }
+    .cta-section { background: linear-gradient(90deg, var(--accent-start), var(--accent-end)); color: white; padding: 40px; border-radius: var(--radius); text-align: center; margin: 60px 0; }
+    .cta-section h3 { margin: 0 0 16px; font-size: 1.75rem; }
+    .cta-section .btn-primary { display: inline-block; margin-top: 16px; padding: 14px 24px; }
+    /* Related Posts */
+    .related-posts { background: var(--card-bg); border-radius: var(--radius); padding: 40px; margin: 80px 0; box-shadow: 0 6px 20px var(--shadow-light); }
+    .related-posts h2 { text-align: center; margin-bottom: 32px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .related-card { padding: 20px; border: 1px solid #e5e7eb; border-radius: var(--radius); transition: box-shadow var(--transition); }
+    .related-card:hover { box-shadow: 0 8px 24px var(--shadow-light); }
+    .related-card h3 { margin: 0 0 8px; font-size: 1.25rem; }
+    .related-card p { color: var(--muted); margin: 0; }
+    /* Footer (same as main site) */
+    footer { background: var(--card-bg); border-top: 1.5px solid #e2e8f0; padding: 40px 24px; margin-top: 80px; color: var(--muted); font-size: 0.9rem; }
+    .footer-container { max-width: 1150px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; justify-content: space-between; }
+    .footer-col { min-width: 140px; flex: 1 1 140px; }
+    .footer-col h4 { font-weight: 700; font-size: 1.1rem; margin-bottom: 16px; color: var(--text); }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul li a { color: var(--muted); text-decoration: none; transition: color 0.3s ease; }
+    .footer-col ul li a:hover, .footer-col ul li a:focus { color: var(--accent-start); outline: none; }
+    .social-icons { display: flex; gap: 20px; margin-top: 8px; }
+    .social-icons a { color: var(--muted); font-size: 1.4rem; transition: color 0.3s ease; user-select: none; }
+    .social-icons a:hover, .social-icons a:focus { color: var(--accent-start); outline: none; }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-button { display: block; }
+      nav { position: fixed; top: 0; right: 0; bottom: 0; width: 280px; background: var(--card-bg); flex-direction: column;
+        align-items: flex-start; padding: 80px 24px 24px; gap: 24px; transform: translateX(100%); transition: transform var(--transition);
+        box-shadow: -4px 0 15px var(--shadow-strong); z-index: 1005;
+      }
+      nav.nav-open { transform: translateX(0); }
+      nav a { font-size: 1.1rem; }
+      nav .btn-primary { width: 100%; text-align: center; }
+      footer { margin-top: 60px; padding-top: 30px; padding-bottom: 30px; }
+      .social-icons { justify-content: center; }
+      .post-hero h1 { font-size: 2.25rem; }
+      .article { padding: 0 16px; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 1024px) { .footer-container { flex-direction: column; gap: 32px; text-align: center; } }
+    @media (max-width: 520px) { .container { padding: 0 16px; } .post-hero { padding: 60px 0 40px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand" aria-label="Form2Chat logo and brand name">
+      <div class="logo" aria-hidden="true"><img src="https://github.com/vaibhav-katkar-dev/AI-CHAT/blob/main/public/images/logo.svg" alt=""></div>
+      <div>
+        <h1 style="font-size: 1.25rem; margin: 0; color: var(--text);">Form2<span style="color: #31ce26;">Chat</span><span style="color:rgb(214, 40, 40)">.me</span></h1>
+        <p style="font-size: 0.85rem; margin: 0; color: var(--muted); user-select:none;">Instant form notifications — simple & fast</p>
+      </div>
+    </div>
+    <button class="menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+    </button>
+    <nav id="primary-nav" aria-label="Primary navigation">
+      <a href="/" tabindex="0">Home</a>
+      <a href="/#features" tabindex="0">Features</a>
+      <a href="/#pricing" tabindex="0">Pricing</a>
+      <a href="/#docs" tabindex="0">Docs</a>
+      <a href="/#faq" tabindex="0">FAQ</a>
+      <a href="/blog" tabindex="0">Blog</a>
+      <a href="https://www.form2chat.me/login.html" class="btn-primary" tabindex="0" role="button">Get Started</a>
+    </nav> 
+  </header>
+
+<main class="container" role="main">
+  <!-- Post Hero -->
+  <section class="post-hero" aria-label="Blog post header">
+    <h1>Why Every Business Needs a Custom Online Form Builder</h1>
+    <div class="post-meta">
+      <span class="post-date">October 22, 2023</span>
+      <span>· 7 min read</span>
+      <span>By Form2Chat Team</span>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <article class="article" role="article" aria-labelledby="post-title">
+    <img src="https://via.placeholder.com/800x400/3b82f6/ffffff?text=Custom+Form+Builder" alt="Illustration of a custom online form builder interface connecting to business icons like leads, feedback, and chat notifications" style="margin-bottom: 32px;" />
+    
+    <p>In today’s digital world, customers expect fast, seamless ways to connect with businesses—whether it's submitting a query, signing up for a newsletter, or placing an order. A <strong>custom online form builder</strong> empowers companies to collect leads, feedback, and data effortlessly, without the hassle of coding or complex setups. Tools like Form2Chat make this accessible to everyone, from solopreneurs to enterprise teams, turning your website into a 24/7 lead-generation machine. In this post, we'll explore why every business needs one and how it can transform your operations.</p>
+
+    <h2>1. Collect Leads 24/7—Never Miss an Opportunity</h2>
+    <p>Your website is always online, but without the right tools, potential customers might slip through the cracks. A custom form builder allows you to capture visitor information around the clock, even when your team is offline. Imagine a prospect filling out a contact form at 2 AM—your business can still engage them the next morning with personalized follow-ups.</p>
+    <ul>
+      <li>Embed forms on landing pages, pop-ups, or sidebars to maximize visibility.</li>
+      <li>Use mobile-optimized designs to capture leads from smartphones (over 50% of web traffic).</li>
+      <li>Track submissions with timestamps and geolocation for better targeting.</li>
+    </ul>
+    <p>According to HubSpot, businesses with active lead capture forms see 20-30% more conversions. With Form2Chat, submissions trigger instant notifications, ensuring no lead goes cold. This round-the-clock collection is especially crucial for e-commerce, real estate, and service-based industries where timing is everything.</p>
+    <img src="https://via.placeholder.com/800x300/10b981/ffffff?text=24%2F7+Lead+Collection" alt="Visual representation of a form collecting leads at all hours, with clock icons and incoming notifications" style="margin: 24px 0;" />
+
+    <h2>2. Save Time with Ready-Made Templates</h2>
+    <p>Building forms from scratch can eat up valuable hours, especially if you're not a developer. That's where <strong>pre-designed form templates</strong> shine—they provide a head start with proven layouts for common needs like contact inquiries, event registrations, or customer surveys. Simply select a template, tweak the fields, and launch.</p>
+    <ul>
+      <li>Diverse options: Choose from 50+ templates tailored for industries like marketing, HR, and sales.</li>
+      <li>Full customization: Adjust branding, add logic (e.g., show/hide fields based on responses), and integrate multimedia.</li>
+      <li>Quick iteration: A/B test variations to optimize for higher completion rates.</li>
+    </ul>
+    <p>Form2Chat's template library is drag-and-drop friendly, reducing setup time from days to minutes. Non-technical users love how it democratizes form creation, allowing marketing teams to experiment without IT involvement. The result? Faster launches and more engaging user experiences that boost submission rates by up to 40%.</p>
+    <blockquote>"Switching to Form2Chat's templates saved our team weeks of design work. Now we iterate forms in hours!" — Priya M., Product Owner</blockquote>
+
+    <h2>3. Export Responses Easily for Actionable Insights</h2>
+    <p>Collecting data is only half the battle—turning it into insights requires easy access and sharing. A robust form builder lets you export responses in user-friendly formats, making it simple to analyze trends, generate reports, or import into your CRM.</p>
+    <ul>
+      <li><strong>PDF</strong>: Create polished, shareable documents for client presentations or internal reviews.</li>
+      <li><strong>Excel/CSV</strong>: Dive deep with spreadsheets for calculations, charts, and bulk imports to tools like Google Sheets or Salesforce.</li>
+      <li>Automated workflows: Set up rules to email exports or sync with Zapier for seamless integrations.</li>
+    </ul>
+    <p>With Form2Chat, exports include all form fields, timestamps, and metadata, ensuring nothing is lost. This feature is a game-changer for data-driven teams, enabling quick decisions like identifying hot leads or spotting feedback patterns. No more manual data entry—export once and empower your entire organization.</p>
+    <img src="https://via.placeholder.com/800x300/f3f4f6/1f2937?text=Easy+Data+Export" alt="Screenshot showing export options in Form2Chat, including PDF, Excel, and CSV buttons with sample data" style="margin: 24px 0;" />
+
+    <h2>4. Connect Directly with Customers for Real-Time Engagement</h2>
+    <p>The true power of a form builder lies in what happens after submission. Advanced tools like Form2Chat link forms directly to communication channels such as WhatsApp, email, or Slack, creating a closed-loop experience that fosters immediate interaction.</p>
+    <ul>
+      <li>Instant routing: Send alerts to the right team member based on form content (e.g., sales queries to reps).</li>
+      <li>Personalized responses: Auto-reply with thank-yous or next steps via integrated messaging.</li>
+      <li>Multi-channel support: Beyond WhatsApp, connect to Telegram, email, or webhooks for flexibility.</li>
+    </ul>
+    <p>This direct connection reduces response times from days to seconds, building trust and urgency. For instance, a customer inquiry can trigger a WhatsApp chat, turning a passive form into an active conversation. Businesses using such integrations report 50% higher engagement rates, as customers feel heard and valued right away.</p>
+
+    <h2>Conclusion</h2>
+    <p>A good form builder is more than just a tool—it's a strategic asset that drives growth, streamlines operations, and enhances customer communication. By enabling 24/7 lead capture, effortless customization, simple data handling, and real-time connections, solutions like Form2Chat help businesses stay ahead in a competitive landscape. Don't let outdated methods hold you back; invest in a custom online form builder today and watch your engagement soar.</p>
+
+    <div class="cta-section">
+      <h3>Build Your First Custom Form Today</h3>
+      <p>Experience the power of Form2Chat's no-code builder and start collecting leads effortlessly.</p>
+      <a href="https://www.form2chat.me/login.html" class="btn-primary" role="button" tabindex="0">Start Building Free</a>
+    </div>
+  </article>
+
+  <!-- Related Posts -->
+  <section class="related-posts" aria-label="Related blog posts">
+    <h2>Read Next</h2>
+    <div class="related-grid">
+      <article class="related-card" tabindex="0">
+        <h3><a href="/blog/whatsapp-integration-guide">How to Integrate Forms with WhatsApp for Faster Responses</a></h3>
+        <p>Step-by-step guide to real-time notifications that supercharge your customer interactions.</p>
+      </article>
+      <article class="related-card" tabindex="0">
+        <h3><a href="/blog/lead-conversion-tips">Boost Lead Conversion: Why Instant Chat Notifications Matter</a></h3>
+        <p>Discover how real-time alerts can increase your sales by 40%.</p>
+      </article>
+      <article class="related-card" tabindex="0">
+        <h3><a href="/blog/typeform-integrations">Seamless Integrations: Connecting Typeform to Slack and Beyond</a></h3>
+        <p>Expand your workflow with no-code integrations for maximum efficiency.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+
+  <!-- Footer (same as before) -->
+  <footer role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-col" aria-label="Product links">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/" tabindex="0">Home</a></li>
+          <li><a href="/#features" tabindex="0">Features</a></li>
+          <li><a href="/#integrations" tabindex="0">Integrations</a></li>
+          <li><a href="/#pricing" tabindex="0">Pricing</a></li>
+          <li><a href="/#faq" tabindex="0">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" aria-label="Support links">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="/#docs" tabindex="0">Docs</a></li>
+          <li><a href="#contact" tabindex="0">Contact</a></li>
+          <li><a href="#status" tabindex="0">Status</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" aria-label="Company information">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about" tabindex="0">About Us</a></li>
+          <li><a href="#careers" tabindex="0">Careers</a></li>
+          <li><a href="/blog" tabindex="0">Blog</a></li>
+          <li><a href="#privacy" tabindex="0">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col" aria-label="Social media links">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="https://twitter.com/form2chat" aria-label="Twitter" target="_blank" rel="noopener" tabindex="0" title="Twitter">
+            <svg width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4.36a9.05 9.05 0 01-2.88 1.1A4.52 4.52 0 0016.67 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03A12.8 12.8 0 013 1.67a4.52 4.52 0 001.4 6.04 4.48 4.48 0 01-2.05-.57v.06c0 2.2 1.56 4.04 3.63 4.46a4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.22 3.14A9.05 9.05 0 012 19.54a12.8 12.8 0 006.92 2.03c8.3 0 12.85-6.88 12.85-12.85 0-.2 0-.42-.02-.63A9.22 9.22 0 0023 3z"/></svg>
+          </a>
+          <a href="https://linkedin.com/company/form2chat" aria-label="LinkedIn" target="_blank" rel="noopener" tabindex="0" title="LinkedIn">
+            <svg width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 11-.001 5.001A2.5 2.5 0 014.98 3.5zM3 8.98h4v12H3v-12zm7.5 0h3.75v1.64h.05c.52-.98 1.8-2.01 3.7-2.01 3.96 0 4.7 2.6 4.7 5.98v6.39h-4v-5.66c0-1.35-.03-3.08-1.88-3.08-1.88 0-2.17 1.47-2.17 2.99v5.75h-4v-12z"/></svg>
+          </a>
+          <a href="https://github.com/form2chat" aria-label="GitHub" target="_blank" rel="noopener" tabindex="0" title="GitHub">
+            <svg width="24" height="24" fill="currentColor" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 0a12 12 0 00-3.79 23.4c.6.11.82-.26.82-.58v-2.17c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.34-1.76c-1.1-.75.08-.74.08-.74a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.6c-2.67-.3-5.47-1.34-5.47-5.95a4.66 4.66 0 011.24-3.23 4.33 4.33 0 01.12-3.18s1-.32 3.3 1.23a11.4 11.4 0 016 0c2.3-1.55 3.3-1.23 3.3-1.23a4.33 4.33 0 01.12 3.18 4.66 4.66 0 011.24 3.23c0 4.62-2.8 5.65-5.48 5.95a2.87 2.87 0 01.82 2.22v3.3c0 .32.22.7.82.58A12 12 0 0012 0z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid #e5e7eb; color: var(--muted); font-size: 0.875rem;">
+      &copy; 2023 Form2Chat.me. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Navigation Toggle (same as blog index)
+    const menuButton = document.querySelector('.menu-button');
+    const nav = document.getElementById('primary-nav');
+
+    if (menuButton && nav) {
+      menuButton.addEventListener('click', () => {
+        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', !isExpanded);
+        nav.classList.toggle('nav-open');
+      });
+
+      nav.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          nav.classList.remove('nav-open');
+          menuButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('nav-open')) {
+          nav.classList.remove('nav-open');
+          menuButton.setAttribute('aria-expanded', 'false');
+          menuButton.focus();
+        }
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
