@@ -23,6 +23,9 @@ async function checkAuth() {
         if (!res.ok) {
             // Token invalid → clear and redirect
             localStorage.removeItem("token");
+            // inside if (!res.ok) block
+            localStorage.removeItem("userEmail"); // also clear stored email
+
             window.location.href = "login.html";
             return;
         }
@@ -30,10 +33,19 @@ async function checkAuth() {
         // Token valid → return user data
         const user = await res.json();
         console.log("✅ Authenticated User:", user);
+        // after console.log("✅ Authenticated User:", user);
+if (user?.email) {
+    localStorage.setItem("userEmail", user.email);
+    console.log("📩 Stored Email:", localStorage.getItem("userEmail"));
+}
+
         return user;
     } catch (err) {
         console.error("Auth check error:", err);
         localStorage.removeItem("token");
+        // inside catch block
+localStorage.removeItem("userEmail");
+
         window.location.href = "login.html";
     }
 }

@@ -267,13 +267,16 @@ tr:hover {
 
     const urlParams = new URLSearchParams(window.location.search);
     const formId = urlParams.get("formId");
+    let storedEmail = localStorage.getItem("email");
+    console.log("Stored Email:", storedEmail);  
 
     if (!formId) {
       document.body.innerHTML = "<h2>❌ No formId provided in URL</h2>";
       throw new Error("formId is required in URL");
     }
+    userId = localStorage.getItem("userId");
 
-    fetch(`${baseURL}/api/forms/responses/by-id/${formId}`)
+    fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId }`)
       .then(res => res.json())
       .then(data => {
         const responses = data.responses;
