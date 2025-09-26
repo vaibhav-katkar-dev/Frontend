@@ -7,15 +7,17 @@
     { "src": "images/**/*", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/", "dest": "/html/main/index.html" },    
-    { "src": "/blog", "dest": "/html/main/blog.html" },    
-    { "src": "/blog/create-lead-generation-form", "dest": "/html/main/create-lead-generation-form.html" },    
-    { "src": "/blog/custom-online-form-builder", "dest": "/html/main/custom-online-form-builder.html" },    
-    { "src": "/logo.svg", "dest": "/html/main/logo.svg" },  
-    { "src": "/sitemap.xml", "dest": "/html/main/sitemap.xml" },    
-  
+    { "src": "/", "dest": "/html/main/index.html" },
+
+    { "src": "/blog/(.*)", "dest": "/html/main/blog/$1.html" },
+
+    { "src": "/sitemap.xml", "dest": "/html/main/sitemap.xml" },
+    { "src": "/logo.svg", "dest": "/html/main/logo.svg" },
+
+    { "src": "/([a-zA-Z0-9-/]+)", "dest": "/html/$1.html" },
 
     { "src": "/(.*\\.html)", "dest": "/html/$1" },
+
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/css/(.*)", "dest": "/css/$1" },
     { "src": "/images/(.*)", "dest": "/images/$1" }
