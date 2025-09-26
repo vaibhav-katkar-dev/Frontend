@@ -11,7 +11,9 @@
     { "src": "/blog", "dest": "/html/main/blog.html" },    
     { "src": "/blog/create-lead-generation-form", "dest": "/html/main/create-lead-generation-form.html" },    
     { "src": "/blog/custom-online-form-builder", "dest": "/html/main/custom-online-form-builder.html" },    
-    { "src": "/logo.svg", "dest": "/html/main/logo.svg" },    
+    { "src": "/logo.svg", "dest": "/html/main/logo.svg" },  
+    { "src": "/sitemap.xml", "dest": "/html/main/sitemap.xml" },    
+  
 
     { "src": "/(.*\\.html)", "dest": "/html/$1" },
     { "src": "/js/(.*)", "dest": "/js/$1" },
