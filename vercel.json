@@ -10,7 +10,8 @@
   ],
   "routes": [
     { "src": "/", "dest": "/html/main/index.html" },    
-    { "src": "/blog", "dest": "/html/main/blog/blog.html" },    
+    { "src": "/pricing", "dest": "/html/main/prise.html" },    
+    { "src": "/blog", "dest": "/html/main/blog/blog.html" },     
     { "src": "/blog/create-lead-generation-form", "dest": "/html/main/blog/create-lead-generation-form.html" },    
     { "src": "/blog/custom-online-form-builder", "dest": "/html/main/blog/custom-online-form-builder.html" },    
     { "src": "/blog/form2chat-benefits", "dest": "/html/main/blog/form2chat-benefits.html" },    
