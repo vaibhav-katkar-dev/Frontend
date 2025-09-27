@@ -1,21 +1,14 @@
 {
   "version": 2,
   "builds": [
-    { "src": "html/**/*.html", "use": "@vercel/static" },
-    { "src": "js/**/*", "use": "@vercel/static" },
-    { "src": "css/**/*", "use": "@vercel/static" },
-    { "src": "images/**/*", "use": "@vercel/static" }
+    { "src": "public/**/*", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/", "dest": "/html/main/index.html" },    
-    { "src": "/blog", "dest": "/html/main/blog/blog.html" },    
-    { "src": "/blog/create-lead-generation-form", "dest": "/html/main/blog/create-lead-generation-form.html" },    
-    { "src": "/blog/custom-online-form-builder", "dest": "/html/main/blog/custom-online-form-builder.html" },    
-    { "src": "/logo.svg", "dest": "/html/main/logo.svg" },  
-
-    { "src": "/(.*\\.html)", "dest": "/html/$1" },
-    { "src": "/js/(.*)", "dest": "/js/$1" },
-    { "src": "/css/(.*)", "dest": "/css/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" }
+    { "src": "/", "dest": "/html/main/index.html" },
+    { "src": "/blog", "dest": "/html/main/blog/blog.html" },
+    { "src": "/blog/create-lead-generation-form", "dest": "/html/main/blog/create-lead-generation-form.html" },
+    { "src": "/blog/custom-online-form-builder", "dest": "/html/main/blog/custom-online-form-builder.html" },
+    { "src": "/logo.svg", "dest": "/html/main/logo.svg" },
+    { "src": "/((?!.*\\.).*)", "dest": "$1.html" }
   ]
 }
