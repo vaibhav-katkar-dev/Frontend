@@ -13,12 +13,36 @@
 
   gtag('config', 'G-YQ1B3B05KC');
 </script>
-  <title>Blog — Form2Chat.me
-        <link rel="shortcut icon" href="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no" type="image/x-icon">
-
-  </title>
-
+  <title>Blog — Form2Chat.me</title>
+  <link rel="shortcut icon" href="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no" type="image/x-icon">
   <meta name="description" content="Latest insights, tips, and updates on turning forms into instant chat leads with Form2Chat." />
+  <meta name="keywords" content="Form2Chat blog, form builder tips, lead generation insights, WhatsApp integration guide, custom online forms, effective form design">
+  <meta property="og:title" content="Blog — Form2Chat.me" />
+  <meta property="og:description" content="Latest insights, tips, and updates on turning forms into instant chat leads with Form2Chat." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.form2chat.me/blog" />
+  <meta property="og:image" content="https://www.form2chat.me/images/blog/blog-og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog — Form2Chat.me" />
+  <meta name="twitter:description" content="Latest insights, tips, and updates on turning forms into instant chat leads with Form2Chat." />
+  <link rel="canonical" href="https://www.form2chat.me/blog" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Blog — Form2Chat.me",
+    "description": "Latest insights, tips, and updates on turning forms into instant chat leads with Form2Chat.",
+    "url": "https://www.form2chat.me/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Form2Chat.me",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.form2chat.me/logo.svg"
+      }
+    }
+  }
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -212,18 +236,34 @@
       margin: 0 auto;
     }
     .post-card {
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 6px 20px var(--shadow-light);
-      border: 1px solid #e5e7eb;
-      transition: box-shadow var(--transition), transform var(--transition);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: backdrop-filter var(--transition), box-shadow var(--transition), transform var(--transition);
       cursor: default;
+      position: relative;
+    }
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      border-radius: var(--radius);
+      pointer-events: none;
     }
     .post-card:hover,
     .post-card:focus-within {
-      box-shadow: 0 10px 30px var(--shadow-strong);
-      transform: translateY(-4px);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transform: translateY(-6px);
       outline-offset: 2px;
       outline: 2px solid var(--accent-start);
     }
@@ -476,7 +516,7 @@
     <h2>Latest Posts</h2>
     <div class="posts-grid">
       <article class="post-card" tabindex="0" role="article" aria-labelledby="post1-title">
-        <div class="post-image" aria-hidden="true">🎯</div>
+        <div class="post-image" aria-hidden="true"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop" alt="Lead Generation Form" style="width: 100%; height: 100%; object-fit: cover;"></div>
         <div class="post-content">
           <div class="post-meta">
             <span class="post-date">March 15, 2024</span>
@@ -489,7 +529,7 @@
       </article>
 
       <article class="post-card" tabindex="0" role="article" aria-labelledby="post2-title">
-        <div class="post-image" aria-hidden="true">⭐</div>
+        <div class="post-image" aria-hidden="true"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop" alt="Business Benefits" style="width: 100%; height: 100%; object-fit: cover;"></div>
         <div class="post-content">
           <div class="post-meta">
             <span class="post-date">February 20, 2024</span>
@@ -502,7 +542,7 @@
       </article>
 
       <article class="post-card" tabindex="0" role="article" aria-labelledby="post3-title">
-        <div class="post-image" aria-hidden="true">🛠️</div>
+        <div class="post-image" aria-hidden="true"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" alt="Custom Form Builder" style="width: 100%; height: 100%; object-fit: cover;"></div>
         <div class="post-content">
           <div class="post-meta">
             <span class="post-date">January 10, 2024</span>
@@ -511,6 +551,19 @@
           <h3 id="post3-title" class="post-title">Why Every Business Needs a Custom Online Form Builder</h3>
           <p class="post-excerpt">In a digital-first world, custom forms are essential for 24/7 lead capture, easy data export, and real-time customer connections. See why Form2Chat is the perfect tool.</p>
           <a href="/blog/custom-online-form-builder" class="post-link" tabindex="0">Read more →</a>
+        </div>
+      </article>
+
+      <article class="post-card" tabindex="0" role="article" aria-labelledby="post4-title">
+        <div class="post-image" aria-hidden="true"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop" alt="Form Design Tips" style="width: 100%; height: 100%; object-fit: cover;"></div>
+        <div class="post-content">
+          <div class="post-meta">
+            <span class="post-date">December 5, 2023</span>
+            <span>· 6 min read</span>
+          </div>
+          <h3 id="post4-title" class="post-title">Effective Form Design Tips for Better Conversions</h3>
+          <p class="post-excerpt">Master the art of form design with proven tips to reduce bounce rates, increase submissions, and turn visitors into leads using Form2Chat's best practices.</p>
+          <a href="/blog/effective-form-design-tips" class="post-link" tabindex="0">Read more →</a>
         </div>
       </article>
     </div>

@@ -1,0 +1,2 @@
+- [x] Add a new post card in blog.html for "Effective Form Design Tips" with appropriate date, title, excerpt, and link to /blog/effective-form-design-tips
+- [x] Create an empty HTML file at html/main/blog/effective-form-design-tips.html
