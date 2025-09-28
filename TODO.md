@@ -1,2 +1,6 @@
-- [x] Add a new post card in blog.html for "Effective Form Design Tips" with appropriate date, title, excerpt, and link to /blog/effective-form-design-tips
-- [x] Create an empty HTML file at html/main/blog/effective-form-design-tips.html
+# TODO: Fix Login/Signup Page Issues
+
+- [x] Add CSS styles for disabled/loading button state
+- [x] Add validateEmail function in JavaScript
+- [x] Update signup form submit handler: add email validation, button disabling, improved error message display
+- [x] Update login form submit handler: add email validation, button disabling, remove buggy alert/console, improved error message display

@@ -101,6 +101,14 @@ button.primary {
 button.primary:hover {
   background: #5b77e1;
 }
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+button.loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 button.google {
   background: #fff;
   color: #555;
@@ -273,6 +281,12 @@ function hideAll() {
   document.querySelectorAll("form").forEach(f => f.style.display="none");
 }
 
+// ==================== EMAIL VALIDATION ====================
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 // ==================== VERIFY TOKEN ====================
 async function verifyToken() {
   try {
@@ -285,55 +299,103 @@ async function verifyToken() {
 // ==================== SIGNUP ====================
 document.getElementById("signupForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const name = document.getElementById("signupName").value;
-  const email = document.getElementById("signupEmail").value;
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
   const password = document.getElementById("signupPassword").value;
 
-  const res = await fetch(`${API_URL}/signup`, {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ name, email, password })
-  });
-  const data = await res.json();
   const msg = document.getElementById("signupMsg");
-  msg.innerText = data.msg || JSON.stringify(data);
-  msg.className = data.msg?.toLowerCase().includes("success") ? "message success" : "message error";
+  const btn = e.target.querySelector('button[type="submit"]');
+
+  // Validate email
+  if (!validateEmail(email)) {
+    msg.innerText = "Please enter a valid email address.";
+    msg.className = "message error";
+    return;
+  }
+
+  // Disable button
+  btn.disabled = true;
+  btn.innerText = "Signing up...";
+
+  try {
+    const res = await fetch(`${API_URL}/signup`, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+
+    if (data.token) {
+      token = data.token;
+      localStorage.setItem("token", token);
+      if (data.user && data.user.id) {
+        localStorage.setItem("userId", data.user.id);
+      }
+      msg.innerText = "Signup successful ✅";
+      msg.className = "message success";
+      setTimeout(() => window.location.href = "allForms.html", 600);
+    } else {
+      msg.innerText = data.msg || data.message || "Signup failed. Please try again.";
+      msg.className = "message error";
+    }
+  } catch (error) {
+    msg.innerText = "An error occurred. Please try again.";
+    msg.className = "message error";
+  } finally {
+    // Re-enable button
+    btn.disabled = false;
+    btn.innerText = "Signup";
+  }
 });
 
 // ==================== LOGIN ====================
 document.getElementById("loginForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const email = document.getElementById("loginEmail").value;
+  const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
 
-  const res = await fetch(`${API_URL}/login`, {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ email, password })
-  });
-  const data = await res.json();
   const msg = document.getElementById("loginMsg");
-  console.log(data);
-  alert(data.user.id);
-   if (data.user.id) {
-      // ✅ userId को localStorage में save करो
-      localStorage.setItem("userId", data.user.id);
-      console.log(localStorage.getItem("userId"));
-      alert(localStorage.getItem("userId"),'stored');
+  const btn = e.target.querySelector('button[type="submit"]');
 
-      // console.log("User ID stored:", localStorage.getItem("userId"));
-    }
-  if(data.token){
-    token = data.token;
-  
-    localStorage.setItem("token", token);
-
-    msg.innerText = "Login successful ✅";
-    msg.className = "message success";
-    setTimeout(()=>window.location.href="allForms.html",600);
-  } else {
-    msg.innerText = data.msg;
+  // Validate email
+  if (!validateEmail(email)) {
+    msg.innerText = "Please enter a valid email address.";
     msg.className = "message error";
+    return;
+  }
+
+  // Disable button
+  btn.disabled = true;
+  btn.innerText = "Logging in...";
+
+  try {
+    const res = await fetch(`${API_URL}/login`, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (data.token) {
+      token = data.token;
+      localStorage.setItem("token", token);
+      if (data.user && data.user.id) {
+        localStorage.setItem("userId", data.user.id);
+      }
+      msg.innerText = "Login successful ✅";
+      msg.className = "message success";
+      setTimeout(() => window.location.href = "allForms.html", 600);
+    } else {
+      msg.innerText = data.msg || data.message || "Invalid email or password.";
+      msg.className = "message error";
+    }
+  } catch (error) {
+    msg.innerText = "An error occurred. Please try again.";
+    msg.className = "message error";
+  } finally {
+    // Re-enable button
+    btn.disabled = false;
+    btn.innerText = "Login";
   }
 });
 
