@@ -1,4 +1,4 @@
 User-agent: *
-Allow: /
+Disallow:
 
-Sitemap: https://www.form2chat.me/sitemap.xml
+Sitemap: https://form2chat.me/sitemap.xml
