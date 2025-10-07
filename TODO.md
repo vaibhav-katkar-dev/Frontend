@@ -1,30 +1,31 @@
-# Blog SEO and Indexing Improvements
+# TODO: Increase Title Tag Length to 55-60 Chars
 
-## Overview
-Improve SEO and indexing friendliness for all blog files in Frontend/html/main/blog/ without major UI changes. Focus on meta tags, images, and performance optimizations.
+## Information Gathered
+- Analyzed all main pages and blog pages for current title lengths.
+- Main index.html: 51 chars, needs increase to include WhatsApp, Telegram & Slack.
+- Pricing page (prise.html): Same as index, 51 chars.
+- Blog index (blog/blog.html): 18 chars, needs significant increase.
+- Blog posts: All around 75-77 chars, need to shorten to 55-60.
 
-## Tasks
-- [ ] Add missing OG images to all blog posts
-- [ ] Add article:published_time to Open Graph meta tags
-- [ ] Add twitter:image to Twitter Card meta tags
-- [ ] Add image property to JSON-LD schema
-- [ ] Add robots meta tag "index, follow"
-- [ ] Add loading="lazy" to images for performance
-- [ ] Update meta descriptions to accurately match content
-- [ ] Add author meta tag
-- [ ] Add breadcrumb schema for better navigation
-- [ ] Ensure canonical URLs are correct
-- [ ] Verify all images have descriptive alt attributes
-- [ ] Add rel="noopener" to external links where missing
+## Plan
+- Update title tags in HTML head sections to 55-60 chars.
+- Update corresponding og:title and twitter:title meta tags.
+- Ensure titles are SEO-friendly and include relevant keywords.
 
-## Files to Update
-- blog.html (blog index)
-- create-lead-generation-form.html
-- custom-online-form-builder.html
-- effective-form-design-tips.html
-- form2chat-benefits.html
+## Dependent Files to be Edited
+- Frontend/html/main/index.html
+- Frontend/html/main/prise.html
+- Frontend/html/main/blog/blog.html
+- Frontend/html/main/blog/create-lead-generation-form.html
+- Frontend/html/main/blog/form2chat-benefits.html
+- Frontend/html/main/blog/custom-online-form-builder.html
+- Frontend/html/main/blog/effective-form-design-tips.html
 
-## Notes
-- Do not change major UI elements or content structure
-- Ensure changes improve SEO without affecting user experience
-- Test for accessibility and performance after changes
+## Followup Steps
+- Verify title lengths after changes.
+- Test pages to ensure titles display correctly.
+- Check SEO impact if needed.
+
+<ask_followup_question>
+<question>Confirm if I can proceed with this plan to update the title tags across the specified files.</question>
+</ask_followup_question>
