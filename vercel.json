@@ -20,6 +20,7 @@
     { "src": "^/blog/custom-online-form-builder$", "dest": "/html/main/blog/custom-online-form-builder.html" },
     { "src": "^/blog/form2chat-benefits$", "dest": "/html/main/blog/form2chat-benefits.html" },
     { "src": "^/blog/effective-form-design-tips$", "dest": "/html/main/blog/effective-form-design-tips.html" },
+    { "src": "^/privacy$", "dest": "/html/main/privacy.html" },
     { "src": "^/logo\\.svg$", "dest": "/html/main/logo.svg" },
     { "src": "^/sitemap\\.xml$", "dest": "/public/sitemap.xml" },
     { "src": "^/robots\\.txt$", "dest": "/public/robots.txt" },
