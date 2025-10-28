@@ -1018,7 +1018,220 @@
       .step { flex-direction: column; text-align: center; align-items: center; }
     }
   </style>
-  
+
+<style>
+    /* Pricing Section */
+    .pricing {
+      margin-top: 80px;
+      max-width: 1150px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .pricing h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      user-select: none;
+    }
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns for 4 cards */
+      gap: 24px;
+      align-items: stretch; /* Ensures cards stretch to equal height */
+    }
+    .pricing-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      box-shadow: 0 6px 20px var(--shadow-light);
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between; /* Distributes space evenly */
+      min-height: 450px; /* Sets minimum height for alignment */
+      transition: box-shadow var(--transition), transform var(--transition);
+      cursor: default;
+    }
+    .pricing-card:hover,
+    .pricing-card:focus-within {
+      box-shadow: 0 10px 30px var(--shadow-strong);
+      transform: translateY(-6px);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    .plan-name {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    .plan-price {
+      font-weight: 800;
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: var(--accent-start);
+      user-select: none;
+    }
+    .plan-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      user-select: none;
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px 0;
+      width: 100%;
+      text-align: left;
+      color: var(--text);
+      font-size: 0.95rem;
+      user-select: none;
+      flex-grow: 1; /* Allows features to take available space */
+    }
+    .plan-features li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .plan-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent-end);
+      font-weight: 700;
+    }
+    .plan-cta {
+      width: 100%;
+    }
+    .plan-cta button, .plan-cta a {
+      width: 100%;
+      padding: 14px 0;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: none;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      transition: background-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      cursor: pointer;
+      user-select: none;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+    }
+    .plan-cta button:hover, .plan-cta button:focus-visible,
+    .plan-cta a:hover, .plan-cta a:focus-visible {
+      background: linear-gradient(90deg, var(--accent-end), var(--accent-start));
+      box-shadow: 0 8px 28px rgba(59, 130, 246, 0.6);
+      transform: translateY(-2px);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .pricing-cards {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+      }
+    }
+    @media (max-width: 768px) {
+      .pricing-cards {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+      }
+      .pricing-card {
+        min-height: auto; /* Remove fixed height on mobile for flexibility */
+      }
+    }
+  </style>
+
+   <!-- Additional Styles for Enhanced Purchase Buttons -->
+  <style>
+    .plan-cta .purchase-btn {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 0;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      transition: all 0.3s ease;
+      width: 100%;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      border: 2px solid transparent;
+    }
+    .plan-cta .purchase-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .plan-cta .purchase-btn:hover::before {
+      left: 100%;
+    }
+    .plan-cta .purchase-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.7);
+      border-color: var(--accent-end);
+    }
+    .plan-cta .purchase-btn:active {
+      transform: translateY(-1px);
+    }
+    .plan-cta .purchase-btn.popular {
+      background: linear-gradient(135deg, #ff6b6b, #ffa500);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+    }
+    .plan-cta .purchase-btn.popular:hover {
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.7);
+    }
+
+    /* Additional CSS to redesign the "Most Popular" tag */
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+  border: 2px solid #fff;
+  z-index: 10;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 6px 16px rgba(255, 107, 107, 0.6);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+  }
+}
+
+  </style>
 </head>
 <body>
   <header>
@@ -1044,50 +1257,99 @@
   </header>
 
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing" aria-label="Pricing plans">
-      <h2>Pricing</h2>
-      <div class="pricing-cards">
-        <article class="pricing-card" tabindex="0" aria-labelledby="plan-starter" role="region">
-          <h3 id="plan-starter" class="plan-name">Starter</h3>
-          <p class="plan-price">$0<span class="plan-period">/month</span></p>
-          <ul class="plan-features">
-            <li>Up to 100 leads/month</li>
-            <li>Email notifications</li>
-            <li>Basic integrations</li>
-          </ul>
-          <div class="plan-cta">
-            <a href="https://www.form2chat.me/login.html" class="btn-primary plan-btn" role="button" tabindex="0">Start Free</a>
-          </div>
-        </article>
-        <article class="pricing-card" tabindex="0" aria-labelledby="plan-pro" role="region">
-          <h3 id="plan-pro" class="plan-name">Pro</h3>
-          <p class="plan-price">$0<span class="plan-period">/month</span></p>
-          <ul class="plan-features">
-            <li>Up to 1,000 leads/month</li>
-            <li>All chat integrations</li>
-            <li>Priority support</li>
-          </ul>
-          <div class="plan-cta">
-            <a href="https://www.form2chat.me/login.html" class="btn-primary plan-btn" role="button" tabindex="0">Get Pro Free</a>
-          </div>
-        </article>
-        <article class="pricing-card" tabindex="0" aria-labelledby="plan-business" role="region">
-          <h3 id="plan-business" class="plan-name">Business</h3>
-          <p class="plan-price">Custom<span class="plan-period"></span></p>
-          <ul class="plan-features">
-            <li>Unlimited leads</li>
-            <li>Dedicated account manager</li>
-            <li>Custom integrations & SLA</li>
-          </ul>
-          <div class="plan-cta">
-            <a href="#contact" class="btn-primary plan-btn" role="button" tabindex="0">Contact Sales</a>
-          </div>
-        </article>
-      </div>
-    </section> 
+ <!-- Pricing Section (Simplified & Affordable Plans) -->
+<section id="pricing" class="pricing" aria-label="Pricing plans">
+  <h2>Choose Your Plan</h2>
+  <div class="pricing-cards">
 
-  <!-- Footer -->
+    <!-- Free Plan -->
+<article class="pricing-card" tabindex="0" aria-labelledby="plan-free" role="region">
+  <h3 id="plan-free" class="plan-name">Free</h3>
+  <p class="plan-price">$0<span class="plan-period">/month</span></p>
+  <p class="plan-desc">Try all basic features with no cost.</p>
+  <ul class="plan-features">
+    <li>1 form included</li>
+    <li>25 leads per month</li>
+    <li>Free WhatsApp integration</li>
+    <li>Email notifications</li>
+    <li>Basic analytics</li>
+    <li>99.9% uptime guarantee</li>
+    <li>Community support</li>
+  </ul>
+  <div class="plan-cta">
+   <a href="https://www.form2chat.me/login.html?plan=free" class="purchase-btn" role="button" tabindex="0">
+      Start for Free
+    </a>
+  </div>
+</article>
+
+    <!-- Starter Plan -->
+    <article class="pricing-card" tabindex="0" aria-labelledby="plan-starter" role="region">
+      <h3 id="plan-starter" class="plan-name">Starter</h3>
+      <p class="plan-price">$2<span class="plan-period">/month</span></p>
+      <p class="plan-desc">For individuals or small projects starting out.</p>
+      <ul class="plan-features">
+        <li>3 forms included</li>
+        <li>300 leads per form / month</li>
+        <li>Free WhatsApp integration</li>
+        <li>Email notifications</li>
+        <li>Basic analytics</li>
+        <li>99.9% uptime guarantee</li>
+        <li>Standard support</li>
+      </ul>
+      <div class="plan-cta">
+        <a href="https://www.form2chat.me/login.html?plan=starter" class="purchase-btn" role="button" tabindex="0">
+          Get Started
+        </a>
+      </div>
+    </article>
+
+    <!-- Pro Plan -->
+    <article class="pricing-card popular" tabindex="0" aria-labelledby="plan-pro" role="region">
+      <div style="position: relative;">
+        <span style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #ee4242; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600;">Most Popular</span>
+      </div>
+      <h3 id="plan-pro" class="plan-name">Pro</h3>
+      <p class="plan-price">$6<span class="plan-period">/month</span></p>
+      <p class="plan-desc">Best for small teams and growing businesses.</p>
+      <ul class="plan-features">
+        <li>10 forms included</li>
+        <li>1,000 leads per form / month</li>
+        <li>Free WhatsApp integration</li>
+        <li>Email + instant WhatsApp alerts</li>
+        <li>Detailed analytics dashboard</li>
+        <li>99.9% uptime guarantee</li>
+        <li>Priority support</li>
+      </ul>
+      <div class="plan-cta">
+        <a class="purchase-btn popular" role="button" tabindex="0">
+          Upgrade to Pro
+        </a>
+      </div>
+    </article>
+
+    <!-- Business Plan -->
+    <article class="pricing-card" tabindex="0" aria-labelledby="plan-business" role="region">
+      <h3 id="plan-business" class="plan-name">Business</h3>
+      <p class="plan-price">$15<span class="plan-period">/month</span></p>
+      <p class="plan-desc">For businesses that need complete flexibility.</p>
+      <ul class="plan-features">
+        <li>Unlimited forms & leads</li>
+        <li>Free WhatsApp integration</li>
+        <li>Email + instant WhatsApp alerts</li>
+        <li>Advanced analytics</li>
+        <li>99.9% uptime guarantee</li>
+        <li>Premium support</li>
+      </ul>
+      <div class="plan-cta">
+        <a href="#contact" class="purchase-btn" role="button" tabindex="0">
+          Contact Sales
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>  <!-- Footer -->
   <footer role="contentinfo">
     <div class="footer-container">
       <div class="footer-col" aria-label="Product links">
@@ -1253,6 +1515,48 @@
       el.style.transform = 'translateY(12px)';
       fadeObserver.observe(el);
     });
+
+
+
+    // Currency conversion based on country
+    async function updatePricing() {
+      try {
+        // Fetch user's country using a free geolocation API (ipapi.co)
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        const country = data.country_code; // e.g., 'IN' for India
+
+        // Exchange rate: 1 USD = 83 INR (approximate, update as needed)
+        const exchangeRate = 83;
+
+        // Select all plan-price elements
+        const priceElements = document.querySelectorAll('.plan-price');
+
+        priceElements.forEach(priceEl => {
+          let priceText = priceEl.textContent;
+          // Extract the numeric value (e.g., from "$2/month" get 2)
+          const match = priceText.match(/\$(\d+)/);
+          if (match) {
+            const usdPrice = parseInt(match[1]);
+            if (country === 'IN') {
+              // Convert to INR
+              const inrPrice = Math.round(usdPrice * exchangeRate);
+              priceEl.innerHTML = `₹${inrPrice}<span class="plan-period">/month</span>`;
+            } else {
+              // Keep in USD for other countries
+              priceEl.innerHTML = `$${usdPrice}<span class="plan-period">/month</span>`;
+            }
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching location or updating pricing:', error);
+        // Fallback: keep prices in USD
+      }
+    }
+
+    // Call the function on page load
+    window.addEventListener('DOMContentLoaded', updatePricing);
+
   </script>
 </body>
 </html>
