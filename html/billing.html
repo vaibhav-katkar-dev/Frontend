@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="n6oFUA-rmLT1NpO-4hP7zPaTJrOFoeTbALSudy08HZY" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQ1B3B05KC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YQ1B3B05KC');
+  </script>
+  
+  <!-- Title & Favicon -->
+  <title>Form2Chat – Turn Forms into WhatsApp, Telegram & Slack Leads</title>
+  <link rel="shortcut icon" href="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no" type="image/x-icon">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Instantly deliver form submissions into WhatsApp, Telegram, Slack, Email & more. Respond faster, close deals quicker with Form2Chat." />
+  <meta name="keywords" content="Form2Chat, online form to chat, Free lead collection, WhatsApp leads, Telegram leads, Slack integration, email leads, grow business, close deals, instant leads">
+  <meta name="author" content="Vaibhav Katkar">
+  
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Form2Chat.me — Turn Forms into Instant Chat Leads">
+  <meta property="og:description" content="Instantly deliver form submissions into WhatsApp, Telegram, Slack, Email & more. Boost engagement and close deals faster.">
+  <meta property="og:image" content="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no">
+  <meta property="og:url" content="https://www.form2chat.me">
+  <meta property="og:type" content="website">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent-start: #3b82f6;
+      --accent-end: #10b981;
+      --card-bg: #fff;
+      --radius: 14px;
+      --shadow-light: rgba(0, 0, 0, 0.06);
+      --shadow-strong: rgba(0, 0, 0, 0.1);
+      --transition: 0.3s ease;
+      color-scheme: light;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline-offset: 2px;
+    }
+
+    /* Pricing Section */
+    .pricing {
+      margin-top: 80px;
+      max-width: 1150px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .pricing h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      user-select: none;
+    }
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch; /* Ensures cards stretch to equal height */
+    }
+    .pricing-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      box-shadow: 0 6px 20px var(--shadow-light);
+      border: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between; /* Distributes space evenly */
+      min-height: 450px; /* Sets minimum height for alignment */
+      transition: box-shadow var(--transition), transform var(--transition);
+      cursor: default;
+    }
+    .pricing-card:hover,
+    .pricing-card:focus-within {
+      box-shadow: 0 10px 30px var(--shadow-strong);
+      transform: translateY(-6px);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    .plan-name {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    .plan-price {
+      font-weight: 800;
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: var(--accent-start);
+      user-select: none;
+    }
+    .plan-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      user-select: none;
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px 0;
+      width: 100%;
+      text-align: left;
+      color: var(--text);
+      font-size: 0.95rem;
+      user-select: none;
+      flex-grow: 1; /* Allows features to take available space */
+    }
+    .plan-features li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .plan-features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent-end);
+      font-weight: 700;
+    }
+    .plan-cta {
+      width: 100%;
+    }
+    .plan-cta button, .plan-cta a {
+      width: 100%;
+      padding: 14px 0;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      border: none;
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      transition: background-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      cursor: pointer;
+      user-select: none;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+    }
+    .plan-cta button:hover, .plan-cta button:focus-visible,
+    .plan-cta a:hover, .plan-cta a:focus-visible {
+      background: linear-gradient(90deg, var(--accent-end), var(--accent-start));
+      box-shadow: 0 8px 28px rgba(59, 130, 246, 0.6);
+      transform: translateY(-2px);
+      outline-offset: 2px;
+      outline: 2px solid var(--accent-end);
+    }
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .pricing-cards {
+        grid-template-columns: 1fr;
+      }
+      .pricing-card {
+        min-height: auto; /* Remove fixed height on mobile for flexibility */
+      }
+    }
+  </style>
+
+  <!-- Navbar Styles -->
+  <style>
+    /* --- Navbar --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      height: 60px;
+      gap: 20px;
+    }
+
+    /* --- Logo Section --- */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo {
+      height: 32px;
+      width: 32px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #1f2937;
+    }
+
+    /* --- Navigation Menu --- */
+    .nav-menu {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu a:hover, .nav-menu a:focus {
+      color: var(--accent-start);
+      outline: none;
+    }
+
+    /* --- Profile Section --- */
+    .profile-section {
+      position: relative;
+    }
+
+    .profile-btn {
+      background: #e2e8f0;
+      color: #1e293b;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .profile-btn:hover {
+      background: #cbd5e1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .profile-btn:active {
+      transform: scale(0.95);
+    }
+
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      min-width: 120px;
+      z-index: 1001;
+    }
+
+    .profile-dropdown a {
+      display: block;
+      padding: 10px 15px;
+      color: #1e293b;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background 0.2s ease;
+    }
+
+    .profile-dropdown a:hover {
+      background: #f1f3f5;
+    }
+
+    .profile-dropdown.show {
+      display: block;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 10px;
+      }
+      .nav-menu {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .profile-section {
+        align-self: flex-end;
+      }
+    }
+  
+  </style>
+
+  <!-- Additional Styles for Enhanced Purchase Buttons -->
+  <style>
+    .plan-cta .purchase-btn {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 0;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+      width: 100%;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      border: 2px solid transparent;
+    }
+    .plan-cta .purchase-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .plan-cta .purchase-btn:hover::before {
+      left: 100%;
+    }
+    .plan-cta .purchase-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.7);
+      border-color: var(--accent-end);
+    }
+    .plan-cta .purchase-btn:active {
+      transform: translateY(-1px);
+    }
+    .pricing-card.popular .plan-cta .purchase-btn {
+      background: linear-gradient(135deg, #ff6b6b, #ffa500);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+    }
+    .pricing-card.popular .plan-cta .purchase-btn:hover {
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.7);
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo-section">
+      <img src="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no" alt="Logo" class="logo" />
+      <div>
+        <h1 style="font-size: 1.25rem; margin: 0; color: var(--text);">Form2<span style="color: #31ce26;">Chat</span><span style="color:rgb(214, 40, 40)">.me</span></h1>
+        <p style="font-size: 0.85rem; margin: 0; color: var(--muted); user-select:none;">Instant form notifications — simple & fast</p>
+      </div>
+    </div>
+  
+    <div class="profile-section">
+      <button class="profile-btn" onclick="toggleProfileDropdown()">
+        <i class="fas fa-user"></i>
+      </button>
+      <div class="profile-dropdown" id="profileDropdown">
+        <a href="/html/allForms.html">Home</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+    </div>
+  </nav>
+<!-- Pricing Section -->
+<section id="pricing" class="pricing" aria-label="Pricing plans">
+  <h2>Choose Your Plan</h2>
+  <div class="pricing-cards">
+
+    <!-- Starter Plan -->
+    <article class="pricing-card" tabindex="0" aria-labelledby="plan-starter" role="region">
+      <h3 id="plan-starter" class="plan-name">Starter</h3>
+      <p class="plan-price" data-usd="2">$2<span class="plan-period">/month</span></p>
+      <p class="plan-desc">For individuals or small projects starting out.</p>
+      <ul class="plan-features">
+        <li>3 forms included</li>
+        <li>300 leads per form / month</li>
+        <li>Free WhatsApp integration</li>
+        <li>Email notifications</li>
+        <li>Basic analytics</li>
+        <li>99.9% uptime guarantee</li>
+        <li>Standard support</li>
+      </ul>
+      <div class="plan-cta">
+        <button class="purchase-btn" data-plan="Starter">Get Started</button>
+      </div>
+    </article>
+
+    <!-- Pro Plan -->
+    <article class="pricing-card popular" tabindex="0" aria-labelledby="plan-pro" role="region">
+      <div style="position: relative;">
+        <span style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #ee4242; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600;">Most Popular</span>
+      </div>
+      <h3 id="plan-pro" class="plan-name">Pro</h3>
+      <p class="plan-price" data-usd="6">$6<span class="plan-period">/month</span></p>
+      <p class="plan-desc">Best for small teams and growing businesses.</p>
+      <ul class="plan-features">
+        <li>10 forms included</li>
+        <li>1,000 leads per form / month</li>
+        <li>Free WhatsApp integration</li>
+        <li>Email + instant WhatsApp alerts</li>
+        <li>Detailed analytics dashboard</li>
+        <li>99.9% uptime guarantee</li>
+        <li>Priority support</li>
+      </ul>
+      <div class="plan-cta">
+        <button class="purchase-btn" data-plan="Pro">Upgrade to Pro</button>
+      </div>
+    </article>
+
+    <!-- Business Plan -->
+    <article class="pricing-card" tabindex="0" aria-labelledby="plan-business" role="region">
+      <h3 id="plan-business" class="plan-name">Business</h3>
+      <p class="plan-price" data-usd="15">$15<span class="plan-period">/month</span></p>
+      <p class="plan-desc">For businesses that need complete flexibility.</p>
+      <ul class="plan-features">
+        <li>Unlimited forms & leads</li>
+        <li>Free WhatsApp integration</li>
+        <li>Email + instant WhatsApp alerts</li>
+        <li>Advanced analytics</li>
+        <li>99.9% uptime guarantee</li>
+        <li>Premium support</li>
+      </ul>
+      <div class="plan-cta">
+        <button class="purchase-btn" data-plan="Business">Buy Now</button>
+      </div>
+    </article>
+
+  </div>
+</section>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+let exchangeRate = 83; // fallback USD→INR
+let isINR = false;
+
+// ✅ Update prices dynamically based on location
+async function updatePricing() {
+  try {
+    const rateResponse = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+    const rateData = await rateResponse.json();
+    exchangeRate = rateData.rates.INR;
+
+    const locResponse = await fetch('https://ipapi.co/json/');
+    const locData = await locResponse.json();
+    const country = locData.country_code;
+
+    document.querySelectorAll('.plan-price').forEach(el => {
+      const usd = parseFloat(el.dataset.usd);
+      if (country === 'IN') {
+        isINR = true;
+        const inr = Math.round(usd * exchangeRate);
+        el.innerHTML = `₹${inr}<span class="plan-period">/month</span>`;
+        el.dataset.amount = inr;
+      } else {
+        el.innerHTML = `$${usd}<span class="plan-period">/month</span>`;
+        el.dataset.amount = usd;
+      }
+    });
+  } catch (err) {
+    console.error("Currency conversion failed, using fallback:", err);
+  }
+}
+
+// ✅ Start Razorpay payment
+async function startPayment(planName, amount) {
+  try {
+    const user = {
+      name: "Vaibhav Katkar",
+      email: "vaibhavkatkar.co@gmail.com",
+    };
+
+    // 1️⃣ Get Razorpay key
+    const keyResponse = await fetch("http://localhost:5000/api/payment/get-key");
+    const { key } = await keyResponse.json();
+
+    // 2️⃣ Create order on backend
+    const orderResponse = await fetch("http://localhost:5000/api/payment/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ planName, user }),
+    });
+    const data = await orderResponse.json();
+
+    if (!data.success || !data.order) {
+      alert(`⚠️ Failed to create order. ${data.message || "Try again."}`);
+      return;
+    }
+
+    const { order } = data;
+
+    // 3️⃣ Razorpay Checkout
+    const options = {
+      key,
+      amount: order.amount,
+      currency: order.currency,
+      name: "Form2Chat",
+      description: `${planName} Plan Subscription`,
+      order_id: order.id,
+      handler: async function (response) {
+        console.log("✅ Payment success:", response);
+        // 4️⃣ Verify payment backend
+        const verifyResponse = await fetch("http://localhost:5000/api/payment/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...response,
+            planName,
+            amount,
+            user,
+          }),
+        });
+
+        const verifyData = await verifyResponse.json();
+        if (verifyData.success) {
+          // alert(`✅ Payment successful for ${planName} Plan!`);
+          window.location.href = '/html/payment-status.html';
+          console.log("Verification success:", verifyData);
+        } else {
+          alert(`⚠️ Payment verification failed. ${verifyData.message}`);
+          console.warn("Verification failed:", verifyData);
+        }
+      },
+      prefill: {
+        name: user.name,
+        email: user.email,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const razorpay = new Razorpay(options);
+    razorpay.open();
+
+    razorpay.on("payment.failed", function (response) {
+      console.error("❌ Payment Failed:", response.error);
+      alert("❌ Payment Failed. Please try again.");
+    });
+
+  } catch (error) {
+    console.error("❌ Payment error:", error);
+    alert("⚠️ Something went wrong during payment. Try again later.");
+  }
+}
+
+// ✅ Event Binding
+document.addEventListener("DOMContentLoaded", () => {
+  updatePricing();
+  document.querySelectorAll(".purchase-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const plan = btn.dataset.plan;
+      const priceEl = btn.closest(".pricing-card").querySelector(".plan-price");
+      const amount = parseFloat(priceEl.dataset.amount);
+      startPayment(plan, amount);
+    });
+  });
+});
+</script>
+
+  <!-- JavaScript for Functionality -->
+  <script>
+
+
+    // Toggle profile dropdown
+    function toggleProfileDropdown() {
+      const dropdown = document.getElementById('profileDropdown');
+      dropdown.classList.toggle('show');
+    }
+
+    // Close dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+      const profileSection = document.querySelector('.profile-section');
+      if (!profileSection.contains(e.target)) {
+        document.getElementById('profileDropdown').classList.remove('show');
+      }
+    });
+
+    // Logout function (placeholder)
+    function logout() {
+      // Implement logout logic here, e.g., clear session and redirect
+      alert('Logged out successfully!');
+      // window.location.href = '/login.html';
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+   
+  </script>
+</body>
+</html>
