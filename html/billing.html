@@ -513,10 +513,13 @@ async function updatePricing() {
 // ✅ Start Razorpay payment
 async function startPayment(planName, amount) {
   try {
-    const user = {
+    
+       const user = {
       name: localStorage.getItem("name"),
       email: localStorage.getItem("email"),
     };
+       console.log("Billing page loaded.",user);
+
   
     // 1️⃣ Get Razorpay key
     const keyResponse = await fetch("https://api.form2chat.me/api/payment/get-key");
