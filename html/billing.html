@@ -517,7 +517,7 @@ async function startPayment(planName, amount) {
       name: localStorage.getItem("name"),
       email: localStorage.getItem("email"),
     };
-
+    console.log( user);
     // 1️⃣ Get Razorpay key
     const keyResponse = await fetch("http://localhost:5000/api/payment/get-key");
     const { key } = await keyResponse.json();
