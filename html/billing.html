@@ -514,8 +514,8 @@ async function updatePricing() {
 async function startPayment(planName, amount) {
   try {
     const user = {
-      name: "Vaibhav Katkar",
-      email: "vaibhavkatkar.co@gmail.com",
+      name: localStorage.getItem("name"),
+      email: localStorage.getItem("email"),
     };
 
     // 1️⃣ Get Razorpay key
