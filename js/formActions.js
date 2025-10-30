@@ -59,8 +59,9 @@ function saveForm() {
   fetch(url, {
     method: method,
     headers: {
-      'Content-Type': 'application/json'
-    },
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  },
     body: JSON.stringify({data,token: localStorage.getItem("token"),userId:localStorage.getItem("userId")})
   })
     .then(res => res.json())

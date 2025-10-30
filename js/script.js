@@ -25,7 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = formId.trim();
     console.log("Editing form with ID:", id);
     // Editing mode
-    fetch(`https://api.form2chat.me/api/forms/by-id/${formId}`)
+    fetch(`https://api.form2chat.me/api/forms/by-id/${formId}`,
+      { headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  }}
+    )
       .then(res => res.json())
       .then(data => {
   console.log("Editing form with ID:", data);
