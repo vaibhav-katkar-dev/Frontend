@@ -403,6 +403,13 @@ body {
   display: block;
 }
 
+/* --- Right Section --- */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 /* --- Responsive --- */
 @media (max-width: 768px) {
   .navbar {
@@ -415,6 +422,9 @@ body {
     justify-content: flex-start;
     width: 100%;
     margin: 5px 0;
+  }
+  .right-section {
+    gap: 10px;
   }
 }
 
@@ -441,8 +451,34 @@ body {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
  <style>
-     /* Small Subscription Display with Rich UI */
+     /* Small Subscription Display - Normal (Free Plan) */
         .subscription-display {
+            background: #ffffff; /* Normal white background */
+            border-radius: 10px; /* Standard radius */
+            padding: 8px 15px; /* Standard padding */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Normal shadow */
+            border: 1px solid #e0e0e0; /* Normal border */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #333;
+            max-width: fit-content;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .subscription-display i {
+            color: #6b7280; /* Normal gray icon */
+            font-size: 1rem;
+        }
+        .subscription-display h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'Segoe UI', sans-serif; /* Normal font */
+        }
+        /* Pro Plan Styles */
+        .subscription-display.pro {
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9)); /* Higher opacity for better visibility */
             border-radius: 15px; /* Softer radius */
             padding: 10px 18px; /* Slightly adjusted */
@@ -450,18 +486,10 @@ body {
             animation: fadeInDown 1s ease-out, subtlePulse 3s infinite 1s; /* Professional subtle pulse */
             backdrop-filter: blur(15px); /* Stronger blur for richness */
             border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: #333; /* Darker color for better visibility */
-              max-width:fit-content;
-            width: 100%;
             transform: scale(0.95);
-            transition: all 0.4s ease;
             position: relative;
         }
-        .subscription-display::before {
+        .subscription-display.pro::before {
             content: '';
             position: absolute;
             top: -2px;
@@ -474,17 +502,16 @@ body {
             opacity: 0.5;
             animation: subtleBorderGlow 4s ease-in-out infinite alternate; /* Subtle glowing border */
         }
-        .subscription-display:hover {
+        .subscription-display.pro:hover {
             transform: scale(1.02);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), 0 0 40px rgba(102, 126, 234, 0.3); /* Enhanced hover glow */
         }
-        .subscription-display i {
+        .subscription-display.pro i {
             color: #667eea;
             font-size: 1.1rem;
             animation: subtleIconGlow 2s ease-in-out infinite alternate; /* Subtle glow, no rotation */
         }
-        .subscription-display h3 {
-            margin: 0;
+        .subscription-display.pro h3 {
             font-size: 0.95rem;
             font-weight: 600;
             font-family: 'Playfair Display', serif; /* Rich serif font for heading */
@@ -575,24 +602,25 @@ body {
         <h1 style="font-size: 1.25rem; margin: 0; color: var(--text);">Form2<span style="color: #31ce26;">Chat</span><span style="color:rgb(214, 40, 40)">.me</span></h1>
         <p style="font-size: 0.85rem; margin: 0; color: var(--muted); user-select:none;">Instant form notifications — simple & fast</p>
       </div>
-
-        <!-- Small Subscription Display -->
-    <div class="subscription-display" id="subscriptionDisplay">
-        <i class="fas fa-crown"></i> <!-- Subscription symbol -->
-        <h3></h3>
     </div>
-
-    </div>
-    <div class="profile-section">
-      <button class="profile-btn" onclick="toggleProfileDropdown()">
-        <i class="fas fa-user"></i>
-      </button>
-      <div class="profile-dropdown" id="profileDropdown">
-        <a href="/html/billing.html" >Billing</a>
-        <a href="#" onclick="logout()">Logout</a>
+    <div class="right-section">
+       <!-- Small Subscription Display -->
+      <div class="subscription-display" id="subscriptionDisplay">
+          <i class="fas fa-crown"></i> <!-- Subscription symbol -->
+          <h3></h3>
       </div>
+      <div class="profile-section">
+        <button class="profile-btn" onclick="toggleProfileDropdown()">
+          <i class="fas fa-user"></i>
+        </button>
+        
+        <div class="profile-dropdown" id="profileDropdown">
+          <a href="/html/billing.html" >Billing</a>
+          <a href="#" onclick="logout()">Logout</a>
+        </div>
+      </div>
+     
     </div>
-  
   </nav>
 
  <!-- Tabs -->
@@ -830,8 +858,15 @@ async function fetchUserPlan() {
     // Get JWT token from localStorage (or wherever you stored it)
     const token = localStorage.getItem("token");
 
+    const display = document.getElementById('subscriptionDisplay');
+
     if (!token) {
       console.log("⚠️ No token found. Please log in first.");
+      // Default to Free Plan
+      display.innerHTML = `
+        <i class="fas fa-crown"></i>
+        <h3>Free</h3>
+      `;
       return;
     }
 
@@ -850,25 +885,36 @@ async function fetchUserPlan() {
     // Log everything
     console.log("📦 API Response:", data);
 
-    if (data.success) {
+    if (data.success && data.planName) {
       console.log("✅ Plan Details:");
       console.log("Email:", data.email);
       console.log("Plan Name:", data.planName);
-       const display = document.getElementById('subscriptionDisplay');
-            display.innerHTML = `
-                <i class="fas fa-crown"></i>
-                <h3>${data.planName}</h3>
-            `;
+
+      display.innerHTML = `
+        <i class="fas fa-crown"></i>
+        <h3>${data.planName}</h3>
+      `;
+
+      // Add 'pro' class if plan is Pro Plan
+      if (data.planName === "Pro Plan") {
+        display.classList.add('pro');
+      }
     } else {
-        const display = document.getElementById('subscriptionDisplay');
-            display.innerHTML = `
-                <i class="fas fa-crown"></i>
-                <h3>Free</h3>
-            `;
       console.log("❌ Error:", data.message);
+      // Default to Free Plan on error
+      display.innerHTML = `
+        <i class="fas fa-crown"></i>
+        <h3>Free Plan</h3>
+      `;
     }
   } catch (err) {
     console.error("🚨 Fetch error:", err);
+    // Default to Free Plan on error
+    const display = document.getElementById('subscriptionDisplay');
+    display.innerHTML = `
+      <i class="fas fa-crown"></i>
+      <h3>Free Plan</h3>
+    `;
   }
 }
 
