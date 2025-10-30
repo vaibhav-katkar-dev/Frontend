@@ -431,7 +431,7 @@
         <li>Standard support</li>
       </ul>
       <div class="plan-cta">
-        <button class="purchase-btn" data-plan="Starter">Get Started</button>
+        <button class="purchase-btn" data-plan="Starter" data-plan-type="monthly">Get Started</button>
       </div>
     </article>
 
@@ -453,7 +453,7 @@
         <li>Priority support</li>
       </ul>
       <div class="plan-cta">
-        <button class="purchase-btn" data-plan="Pro">Upgrade to Pro</button>
+        <button class="purchase-btn" data-plan="Pro" data-plan-type="monthly">Upgrade to Pro</button>
       </div>
     </article>
 
@@ -471,7 +471,7 @@
         <li>Premium support</li>
       </ul>
       <div class="plan-cta">
-        <button class="purchase-btn" data-plan="Business">Buy Now</button>
+        <button class="purchase-btn" data-plan="Business" data-plan-type="monthly">Buy Now</button>
       </div>
     </article>
 
@@ -511,13 +511,14 @@ async function updatePricing() {
 }
 
 // ✅ Start Razorpay payment
-async function startPayment(planName, amount) {
+async function startPayment(planName, amount,planType) {
   try {
     
        const user = {
       name: localStorage.getItem("name"),
       email: localStorage.getItem("userEmail"),
     };
+    
        console.log("Billing page loaded.",user);
 
   
@@ -529,7 +530,7 @@ async function startPayment(planName, amount) {
     const orderResponse = await fetch("https://api.form2chat.me/api/payment/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ planName, user }),
+      body: JSON.stringify({ planName, user,planType }),
     });
     const data = await orderResponse.json();
 
@@ -558,6 +559,7 @@ async function startPayment(planName, amount) {
             ...response,
             planName,
             amount,
+            planType,
             user,
           }),
         });
@@ -603,13 +605,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const plan = btn.dataset.plan;
       const priceEl = btn.closest(".pricing-card").querySelector(".plan-price");
       const amount = parseFloat(priceEl.dataset.amount);
-      startPayment(plan, amount);
+      const planType = btn.dataset.planType;
+      startPayment(plan, amount,planType);
     });
   });
 });
 </script>
 
-      <script src="/js/authCheak.js"></script>
+      <!-- <script src="/js/authCheak.js"></script> -->
 
   <!-- JavaScript for Functionality -->
   <script>
