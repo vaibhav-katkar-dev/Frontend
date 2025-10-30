@@ -856,7 +856,7 @@ async function fetchUserPlan() {
        const display = document.getElementById('subscriptionDisplay');
             display.innerHTML = `
                 <i class="fas fa-crown"></i>
-                <h3>${planName}</h3>
+                <h3>${data.planName}</h3>
             `;
     } else {
       console.log("❌ Error:", data.message);
