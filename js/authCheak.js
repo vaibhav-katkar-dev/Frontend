@@ -38,6 +38,11 @@ if (user?.email) {
     localStorage.setItem("userEmail", user.email);
     console.log("📩 Stored Email:", localStorage.getItem("userEmail"));
 }
+if (user?.name) {
+    localStorage.setItem("name", user.name);
+    console.log("📩 Stored name:", localStorage.getItem("name"));
+}
+
 
         return user;
     } catch (err) {
