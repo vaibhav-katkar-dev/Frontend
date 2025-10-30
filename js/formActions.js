@@ -65,6 +65,22 @@ function saveForm() {
   })
     .then(res => res.json())
     .then(result => {
+
+
+       // 🚫 Stop if plan limit triggered
+  if (result.upgradeRequired) {
+    alert(result.message);
+    window.location.href = "/html/Billing.html"; // optional redirect
+    return; // ❗ stop execution
+  }
+
+  // ❗ Stop if any other error
+  if (!result.success && result.message) {
+    alert(result.message);
+    return;
+  }
+
+  // ✅ Success
       const newFormId = result._id || (result.form && result.form._id);
 
       if (newFormId) {
