@@ -514,14 +514,11 @@ async function updatePricing() {
 async function startPayment(planName, amount,planType) {
   try {
     
-    //    const user = {
-    //   name: localStorage.getItem("name"),
-    //   email: localStorage.getItem("userEmail"),
-    // };
-     const user = {
-      name: 'vaibhav katkar',
-      email: 'vaibhavkatkar.co@gmail.com',
+       const user = {
+      name: localStorage.getItem("name"),
+      email: localStorage.getItem("userEmail"),
     };
+    
        console.log("Billing page loaded.",user);
 
   
