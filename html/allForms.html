@@ -827,7 +827,13 @@ fetch("https://api.form2chat.me/api/templates")
 
     userId = localStorage.getItem("userId");
     console.log(userId);
-    fetch(`https://api.form2chat.me/api/forms/by-token/${userId}`)
+    fetch(`https://api.form2chat.me/api/forms/by-token/${userId}`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    })
       .then(res => res.json())
       .then(forms => {
         createNewFormCard();
