@@ -860,6 +860,11 @@ async function fetchUserPlan() {
                 <h3>${data.planName}</h3>
             `;
     } else {
+        const display = document.getElementById('subscriptionDisplay');
+            display.innerHTML = `
+                <i class="fas fa-crown"></i>
+                <h3>Free</h3>
+            `;
       console.log("❌ Error:", data.message);
     }
   } catch (err) {
