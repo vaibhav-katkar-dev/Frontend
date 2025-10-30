@@ -70,7 +70,7 @@ function saveForm() {
        // 🚫 Stop if plan limit triggered
   if (result.upgradeRequired) {
     alert(result.message);
-    window.location.href = "/html/Billing.html"; // optional redirect
+    window.location.href = "/html/billing.html"; // optional redirect
     return; // ❗ stop execution
   }
 
