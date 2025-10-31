@@ -8,4 +8,6 @@
 - [x] Add CSS styles for upgrade notification bar: fixed bottom, premium gradient, responsive, with close button.
 - [x] Modify JavaScript to check data.upgradeRequired and show the bar if true, with dismiss option.
 - [x] Update message to be more catchy and premium-like with hook words and rocket emoji.
+- [x] Add upgrade button that redirects to billing.html.
+- [x] Ensure close button is properly aligned and not going outside the screen.
 - [ ] Test the upgrade bar appears when upgradeRequired is true and can be dismissed.
