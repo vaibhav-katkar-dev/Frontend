@@ -257,7 +257,7 @@ tr:hover {
     </thead>
     <tbody id="table-body"></tbody>
   </table>
-
+  
   <div id="upgradeNotice" style="
   display:none;
   text-align:center;
@@ -273,44 +273,218 @@ tr:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
   color: white;
-  padding: 14px 20px;
+  padding: 12px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-family: 'Inter', sans-serif;
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
   z-index: 9999;
+  animation: bounceIn 0.6s ease-out;
+  border-top: 3px solid #ff4757;
 ">
-
-  <div style="max-width:70%;">
-    <div style="font-size:15px; font-weight:600;">
-      🎉 Great job! Your form is getting amazing traction!
-    </div>
-    <div style="font-size:13px; opacity:0.9;">
-      You've reached your free response limit — unlock full data access & unlimited responses.
-    </div>
+<!-- Small Popup for First Load -->
+<div id="popupOverlay" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+">
+  <div id="popupContent" style="
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 320px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    position: relative;
+    font-family: 'Inter', sans-serif;
+  ">
+    <button id="closePopup" style="
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: transparent;
+      color: #94a3b8;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    "
+    onmouseover="this.style.color='#475569'"
+    onmouseout="this.style.color='#94a3b8'">
+      ×
+    </button>
+    <h2 style="
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 8px;
+    ">
+      Unlock Premium Features
+    </h2>
+    <p style="
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    ">
+      Your form is doing well! Upgrade to access unlimited responses, analytics, and priority support.
+    </p>
+    <button onclick="window.location.href='/billing.html'" style="
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin: 0 4px;
+    "
+    onmouseover="this.style.background='#1d4ed8'"
+    onmouseout="this.style.background='#2563eb'">
+      Upgrade Now
+    </button>
+    <button onclick="closePopup()" style="
+      background: #f1f5f9;
+      color: #475569;
+      border: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin: 0 4px;
+    "
+    onmouseover="this.style.background='#e2e8f0'"
+    onmouseout="this.style.background='#f1f5f9'">
+      Later
+    </button>
   </div>
-
-  <button onclick="window.location.href='/billing.html'" style="
-    background:white;
-    color:#2563eb;
-    border:none;
-    padding:9px 18px;
-    font-size:14px;
-    font-weight:600;
-    border-radius:8px;
-    cursor:pointer;
-    transition:0.2s;
-    white-space:nowrap;
-  "
-  onmouseover="this.style.opacity='0.85'"
-  onmouseout="this.style.opacity='1'">
-    Upgrade 🚀
-  </button>
 </div>
 
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  #popupContent {
+    padding: 12px;
+    max-width: 280px;
+  }
+}
+</style>
+
+<script>
+function closePopup() {
+  document.getElementById('popupOverlay').style.display = 'none';
+}
+
+// Check if it's the first load (using localStorage)
+window.onload = function() {
+  if (!localStorage.getItem('popupShown')) {
+    document.getElementById('popupOverlay').style.display = 'flex';
+    localStorage.setItem('popupShown', 'true');
+  }
+};
+
+// Close popup on overlay click
+document.getElementById('popupOverlay').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closePopup();
+  }
+});
+</script>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+      🚀 Upgrade Now!
+    </div>
+    <div style="font-size: 14px; opacity: 0.9; max-width: 300px;">
+      Unlock unlimited responses & premium features.
+    </div>
+    <button onclick="window.location.href='/billing.html'" style="
+      background: white;
+      color: #ff6b6b;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    "
+    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.2)'"
+    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'">
+      Get Premium
+    </button>
+    <button onclick="closeBanner()" style="
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      opacity: 0.7;
+    "
+    onmouseover="this.style.opacity='1'"
+    onmouseout="this.style.opacity='0.7'">
+      ✕
+    </button>
+  </div>
+</div>
+
+<style>
+@keyframes bounceIn {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-10%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  #upgradeNotice {
+    padding: 10px 16px;
+  }
+  #upgradeNotice > div {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  #upgradeNotice > div > div:nth-child(2) {
+    max-width: 100%;
+  }
+}
+</style>
+
+<script>
+function closeBanner() {
+  document.getElementById('upgradeNotice').style.display = 'none';
+}
+</script>
 
       <script src="/js/authCheak.js"></script>
 
