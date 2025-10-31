@@ -276,7 +276,12 @@ tr:hover {
     }
     userId = localStorage.getItem("userId");
 
-    fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId }`)
+    fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId }`,{
+       headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  }
+    })
       .then(res => res.json())
       .then(data => {
         const responses = data.responses;
