@@ -22,386 +22,212 @@
 
   <style>
   /* Base */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  color: #2c3e50;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.navbar h2 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.back-button {
+  background-color: #ffffff;
+  color: #2575fc;
+  padding: 5px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #e3e9ff;
+}
+
+/* Title */
+h1 {
+  font-size: 20px;
+  margin: 1rem 0 0.5rem;
+  text-align: center;
+  color: #343a40;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+}
+
+.action-buttons button {
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(to right, #43cea2, #185a9d);
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-buttons button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.action-buttons button:active {
+  transform: scale(0.97);
+}
+
+/* Table Styling */
+table {
+  width: 95%;
+  margin: 1rem auto;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 13px;
+  border: 1px solid #e1e5ea;
+  word-break: break-word;
+}
+
+th {
+  background-color: #e9ecef;
+  font-weight: bold;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tr:hover {
+  background-color: #eef2f7;
+  transition: background-color 0.2s ease;
+}
+
+    /* ✅ Mobile Responsive */
+    @media (max-width: 768px) {
+  * {
+    box-sizing: border-box;
+  }
+
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 1rem;
     margin: 0;
-    padding: 0;
-    background-color: #f8fafc;
-    color: #334155;
-    line-height: 1.5;
+    background-color: #f6f9fc;
   }
 
-  /* Loading Spinner */
-  .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    font-size: 16px;
-    color: #64748b;
-  }
-
-  .spinner {
-    border: 3px solid #e2e8f0;
-    border-top: 3px solid #3b82f6;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin-right: 10px;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  /* Navbar */
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1.25rem;
-    background: linear-gradient(90deg, #007bff, #0056b3);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .navbar h2 {
-    font-size: 18px;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .back-button {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    padding: 6px 12px;
-    font-size: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .back-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
-  }
-
-  /* Title */
-  h1 {
-    font-size: 24px;
-    margin: 1.5rem 0 1rem;
-    text-align: center;
-    color: #1e293b;
-    font-weight: 700;
-  }
-
-  /* Action Buttons */
   .action-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin: 1rem auto;
-    padding: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .action-buttons button {
-    padding: 10px 16px;
-    font-size: 14px;
+    width: 100%;
+    max-width: 320px;
+    font-size: 13px;
+    padding: 10px 14px;
     border-radius: 8px;
-    border: none;
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background-color: #357edd;
     color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
+    border: none;
+    transition: background 0.2s;
   }
 
   .action-buttons button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #285ec4;
   }
 
-  .action-buttons button:active {
-    transform: scale(0.98);
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    width: 100%;
   }
 
-  /* Table Styling */
-  table {
-    width: 95%;
-    margin: 1.5rem auto;
-    border-collapse: collapse;
-    background: #ffffff;
-    border: 1px solid #ddd;
+  thead {
+    display: none;
   }
 
-  th, td {
-    padding: 12px 16px;
+  tr {
+    margin-bottom: 14px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    padding: 14px;
+    border-left: 4px solid #357edd;
+  }
+
+  td {
+    border: none;
+    position: relative;
+    padding: 10px 10px;
     text-align: left;
     font-size: 14px;
-    border: 1px solid #ddd;
+    line-height: 1.5;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: white;
+    color: #333;
     word-break: break-word;
   }
 
-  th {
-    background: #f2f2f2;
-    font-weight: 600;
-    color: #333;
+  td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: bold;
+    color: #357edd;
+    font-size: 13px;
+    margin-bottom: 4px;
   }
 
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
+  td:last-child {
+    border-bottom: none;
   }
+}
 
-  tr:hover {
-    background-color: #f5f5f5;
-  }
+.action-buttons i {
+  margin-right: 6px;
+}
 
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    body {
-      padding: 1rem;
-      background-color: #f8fafc;
-    }
 
-    .navbar {
-      padding: 0.5rem 1rem;
-    }
-
-    .navbar h2 {
-      font-size: 16px;
-    }
-
-    .action-buttons {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .action-buttons button {
-      width: 100%;
-      max-width: 320px;
-      padding: 12px 16px;
-    }
-
-    table, thead, tbody, th, td, tr {
-      display: block;
-      width: 100%;
-    }
-
-    thead {
-      display: none;
-    }
-
-    tr {
-      margin-bottom: 16px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      padding: 16px;
-      border-left: 4px solid #10b981;
-    }
-
-    td {
-      border: none;
-      position: relative;
-      padding: 8px 12px;
-      text-align: left;
-      font-size: 14px;
-      line-height: 1.5;
-      border-bottom: 1px solid #f1f5f9;
-      background-color: white;
-      color: #334155;
-    }
-
-    td::before {
-      content: attr(data-label);
-      display: block;
-      font-weight: 600;
-      color: #10b981;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    td:last-child {
-      border-bottom: none;
-    }
-  }
-
-  /* Upgrade Banner */
-  #upgradeBanner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(90deg, #f59e0b, #d97706);
-    color: white;
-    padding: 16px 20px;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    font-family: 'Segoe UI', sans-serif;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    animation: slideUp 0.5s ease;
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-
-  #upgradeBanner div:first-child {
-    font-size: 18px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  #upgradeBanner div:nth-child(2) {
-    font-size: 14px;
-    opacity: 0.95;
-  }
-
-  #upgradeBanner button {
-    background: white;
-    color: #d97706;
-    border: none;
-    padding: 8px 18px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  #upgradeBanner button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  #upgradeBanner button:last-child {
-    background: transparent;
-    color: white;
-    font-size: 18px;
-    opacity: 0.8;
-  }
-
-  #upgradeBanner button:last-child:hover {
-    opacity: 1;
-  }
-
-  @media (max-width: 768px) {
-    #upgradeBanner {
-      flex-direction: column;
-      text-align: center;
-      padding: 12px;
-      gap: 12px;
-    }
-  }
-
-  /* Popup Overlay */
-  #popupOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    animation: fadeIn 0.3s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  #popupContent {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    max-width: 350px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    position: relative;
-    font-family: 'Segoe UI', sans-serif;
-  }
-
-  #closePopup {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: transparent;
-    color: #94a3b8;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-
-  #closePopup:hover {
-    color: #475569;
-  }
-
-  #popupContent h2 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 8px;
-  }
-
-  #popupContent p {
-    font-size: 14px;
-    color: #64748b;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
-
-  #popupContent button {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-    margin: 0 4px;
-  }
-
-  #popupContent button:hover {
-    background: #1d4ed8;
-  }
-
-  #popupContent button:last-child {
-    background: #f1f5f9;
-    color: #475569;
-  }
-
-  #popupContent button:last-child:hover {
-    background: #e2e8f0;
-  }
-
-  @media (max-width: 768px) {
-    #popupContent {
-      padding: 16px;
-      max-width: 300px;
-    }
-  }
   </style>
 </head>
 <body>
@@ -425,94 +251,44 @@
   </div>
 
   <h1>Form Responses</h1>
-  <div id="loading" class="loading">
-    <div class="spinner"></div>
-    Loading responses...
-  </div>
-  <table id="response-table" style="display: none;">
+  <table id="response-table">
     <thead>
       <tr id="table-headers"></tr>
     </thead>
     <tbody id="table-body"></tbody>
   </table>
-  
-  <!-- Upgrade Banner -->
-  <div id="upgradeBanner">
-    <div>🚀 Upgrade Now!</div>
-    <div>Upgrade to view more responses</div>
-    <button onclick="window.location.href='/billing.html'">Upgrade</button>
-    <button onclick="closeUpgradeBanner()">×</button>
-  </div>
-
-  <!-- Popup Overlay -->
-  <div id="popupOverlay">
-    <div id="popupContent">
-      <button id="closePopup">×</button>
-      <h2>Upgrade Required</h2>
-      <p>You have reached the limit of free responses. Upgrade your plan to view more.</p>
-      <button onclick="window.location.href='/billing.html'">Upgrade Now</button>
-      <button onclick="closePopup()">Cancel</button>
-    </div>
-  </div>
-
-  <script src="/js/authCheak.js"></script>
+      <script src="/js/authCheak.js"></script>
 
   <script>
-    const baseURL = window.location.hostname === "localhost"
-      ? "http://localhost:5000"
-      : "https://api.form2chat.me";
+    const baseURL = "https://api.form2chat.me";
+  // window.location.hostname === "localhost"
+  //   ? "http://localhost:5000"
+  //   : "https://formhit.onrender.com";
 
     const urlParams = new URLSearchParams(window.location.search);
     const formId = urlParams.get("formId");
     let storedEmail = localStorage.getItem("email");
-    console.log("Stored Email:", storedEmail);
+    console.log("Stored Email:", storedEmail);  
 
     if (!formId) {
-      document.getElementById("loading").style.display = "none";
       document.body.innerHTML = "<h2>❌ No formId provided in URL</h2>";
       throw new Error("formId is required in URL");
     }
-    const userId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
+    userId = localStorage.getItem("userId");
 
-    if (!userId || !token) {
-      document.getElementById("loading").style.display = "none";
-      document.body.innerHTML = "<h2>⚠️ User not logged in or token missing</h2>";
-      return;
-    }
-
-    const fetchWithTimeout = (url, options, timeout = 10000) => {
-      return Promise.race([
-        fetch(url, options),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), timeout))
-      ]);
-    };
-
-    fetchWithTimeout(`${baseURL}/api/forms/responses/by-id/${formId}/${userId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then(res => res.json())
+    fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId }`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
       .then(data => {
-        // Hide loading spinner
-
-       if (data.upgradeRequired === true) {
-  document.getElementById("upgradeBanner").style.display = "flex";
-  document.getElementById("popupOverlay").style.display = "flex";
-  // DO NOT return — let table load
-}
-
-document.getElementById("spinner").style.display = "none";
-  
-
         const responses = data.responses;
 
         if (!responses || responses.length === 0) {
           document.getElementById("table-body").innerHTML =
             "<tr><td colspan='100%'>No responses found</td></tr>";
-          document.getElementById("response-table").style.display = "block";
           return;
         }
 
@@ -554,14 +330,10 @@ document.getElementById("spinner").style.display = "none";
 
           tableBody.appendChild(tr);
         });
-
-        // Show the table
-        document.getElementById("response-table").style.display = "block";
       })
       .catch(err => {
         console.error("Error fetching responses:", err);
-        document.getElementById("loading").style.display = "none";
-        document.body.innerHTML = "<h2>⚠️ Error loading responses</h2>";
+        document.body.innerHTML = `<h2>⚠️ Error loading responses: ${err.message}</h2>`;
       });
 
     function downloadCSV() {
@@ -611,14 +383,6 @@ document.getElementById("spinner").style.display = "none";
 
   doc.save("responses.pdf");
 }
-
-    function closeUpgradeBanner() {
-      document.getElementById("upgradeBanner").style.display = "none";
-    }
-
-    function closePopup() {
-      document.getElementById("popupOverlay").style.display = "none";
-    }
 
   </script>
   
