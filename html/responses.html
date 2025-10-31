@@ -257,6 +257,39 @@ tr:hover {
     </thead>
     <tbody id="table-body"></tbody>
   </table>
+  <div id="upgradeNotice" style="
+  display:none;
+  text-align:center;
+  background:#fff;
+  padding:20px;
+  margin:20px auto;
+  width:90%;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+">
+  <h2 style="color:#2575fc; font-size:18px; margin-bottom:8px;">
+    🚀 You're growing fast!
+  </h2>
+
+  <p style="font-size:14px; color:#444; margin-bottom:14px;">
+    You reached your free plan response limit.  
+    Upgrade to unlock unlimited responses and advanced features.
+  </p>
+
+  <button onclick="window.location.href='/billing.html'" style="
+    background:#2575fc;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    font-size:14px;
+    border-radius:6px;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  ">
+    Upgrade Now
+  </button>
+</div>
+
       <script src="/js/authCheak.js"></script>
 
   <script>
@@ -284,6 +317,21 @@ tr:hover {
     })
       .then(res => res.json())
       .then(data => {
+
+
+          // ✅ If plan limit reached
+  if (data.upgradeRequired) {
+    document.getElementById("upgradeNotice").style.display = "block";
+    
+    // Blur table
+    const table = document.getElementById("response-table");
+    table.style.filter = "blur(4px)";
+    table.style.pointerEvents = "none";
+
+    return;
+  }
+
+
         const responses = data.responses;
 
         if (!responses || responses.length === 0) {
