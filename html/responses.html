@@ -257,6 +257,7 @@ tr:hover {
     </thead>
     <tbody id="table-body"></tbody>
   </table>
+  
   <div id="upgradeNotice" style="
   display:none;
   text-align:center;
@@ -323,12 +324,12 @@ tr:hover {
   if (data.upgradeRequired) {
     document.getElementById("upgradeNotice").style.display = "block";
     
-    // Blur table
-    const table = document.getElementById("response-table");
-    table.style.filter = "blur(4px)";
-    table.style.pointerEvents = "none";
+    // // Blur table
+    // const table = document.getElementById("response-table");
+    // table.style.filter = "blur(4px)";
+    // table.style.pointerEvents = "none";
 
-    return;
+    // return;
   }
 
 
