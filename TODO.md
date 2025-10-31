@@ -1,13 +1,7 @@
-# TODO: Revert and Improve CSS in responses.html
+# TODO: Add Loading Bar for Get Response in responses.html
 
-## Approved Plan
-- Update table styles: Clean white background, subtle gray borders, light blue headers for professionalism, remove heavy gradients and shadows.
-- Navbar: Adjust to a professional blue gradient (e.g., #007bff to #0056b3) for better consistency.
-- Action buttons: Change to blue theme matching navbar, with hover effects.
-- Overall: Ensure colors are eye-catching but professional, with good contrast.
-
-## Steps
-- [x] Edit html/responses.html to update table CSS (remove gradients, shadows, rounded corners; use light blue headers, gray borders).
-- [x] Edit navbar gradient to professional blue.
-- [x] Edit action buttons to blue theme with matching hover effects.
-- [x] Test the UI for color matching and professionalism.
+## Steps to Complete:
+- [x] Add HTML element for loading bar (a div with id="loading-bar" positioned at the top of the page).
+- [x] Add CSS styles for the loading bar: minimal animated gradient bar, hidden by default, responsive.
+- [x] Modify JavaScript to show loading bar before fetch starts and hide it after fetch completes (success or error).
+- [ ] Test the page to ensure loading bar appears during fetch and disappears after, looks good on mobile and desktop.
