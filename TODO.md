@@ -7,4 +7,5 @@
 - [ ] Test the page to ensure loading bar appears during fetch and disappears after, looks good on mobile and desktop.
 - [x] Add CSS styles for upgrade notification bar: fixed bottom, premium gradient, responsive, with close button.
 - [x] Modify JavaScript to check data.upgradeRequired and show the bar if true, with dismiss option.
+- [x] Update message to be more catchy and premium-like with hook words and rocket emoji.
 - [ ] Test the upgrade bar appears when upgradeRequired is true and can be dismissed.
