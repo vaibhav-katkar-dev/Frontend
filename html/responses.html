@@ -62,7 +62,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem 1.25rem;
-    background: linear-gradient(90deg, #667eea, #764ba2);
+    background: linear-gradient(90deg, #007bff, #0056b3);
     color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
@@ -113,7 +113,7 @@
     font-size: 14px;
     border-radius: 8px;
     border: none;
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -139,32 +139,29 @@
     margin: 1.5rem auto;
     border-collapse: collapse;
     background: #ffffff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid #ddd;
   }
 
   th, td {
     padding: 12px 16px;
     text-align: left;
     font-size: 14px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #ddd;
     word-break: break-word;
   }
 
   th {
-    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    background: #f2f2f2;
     font-weight: 600;
-    color: #475569;
+    color: #333;
   }
 
   tr:nth-child(even) {
-    background-color: #f8fafc;
+    background-color: #f9f9f9;
   }
 
   tr:hover {
-    background-color: #f1f5f9;
-    transition: background-color 0.2s ease;
+    background-color: #f5f5f5;
   }
 
   /* Mobile Responsive */
@@ -442,47 +439,28 @@
   <!-- Upgrade Banner -->
   <div id="upgradeBanner">
     <div>🚀 Upgrade Now!</div>
-    <div>You reached free limit — unlock unlimited responses & premium tools.</div>
-    <button onclick="window.location.href='/billing.html'">Get Premium ⭐</button>
-    <button onclick="closeBanner()">✕</button>
+    <div>Upgrade to view more responses</div>
+    <button onclick="window.location.href='/billing.html'">Upgrade</button>
+    <button onclick="closeUpgradeBanner()">×</button>
   </div>
 
   <!-- Popup Overlay -->
   <div id="popupOverlay">
     <div id="popupContent">
       <button id="closePopup">×</button>
-      <h2>Unlock Premium Features</h2>
-      <p>Your form is doing well! Upgrade to access unlimited responses, analytics, and priority support.</p>
+      <h2>Upgrade Required</h2>
+      <p>You have reached the limit of free responses. Upgrade your plan to view more.</p>
       <button onclick="window.location.href='/billing.html'">Upgrade Now</button>
-      <button onclick="closePopup()">Later</button>
+      <button onclick="closePopup()">Cancel</button>
     </div>
   </div>
-
-  <script>
-    function closePopup() {
-      document.getElementById('popupOverlay').style.display = 'none';
-    }
-
-    function closeBanner() {
-      document.getElementById('upgradeBanner').style.display = 'none';
-    }
-
-    // Check if it's the first load (using localStorage)
-    window.onload = function() {
-      if (!localStorage.getItem('popupShown')) {
-        document.getElementById('popupOverlay').style.display = 'flex';
-        localStorage.setItem('popupShown', 'true');
-      }
-    };
-  </script>
 
   <script src="/js/authCheak.js"></script>
 
   <script>
-    const baseURL = "https://api.form2chat.me";
-    // window.location.hostname === "localhost"
-    //   ? "http://localhost:5000"
-    //   : "https://formhit.onrender.com";
+    const baseURL = window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://api.form2chat.me";
 
     const urlParams = new URLSearchParams(window.location.search);
     const formId = urlParams.get("formId");
@@ -490,36 +468,51 @@
     console.log("Stored Email:", storedEmail);
 
     if (!formId) {
+      document.getElementById("loading").style.display = "none";
       document.body.innerHTML = "<h2>❌ No formId provided in URL</h2>";
       throw new Error("formId is required in URL");
     }
-    userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
 
-    fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId}`, {
+    if (!userId || !token) {
+      document.getElementById("loading").style.display = "none";
+      document.body.innerHTML = "<h2>⚠️ User not logged in or token missing</h2>";
+      return;
+    }
+
+    const fetchWithTimeout = (url, options, timeout = 10000) => {
+      return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), timeout))
+      ]);
+    };
+
+    fetchWithTimeout(`${baseURL}/api/forms/responses/by-id/${formId}/${userId}`, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
+        "Authorization": `Bearer ${token}`
       }
     })
       .then(res => res.json())
       .then(data => {
-        // ✅ If plan limit reached
-        if (data.upgradeRequired) {
-          document.getElementById("upgradeBanner").style.display = "flex";
+        // Hide loading spinner
 
-          // // Blur table
-          // const table = document.getElementById("response-table");
-          // table.style.filter = "blur(4px)";
-          // table.style.pointerEvents = "none";
+       if (data.upgradeRequired === true) {
+  document.getElementById("upgradeBanner").style.display = "flex";
+  document.getElementById("popupOverlay").style.display = "flex";
+  // DO NOT return — let table load
+}
 
-          // return;
-        }
+document.getElementById("spinner").style.display = "none";
+  
 
         const responses = data.responses;
 
         if (!responses || responses.length === 0) {
           document.getElementById("table-body").innerHTML =
             "<tr><td colspan='100%'>No responses found</td></tr>";
+          document.getElementById("response-table").style.display = "block";
           return;
         }
 
@@ -562,12 +555,12 @@
           tableBody.appendChild(tr);
         });
 
-        // Hide loading and show table
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("response-table").style.display = "table";
+        // Show the table
+        document.getElementById("response-table").style.display = "block";
       })
       .catch(err => {
         console.error("Error fetching responses:", err);
+        document.getElementById("loading").style.display = "none";
         document.body.innerHTML = "<h2>⚠️ Error loading responses</h2>";
       });
 
@@ -595,29 +588,38 @@
     }
 
     function downloadPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF("l", "mm", "a4"); // landscape mode for wide table
-      doc.setFontSize(10); // smaller font
-      doc.text("Form Responses", 14, 10);
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF("l", "mm", "a4"); // landscape mode for wide table
+  doc.setFontSize(10); // smaller font
+  doc.text("Form Responses", 14, 10);
 
-      doc.autoTable({
-        html: "#response-table",
-        startY: 15,
-        styles: {
-          fontSize: 8,         // shrink font inside table
-          cellPadding: 2,      // reduce cell padding
-        },
-        headStyles: {
-          fillColor: [53, 126, 221], // match your theme
-          textColor: 255,
-        },
-        margin: { left: 10, right: 10 },
-        tableWidth: 'auto',   // shrink to fit
-        theme: 'striped',
-      });
+  doc.autoTable({
+    html: "#response-table",
+    startY: 15,
+    styles: {
+      fontSize: 8,         // shrink font inside table
+      cellPadding: 2,      // reduce cell padding
+    },
+    headStyles: {
+      fillColor: [53, 126, 221], // match your theme
+      textColor: 255,
+    },
+    margin: { left: 10, right: 10 },
+    tableWidth: 'auto',   // shrink to fit
+    theme: 'striped',
+  });
 
-      doc.save("responses.pdf");
+  doc.save("responses.pdf");
+}
+
+    function closeUpgradeBanner() {
+      document.getElementById("upgradeBanner").style.display = "none";
     }
+
+    function closePopup() {
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
   </script>
   
 </body>
