@@ -276,7 +276,13 @@ tr:hover {
     }
     userId = localStorage.getItem("userId");
 
-    fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId }`)
+    fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId }`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}: ${res.statusText}`);
