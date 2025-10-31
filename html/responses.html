@@ -393,15 +393,10 @@ tr:hover {
   //   : "https://formhit.onrender.com";
 
   document.addEventListener("DOMContentLoaded", () => {
-
-    // Show loading bar
-    const loadingBar = document.getElementById("loading-bar");
-    loadingBar.classList.add("show");
-    });
     const urlParams = new URLSearchParams(window.location.search);
     const formId = urlParams.get("formId");
     let storedEmail = localStorage.getItem("email");
-    console.log("Stored Email:", storedEmail);  
+    console.log("Stored Email:", storedEmail);
 
     if (!formId) {
       document.body.innerHTML = "<h2>❌ No formId provided in URL</h2>";
@@ -409,7 +404,10 @@ tr:hover {
     }
     userId = localStorage.getItem("userId");
 
-    
+    // Show loading bar only during fetch
+    const loadingBar = document.getElementById("loading-bar");
+    loadingBar.classList.add("show");
+
     fetch(`${baseURL}/api/forms/responses/by-id/${formId}/${userId }`,{
       method: "GET",
       headers: {
