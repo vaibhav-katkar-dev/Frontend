@@ -804,11 +804,12 @@ const titleWrapper = document.querySelector("h2");
 const planDate = document.querySelector(".planDate");
 
 // Set title text only (don't overwrite span!)
+// Title section
 if (data.isExpired) {
   titleWrapper.childNodes[0].textContent = "Renew Subscription ";
 } 
 else if (data.planName === "Free") {
-  titleWrapper.childNodes[0].textContent = "Choose a Plan ";
+  titleWrapper.childNodes[0].textContent = "Free Plan ";
 } 
 else if (data.planName === "Business") {
   titleWrapper.childNodes[0].textContent = "Current Plan ";
@@ -816,10 +817,11 @@ else if (data.planName === "Business") {
 else {
   titleWrapper.childNodes[0].textContent = "Your Subscription ";
 }
-// Update date section inside span
+
+// Plan Date / Status
 if (data.planName === "Free") {
-  planDate.innerHTML = `<i class="fas fa-gift"></i> Free Plan`;
-  planDate.style.color = "#2a9d8f"; // or gray if you prefer
+  planDate.innerHTML = `<i class="fas fa-gift"></i> Free Plan — Unlock Pro`;
+  planDate.style.color = "#2a9d8f";
 }
 else if (data.isExpired) {
   planDate.innerHTML = `<i class="fas fa-exclamation-circle"></i> Subscription Expired`;
@@ -829,6 +831,7 @@ else {
   planDate.innerHTML = `<i class="fas fa-clock"></i> ${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} left`;
   planDate.style.color = "#2a9d8f";
 }
+
 
 display.innerHTML = `
   <i class="fas fa-crown"></i>
