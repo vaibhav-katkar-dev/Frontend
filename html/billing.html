@@ -394,6 +394,8 @@
 
     /* Small Subscription Display - Normal (Free Plan) */
         .subscription-display {
+              opacity: 0;
+
             background: #ffffff; /* Normal white background */
             border-radius: 10px; /* Standard radius */
             padding: 0px 15px; /* Standard padding */
@@ -736,7 +738,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    
+    const box = document.querySelector(".subscription-display");
+
 
 // Example: Fetch user plan details
 async function fetchUserPlan() {
@@ -788,6 +791,10 @@ if (data.success && data.planName) {
     <p><i class="fas fa-clock"></i> ${daysRemaining === 0 ? "Expired" : `${daysRemaining} days remaining`}</p>
   `;
 
+// Fade in
+setTimeout(() => {
+  box.classList.add("active");
+}, 10);
 
       // Add 'pro' class if plan is Pro Plan
       if (data.planName === "Pro Plan") {
