@@ -807,32 +807,26 @@ const planDate = document.querySelector(".planDate");
 // Title text
 if (data.isExpired) {
   titleWrapper.childNodes[0].textContent = "Renew Your Plan to Keep  ";
-}
-else if (data.planName === "Free") {
-  titleWrapper.childNodes[0].textContent = "Welcome to ";
-}
-else if (data.planName === "Business") {
-  titleWrapper.childNodes[0].textContent = "Your Business Plan ";
-}
-else {
-  titleWrapper.childNodes[0].textContent = "Your Current Plan ";
-}
-
-// Status / Date text
-if (data.planName === "Free") {
-  planDate.innerHTML = `<i class="fas fa-gift"></i> Free Plan — Upgrade to unlock premium features`;
-  planDate.style.color = "#2a9d8f";
-} 
-else if (data.isExpired) {
   planDate.innerHTML = `<i class="fas fa-exclamation-circle"></i> Premium Access`;
   planDate.style.color = "#e63946";
 }
+else if (data.planName === "Free") {
+  titleWrapper.childNodes[0].textContent = "Welcome to ";
+  planDate.innerHTML = `<i class="fas fa-gift"></i> Free Plan — Upgrade to unlock premium features`;
+  planDate.style.color = "#2a9d8f";
+}
+else if (data.planName === "Business") {
+  titleWrapper.childNodes[0].textContent = "Your Business Plan ";
+   planDate.innerHTML = `<i class="fas fa-clock"></i> ${daysRemaining} day${daysRemaining !== 1 ? "s" : ""} remaining`;
+  planDate.style.color = "#2a9d8f";
+}
 else {
-  planDate.innerHTML = `<i class="fas fa-clock"></i> ${daysRemaining} day${daysRemaining !== 1 ? "s" : ""} remaining`;
+  titleWrapper.childNodes[0].textContent = "Your Current Plan ";
+   planDate.innerHTML = `<i class="fas fa-clock"></i> ${daysRemaining} day${daysRemaining !== 1 ? "s" : ""} remaining`;
   planDate.style.color = "#2a9d8f";
 }
 
-
+//for nav plan display
 display.innerHTML = `
   <i class="fas fa-crown"></i>
   <h3>${data.planName}</h3>
@@ -843,7 +837,7 @@ setTimeout(() => {
   titleWrapper.style.opacity=1;
 }, 10);
 
-      // Add 'pro' class if plan is Pro Plan
+      // Add 'pro' class if plan is Pro Plan nav plans
       if (data.planName === "Pro Plan") {
         display.classList.add('pro');
       }
