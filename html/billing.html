@@ -396,13 +396,13 @@
         .subscription-display {
             background: #ffffff; /* Normal white background */
             border-radius: 10px; /* Standard radius */
-            padding: 8px 15px; /* Standard padding */
+            padding: 0px 15px; /* Standard padding */
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Normal shadow */
             border: 1px solid #e0e0e0; /* Normal border */
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #333;
             max-width: fit-content;
             width: 100%;
@@ -785,7 +785,7 @@ if (data.success && data.planName) {
   display.innerHTML = `
     <i class="fas fa-crown"></i>
     <h3>${data.planName}</h3>
-    <p>⏳ ${daysRemaining} days remaining</p>
+    <p><i class="fas fa-clock"></i> ${daysRemaining === 0 ? "Expired" : `${daysRemaining} days remaining`}</p>
   `;
 
 
