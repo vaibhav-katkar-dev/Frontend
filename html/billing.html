@@ -497,7 +497,7 @@
   </nav>
 <!-- Pricing Section -->
 <section id="pricing" class="pricing" aria-label="Pricing plans">
-  <h2 class="u">Upgrade Your Plan <span class="planDate"></span></h2>
+<h2 class="subscription-title">Your Plan <span class="planDate"></span></h2>
   <div class="pricing-info">
     <p style="color: var(--muted); max-width: 600px; margin: 0 auto 40px auto;">
       Select the plan that best fits your needs. Upgrade anytime to unlock more features and higher limits.
@@ -792,39 +792,37 @@ if (data.success && data.planName) {
   const expireDate = new Date(data.expiresOn);
   const timeDiff = expireDate - now;
   const daysRemaining = Math.max(0, Math.ceil(timeDiff / (1000 * 60 * 60 * 24)));
-
-const titleWrapper = document.querySelector(".u");
+const titleWrapper = document.querySelector("h2");
 const planDate = document.querySelector(".planDate");
 
-// Set title based on plan status
+// Set title text only (don't overwrite span!)
 if (data.isExpired) {
-  titleWrapper.innerHTML = `Renew Subscription <span class="planDate"></span>`;
+  titleWrapper.childNodes[0].textContent = "Renew Subscription ";
 } 
 else if (data.planName === "Free") {
-  titleWrapper.innerHTML = `Choose a Plan <span class="planDate"></span>`;
+  titleWrapper.childNodes[0].textContent = "Choose a Plan ";
 } 
 else if (data.planName === "Business") {
-  titleWrapper.innerHTML = `Current Plan <span class="planDate"></span>`;
+  titleWrapper.childNodes[0].textContent = "Current Plan ";
 } 
 else {
-  titleWrapper.innerHTML = `Your Subscription <span class="planDate"></span>`;
+  titleWrapper.childNodes[0].textContent = "Your Subscription ";
 }
 
-// Update date section
+// Update date section inside span
 if (data.isExpired) {
   planDate.innerHTML = `<i class="fas fa-exclamation-circle"></i> Subscription Expired`;
-  planDate.style.color = "#e63946"; // premium red tone
+  planDate.style.color = "#e63946";
 } else {
   planDate.innerHTML = `<i class="fas fa-clock"></i> ${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} left`;
-  planDate.style.color = "#2a9d8f"; // premium green tone
+  planDate.style.color = "#2a9d8f";
 }
 
-  display.innerHTML = `
-    <i class="fas fa-crown"></i>
-    <h3>${data.planName}</h3>
-  `;
+display.innerHTML = `
+  <i class="fas fa-crown"></i>
+  <h3>${data.planName}</h3>
+`;
 
-// Fade in
 setTimeout(() => {
   box.classList.add("active");
 }, 10);
