@@ -806,16 +806,16 @@ const planDate = document.querySelector(".planDate");
 // Set title text only (don't overwrite span!)
 // Title text
 if (data.isExpired) {
-  titleWrapper.childNodes[0].textContent = "Renew Your Subscription";
+  titleWrapper.childNodes[0].textContent = "Renew Your Subscription ";
 }
 else if (data.planName === "Free") {
   titleWrapper.childNodes[0].textContent = "Welcome to ";
 }
 else if (data.planName === "Business") {
-  titleWrapper.childNodes[0].textContent = "Your Business Plan";
+  titleWrapper.childNodes[0].textContent = "Your Business Plan ";
 }
 else {
-  titleWrapper.childNodes[0].textContent = "Your Current Plan";
+  titleWrapper.childNodes[0].textContent = "Your Current Plan ";
 }
 
 // Status / Date text
