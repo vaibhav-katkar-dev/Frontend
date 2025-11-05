@@ -816,12 +816,16 @@ else if (data.planName === "Business") {
 else {
   titleWrapper.childNodes[0].textContent = "Your Subscription ";
 }
-
 // Update date section inside span
-if (data.isExpired) {
+if (data.planName === "Free") {
+  planDate.innerHTML = `<i class="fas fa-gift"></i> Free Plan`;
+  planDate.style.color = "#2a9d8f"; // or gray if you prefer
+}
+else if (data.isExpired) {
   planDate.innerHTML = `<i class="fas fa-exclamation-circle"></i> Subscription Expired`;
   planDate.style.color = "#e63946";
-} else {
+} 
+else {
   planDate.innerHTML = `<i class="fas fa-clock"></i> ${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} left`;
   planDate.style.color = "#2a9d8f";
 }
