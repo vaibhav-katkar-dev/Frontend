@@ -809,7 +809,7 @@ if (data.isExpired) {
   titleWrapper.childNodes[0].textContent = "Renew Your Subscription";
 }
 else if (data.planName === "Free") {
-  titleWrapper.childNodes[0].textContent = "Welcome to Free Plan";
+  titleWrapper.childNodes[0].textContent = "Welcome to ";
 }
 else if (data.planName === "Business") {
   titleWrapper.childNodes[0].textContent = "Your Business Plan";
@@ -820,7 +820,7 @@ else {
 
 // Status / Date text
 if (data.planName === "Free") {
-  planDate.innerHTML = `<i class="fas fa-gift"></i> Free Plan — Upgrade to unlock premium tools`;
+  planDate.innerHTML = `<i class="fas fa-gift"></i> Free Plan — Upgrade to unlock premium features`;
   planDate.style.color = "#2a9d8f";
 } 
 else if (data.isExpired) {
