@@ -497,7 +497,12 @@
   </nav>
 <!-- Pricing Section -->
 <section id="pricing" class="pricing" aria-label="Pricing plans">
-  <h2>Choose Your Plan</h2>
+  <h2>Choose Your Plan <span class="planDate"></span></h2>
+  <div class="pricing-info">
+    <p style="color: var(--muted); max-width: 600px; margin: 0 auto 40px auto;">
+      Select the plan that best fits your needs. Upgrade anytime to unlock more features and higher limits.
+    </p>
+  </div>
   <div class="pricing-cards">
 
     <!-- Starter Plan -->
@@ -742,7 +747,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const box = document.querySelector(".subscription-display");
-
+    const planDate = document.querySelector(".planDate");
 
 // Example: Fetch user plan details
 async function fetchUserPlan() {
@@ -788,10 +793,16 @@ if (data.success && data.planName) {
   const timeDiff = expireDate - now;
   const daysRemaining = Math.max(0, Math.ceil(timeDiff / (1000 * 60 * 60 * 24)));
 
+if (data.isExpired) {
+  planDate.innerHTML = `<i class="fas fa-exclamation-circle"></i> Expired`;
+  planDate.style.color = "red";
+} else {
+  planDate.innerHTML = `<i class="fas fa-clock"></i> ${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} left`;
+}
+
   display.innerHTML = `
     <i class="fas fa-crown"></i>
     <h3>${data.planName}</h3>
-    <p><i class="fas fa-clock"></i> ${daysRemaining === 0 ? "Expired" : `${daysRemaining} days remaining`}</p>
   `;
 
 // Fade in
