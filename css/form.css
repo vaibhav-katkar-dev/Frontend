@@ -1,3 +1,4 @@
+/* General Reset & Body Styling */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,205 +6,192 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f9;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   padding: 20px;
 }
 
+/* Form Wrapper */
 .form-wrapper {
   max-width: 700px;
-  margin: auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
+  padding: 40px;
+  transition: all 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .form-wrapper {
+    padding: 25px;
+  }
+}
+
+/* Form Title & Description */
 #form-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #1a1a1a;
-  background: #e0ecff;
-  padding: 10px 15px;
-  border-left: 5px solid #357edd;
-  margin-bottom: 10px;
-  border-radius: 6px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a202c;
+  text-align: center;
+  margin-bottom: 12px;
 }
 
 #form-desc {
-  background: #f1f1f1;
-  padding: 10px 15px;
-  border-left: 5px solid #aaa;
-  color: #444;
-  font-size: 14px;
-  margin-bottom: 20px;
-  border-radius: 6px;
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 30px;
+  background-color: #f7faff;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #4a90e2;
 }
 
+/* Form Group */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 15px;
 }
 
+/* Input, Textarea, Select Styling */
 .form-group input,
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 10px 12px;
-  border: 1.5px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-  transition: 0.3s ease;
+  padding: 12px 15px;
+  border: 1px solid #d2d6dc;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  background-color: #fdfdff;
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border-color: #357edd;
   outline: none;
-  background-color: #f9fcff;
+  border-color: #4a90e2;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
 }
 
-#submit-button {
-  width: 100%;
-  background: #357edd;
-  color: white;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-#submit-button:hover {
-  background: #245fc4;
-}
-.form-group {
-  margin-bottom: 1rem;
-}
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-input, textarea {
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 4px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.form-group > div {/* Prevent radio buttons from being stretched */
-input[type="radio"] {
-  width: auto;
-  margin: 0;
-}
-
-/* Label next to radio button */
-.form-group .radio-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-/* Optional: smaller label for radio */
-.radio-option label {
-  font-weight: normal;
-  color: #333;
-  margin: 0;
-}
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-input:not([type="radio"]),
-textarea,
-select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1.5px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-  transition: 0.3s ease;
-}
-
-/* Checkbox layout */
+/* Radio & Checkbox Options */
+.radio-option,
 .checkbox-option {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
-/* Make checkbox inputs consistent */
+input[type="radio"],
 input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
-  accent-color: #357edd; /* modern color styling */
+  accent-color: #4a90e2;
 }
 
-/* Optional: Style checkbox labels */
+.radio-option label,
 .checkbox-option label {
-  margin: 0;
   font-weight: 500;
-  color: #333;
-  cursor: pointer;
+  color: #4a5568;
+  margin: 0;
 }
 
+/* Submit Button */
+#submit-button {
+  width: 100%;
+  background: linear-gradient(90deg, #4a90e2, #54a0ff);
+  color: white;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
 
- /* Full-screen overlay */
-  .success-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(76, 175, 80, 0.95); /* green with transparency */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 2rem;
-    text-align: center;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .success-overlay.show {
-    opacity: 1;
-  }
-  /* Inner box */
-  .success-box {
-    background: white;
-    color: #4CAF50;
-    padding: 30px 50px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    animation: popIn 0.4s ease;
-  }
-  @keyframes popIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
+#submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+}
 
-  #submit-button:disabled {
-  background-color: #ccc !important;
+#submit-button:disabled {
+  background: #b0c4de;
   cursor: not-allowed;
-  opacity: 0.7;
+  opacity: 0.8;
+  box-shadow: none;
+  transform: none;
+}
+
+#submit-button:disabled::after {
+  content: "Submitting...";
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+/* Success Overlay */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.success-overlay.show {
+  opacity: 1;
+}
+
+.success-box {
+  background: #fff;
+  color: #2d3748;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.success-overlay.show .success-box {
+  transform: scale(1);
+}
+
+.success-box::before {
+  content: '✔';
+  display: block;
+  font-size: 48px;
+  color: #4caf50;
+  margin-bottom: 15px;
+ opacity: 0.7;
   position: relative;
 }
 
