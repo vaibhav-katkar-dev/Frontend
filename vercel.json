@@ -16,11 +16,10 @@
     { "src": "^/$", "dest": "/html/main/index.html" },
     { "src": "^/pricing$", "dest": "/html/main/prise.html" },
     { "src": "^/blog$", "dest": "/html/main/blog/blog.html" },
-    { "src": "^/blog/create-lead-generation-form$", "dest": "/html/main/blog/create-lead-generation-form.html" },
-    { "src": "^/blog/custom-online-form-builder$", "dest": "/html/main/blog/custom-online-form-builder.html" },
-    { "src": "^/blog/form2chat-benefits$", "dest": "/html/main/blog/form2chat-benefits.html" },
-    { "src": "^/blog/effective-form-design-tips$", "dest": "/html/main/blog/effective-form-design-tips.html" },
-    { "src": "^/blog/website-form-submitions-to-whatsapp$", "dest": "/html/main/blog/website-form-submitions-to-whatsapp.html" },    
+    {
+  "src": "^/blog/(.*)$",
+  "dest": "/html/main/blog/$1.html"
+},
     { "src": "^/privacy$", "dest": "/html/main/privacy.html" },
     { "src": "^/about$", "dest": "/html/main/about.html" },
     { "src": "^/logo\\.svg$", "dest": "/html/main/logo.svg" },
@@ -28,7 +27,7 @@
     { "src": "^/robots\\.txt$", "dest": "/public/robots.txt" },
     { "src": "^/js/(.*)$", "dest": "/js/$1" },
     { "src": "^/css/(.*)$", "dest": "/css/$1" },
-    { "src": "^/images/(.*)$", "dest": "/html/main/blog/images/$1" },
+    {  "src": "^/images/(.*)$",  "dest": "/html/main/blog/images/$1" },
     { "src": "^/(.*)\\.html$", "dest": "/html/$1.html" }
   ]
 }
