@@ -13,22 +13,49 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   display: flex;
+
+  background-image: url("https://twilead.com/wp-content/uploads/2025/04/formulaire-en-ligne-leads.jpg.jpg");
   justify-content: center;
+  
   align-items: center;
   height: 100vh;
   margin: 0;
 }
 
 .container {
+  position: relative; /* Needed for absolute positioning of children */
   background: #fff;
   border-radius: 16px;
   width: 100%;
   max-width: 400px;
   padding: 40px 32px;
-  box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0px 10px 40px rgba(0,0,0,0.1);
   animation: slideIn 0.6s ease-in-out;
+  overflow: hidden; /* To keep the watermark inside */
+}
+
+.logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.logo-container img {
+    width: 250px;
+    height: auto;
+}
+
+/* Make sure form elements are on top of the watermark */
+form {
+    position: relative;
+    z-index: 1;
+    background-color: transparent; /* Ensure form background is not hiding the watermark */
 }
 
 @keyframes slideIn {
@@ -36,11 +63,19 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+h1 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
 h2 {
   text-align: center;
   margin-bottom: 28px;
-  font-weight: 600;
-  color: #333;
+  font-weight: 500;
+  color: #555;
 }
 
 .input-field {
@@ -54,7 +89,7 @@ h2 {
   border-radius: 8px;
   outline: none;
   font-size: 15px;
-  background: #fff;
+  background: #f9f9f9;
   transition: 0.3s ease;
 }
 .input-field label {
@@ -64,21 +99,23 @@ h2 {
   transform: translateY(-50%);
   font-size: 14px;
   color: #888;
-  background: #fff;
+  background: #f9f9f9;
   padding: 0 4px;
   pointer-events: none;
   transition: 0.25s ease;
 }
 .input-field input:focus {
-  border-color: #6e8efb;
-  box-shadow: 0 0 6px rgba(110,142,251,0.3);
+  border-color: #007BFF;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0,123,255,0.2);
 }
 .input-field input:focus + label,
 .input-field input:not(:placeholder-shown) + label {
   top: -8px;
   left: 10px;
   font-size: 12px;
-  color: #6e8efb;
+  color: #007BFF;
+  background: #fff;
 }
 
 button {
@@ -95,11 +132,11 @@ button {
   overflow: hidden;
 }
 button.primary {
-  background: #6e8efb;
+  background: #007BFF;
   color: white;
 }
 button.primary:hover {
-  background: #5b77e1;
+  background: #0056b3;
 }
 button:disabled {
   opacity: 0.6;
@@ -141,7 +178,7 @@ button:active::after {
   font-size: 14px;
 }
 .switch a {
-  color: #6e8efb;
+  color: #007BFF;
   font-weight: bold;
   cursor: pointer;
 }
@@ -186,6 +223,12 @@ button:active::after {
 <body>
 
 <div class="container">
+  <h1>Welcome to Form2Chat</h1>
+  <div class="logo-container">
+    <img src="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no" alt="logo">
+  </div>
+  
+  
   <!-- Signup Form -->
   <form id="signupForm">
     <h2>Signup</h2>
