@@ -610,6 +610,80 @@
 </style>
 
 </section>
+    <!-- Notification container (place once in your HTML) -->
+<style>
+  /* Simple toast styles */
+  #notif-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    z-index: 9999;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  .toast {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    background: #0f172a; /* dark */
+    color: #fff;
+    padding: 12px 12px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.4);
+    margin-bottom: 12px;
+    line-height: 1.3;
+    overflow: hidden;
+  }
+
+  .toast .body {
+    flex: 1 1 auto;
+    font-size: 14px;
+    max-height: 72px; /* cut height */
+    overflow: hidden;
+    position: relative;
+    transition: max-height .22s ease;
+  }
+
+  .toast.expanded .body {
+    max-height: 400px; /* expanded */
+  }
+
+  .toast .meta {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+
+  .toast .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: 8px;
+  }
+
+  .btn {
+    background: transparent;
+    border: none;
+    color: #e6eef8;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .btn:hover { background: rgba(255,255,255,0.04); }
+
+  .btn.close { color: #ffb4b4; font-weight: 600; }
+  .btn.more { color: #a6f3c5; }
+
+  /* small mobile tweak */
+  @media (max-width:420px){
+    #notif-container { left: 12px; right: 12px; width: auto; }
+  }
+</style>
+
+<div id="notif-container" aria-live="polite" aria-atomic="true"></div>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 let exchangeRate = 83; // fallback USD→INR
@@ -881,6 +955,137 @@ setTimeout(() => {
         <h3>Free Plan</h3>
       `;
     }
+
+
+    if(data.message){
+      console.log("ℹ️ Message:", data.message);
+    }
+
+
+
+
+/**
+ * showNotification(message, options)
+ * options:
+ *  - autoClose (ms) || 0 = never auto close. default 6000
+ *  - title (string) optional
+ */
+function showNotification(message, options = {}) {
+  if (!message) return;
+  const container = document.getElementById('notif-container');
+  if (!container) return;
+
+  const autoClose = options.autoClose === undefined ? 6000 : options.autoClose;
+  const title = options.title || ''; // optional small title/meta
+
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+
+  const bodyWrap = document.createElement('div');
+  bodyWrap.className = 'body';
+
+  if (title) {
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = title;
+    bodyWrap.appendChild(meta);
+  }
+
+  const textNode = document.createElement('div');
+  textNode.className = 'text';
+  textNode.textContent = message;
+  bodyWrap.appendChild(textNode);
+
+  const controls = document.createElement('div');
+  controls.className = 'controls';
+
+  // Read more / collapse button (only visible if message long)
+  const moreBtn = document.createElement('button');
+  moreBtn.className = 'btn more';
+  moreBtn.type = 'button';
+  moreBtn.textContent = 'Read more';
+  moreBtn.style.display = 'none'; // hide by default
+
+  // Close button
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'btn close';
+  closeBtn.type = 'button';
+  closeBtn.textContent = 'Close';
+
+  controls.appendChild(moreBtn);
+  controls.appendChild(closeBtn);
+
+  toast.appendChild(bodyWrap);
+  toast.appendChild(controls);
+  container.appendChild(toast);
+
+  // Determine if message is long enough to show "Read more"
+  // We check rendered height after appending to DOM
+  requestAnimationFrame(() => {
+    const collapsedHeight = 72; // matches CSS max-height
+    const bodyHeight = bodyWrap.scrollHeight;
+    if (bodyHeight > collapsedHeight + 8) {
+      moreBtn.style.display = '';
+    }
+  });
+
+  // more/collapse toggle
+  moreBtn.addEventListener('click', () => {
+    const expanded = toast.classList.toggle('expanded');
+    moreBtn.textContent = expanded ? 'Collapse' : 'Read more';
+  });
+
+  // close action
+  closeBtn.addEventListener('click', () => {
+    fadeOutAndRemove(toast);
+  });
+
+  // auto close timer
+  let autoTimer = null;
+  if (autoClose && autoClose > 0) {
+    autoTimer = setTimeout(() => fadeOutAndRemove(toast), autoClose);
+  }
+
+  // Pause auto-close while hovering
+  toast.addEventListener('mouseenter', () => {
+    if (autoTimer) clearTimeout(autoTimer);
+  });
+  toast.addEventListener('mouseleave', () => {
+    if (autoClose && autoClose > 0) {
+      autoTimer = setTimeout(() => fadeOutAndRemove(toast), autoClose);
+    }
+  });
+
+  // fade out helper
+  function fadeOutAndRemove(el) {
+    el.style.transition = 'opacity .25s ease, transform .25s ease';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(-6px) scale(.995)';
+    setTimeout(() => {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    }, 260);
+  }
+
+  // Return a handle in case caller wants to close programmatically
+  return {
+    close: () => fadeOutAndRemove(toast),
+    expand: () => { if (!toast.classList.contains('expanded')) { toast.classList.add('expanded'); moreBtn.textContent = 'Collapse'; } },
+    collapse: () => { if (toast.classList.contains('expanded')) { toast.classList.remove('expanded'); moreBtn.textContent = 'Read more'; } }
+  };
+}
+
+// Example usage with your existing snippet
+// Suppose you have data from API:
+
+if (data.message) {
+  console.log("ℹ️ Message:", data.message);
+  // show small notification with close and cut (read more)
+  showNotification(data.message, { title: 'Info', autoClose: 8000 });
+}
+
+
+
   } catch (err) {
     console.error("🚨 Fetch error:", err);
     // Default to Free Plan on error
@@ -896,5 +1101,7 @@ setTimeout(() => {
 fetchUserPlan();
    
   </script>
+  
+
 </body>
 </html>
