@@ -143,7 +143,7 @@ input[type="checkbox"] {
 }
 
 #submit-button:disabled::after {
-  content: "Submitting...";
+  /* content: "Submitting..."; */
   display: inline-block;
   margin-left: 8px;
   font-size: 16px;
@@ -196,7 +196,7 @@ input[type="checkbox"] {
 }
 
 #submit-button:disabled::after {
-  content: "⏳ Submitting...";
+  /* content: "⏳ Submitting..."; */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
