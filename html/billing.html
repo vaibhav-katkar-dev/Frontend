@@ -741,7 +741,7 @@ async function startPayment(planName, amount,planType) {
     const orderResponse = await fetch("https://api.form2chat.me/api/payment/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ planName, user,planType,referral: referral || null }),
+      body: JSON.stringify({ planName, user,planType }),
     });
     const data = await orderResponse.json();
 
@@ -772,6 +772,7 @@ async function startPayment(planName, amount,planType) {
             amount,
             planType,
             user,
+            referral: referral || null
           }),
         });
 
