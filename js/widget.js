@@ -11,43 +11,46 @@
   const baseURL = 'https://form2chat.me';
   const formURL = `${baseURL}/html/form.html?formId=${formId}`;
 
-  // Floating circular logo button
+  // Ultra-premium floating circular widget button
 const widgetBtn = document.createElement("button");
 
 widgetBtn.innerHTML = `
   <img src="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no"
        alt="Form2Chat"
-       style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+       style="width:50px; height:50px; border-radius:50%; object-fit:cover;">
 `;
 
 Object.assign(widgetBtn.style, {
   position: "fixed",
-  bottom: "25px",
-  right: "25px",
+  bottom: "26px",
+  right: "26px",
   zIndex: "99999",
-  width: "60px",
-  height: "60px",
+  width: "64px",
+  height: "64px",
   borderRadius: "50%",
-  border: "none",
-  background: "#ffffff",
+  border: "0px solid transparent",
+  background: "rgba(255, 255, 255, 0.7)",   // semi-transparent universal
+  backdropFilter: "blur(8px)",              // glass effect
   padding: "0",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.25)",
+  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.18)", // soft universal shadow
   cursor: "pointer",
   transition: "0.25s ease",
 });
 
-// Hover animation
+// Hover effects (premium micro-interaction)
 widgetBtn.onmouseenter = () => {
   widgetBtn.style.transform = "scale(1.10)";
-  widgetBtn.style.boxShadow = "0 14px 30px rgba(0, 0, 0, 0.35)";
+  widgetBtn.style.boxShadow = "0 12px 30px rgba(0, 0, 0, 0.28)";
+  widgetBtn.style.background = "rgba(255, 255, 255, 0.85)";
 };
 
 widgetBtn.onmouseleave = () => {
   widgetBtn.style.transform = "scale(1)";
-  widgetBtn.style.boxShadow = "0 10px 25px rgba(0, 0, 0, 0.25)";
+  widgetBtn.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.18)";
+  widgetBtn.style.background = "rgba(255, 255, 255, 0.7)";
 };
 
   // Modal container
