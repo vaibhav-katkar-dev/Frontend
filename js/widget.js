@@ -11,44 +11,43 @@
   const baseURL = 'https://form2chat.me';
   const formURL = `${baseURL}/html/form.html?formId=${formId}`;
 
-  // Floating button
+  // Floating circular logo button
 const widgetBtn = document.createElement("button");
 
 widgetBtn.innerHTML = `
-  <img src="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no" 
-       alt="Form2Chat" 
-       style="width:20px; height:20px; border-radius:50%; object-fit:cover;">
-  <span style="font-weight:500;">Open Form</span>
+  <img src="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no"
+       alt="Form2Chat"
+       style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
 `;
 
 Object.assign(widgetBtn.style, {
   position: "fixed",
-  bottom: "22px",
-  right: "22px",
+  bottom: "25px",
+  right: "25px",
   zIndex: "99999",
-  padding: "12px 18px",
-  borderRadius: "50px",
+  width: "60px",
+  height: "60px",
+  borderRadius: "50%",
   border: "none",
-  backgroundColor: "#0066ff",
-  color: "#fff",
-  fontSize: "15px",
-  cursor: "pointer",
+  background: "#ffffff",
+  padding: "0",
   display: "flex",
   alignItems: "center",
-  gap: "10px",
-  boxShadow: "0 6px 15px rgba(0, 0, 0, 0.25)",
-  transition: "all 0.25s ease",
+  justifyContent: "center",
+  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.25)",
+  cursor: "pointer",
+  transition: "0.25s ease",
 });
 
-// Hover effect
+// Hover animation
 widgetBtn.onmouseenter = () => {
-  widgetBtn.style.transform = "translateY(-3px)";
-  widgetBtn.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.35)";
+  widgetBtn.style.transform = "scale(1.10)";
+  widgetBtn.style.boxShadow = "0 14px 30px rgba(0, 0, 0, 0.35)";
 };
 
 widgetBtn.onmouseleave = () => {
-  widgetBtn.style.transform = "translateY(0)";
-  widgetBtn.style.boxShadow = "0 6px 15px rgba(0, 0, 0, 0.25)";
+  widgetBtn.style.transform = "scale(1)";
+  widgetBtn.style.boxShadow = "0 10px 25px rgba(0, 0, 0, 0.25)";
 };
 
   // Modal container
