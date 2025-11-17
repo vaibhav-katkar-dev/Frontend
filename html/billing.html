@@ -716,6 +716,8 @@ async function updatePricing() {
     console.error("Currency conversion failed, using fallback:", err);
   }
 }
+ const referral = localStorage.getItem("referral");
+    console.log("Referral code:", referral);
 
 // ✅ Start Razorpay payment
 async function startPayment(planName, amount,planType) {
@@ -733,9 +735,7 @@ async function startPayment(planName, amount,planType) {
     const keyResponse = await fetch("https://api.form2chat.me/api/payment/get-key");
     const { key } = await keyResponse.json();
 
-    const referral = localStorage.getItem("referral");
-    console.log("Referral code:", referral);
-
+   
 
     // 2️⃣ Create order on backend
     const orderResponse = await fetch("https://api.form2chat.me/api/payment/create-order", {
