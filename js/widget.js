@@ -12,22 +12,44 @@
   const formURL = `${baseURL}/html/form.html?formId=${formId}`;
 
   // Floating button
-  const widgetBtn = document.createElement("button");
-  widgetBtn.innerText = "📝 Open Form";
-  Object.assign(widgetBtn.style, {
-    position: "fixed",
-    bottom: "20px",
-    right: "20px",
-    zIndex: "9999",
-    padding: "12px 16px",
-    borderRadius: "8px",
-    border: "none",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    fontSize: "14px",
-    cursor: "pointer",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-  });
+const widgetBtn = document.createElement("button");
+
+widgetBtn.innerHTML = `
+  <img src="https://lh3.googleusercontent.com/a/ACg8ocIU1JBzzHmQKxFc10ByX2jqUxv1mWc6U42O_2AcQICPutASiOrhh7h4PmXHTPBhGShe9i8XsVTsWjz0d9zZbPFzZDR4Yzk=s288-c-no" 
+       alt="Form2Chat" 
+       style="width:20px; height:20px; border-radius:50%; object-fit:cover;">
+  <span style="font-weight:500;">Open Form</span>
+`;
+
+Object.assign(widgetBtn.style, {
+  position: "fixed",
+  bottom: "22px",
+  right: "22px",
+  zIndex: "99999",
+  padding: "12px 18px",
+  borderRadius: "50px",
+  border: "none",
+  backgroundColor: "#0066ff",
+  color: "#fff",
+  fontSize: "15px",
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  boxShadow: "0 6px 15px rgba(0, 0, 0, 0.25)",
+  transition: "all 0.25s ease",
+});
+
+// Hover effect
+widgetBtn.onmouseenter = () => {
+  widgetBtn.style.transform = "translateY(-3px)";
+  widgetBtn.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.35)";
+};
+
+widgetBtn.onmouseleave = () => {
+  widgetBtn.style.transform = "translateY(0)";
+  widgetBtn.style.boxShadow = "0 6px 15px rgba(0, 0, 0, 0.25)";
+};
 
   // Modal container
   const widgetContainer = document.createElement("div");
