@@ -733,11 +733,15 @@ async function startPayment(planName, amount,planType) {
     const keyResponse = await fetch("https://api.form2chat.me/api/payment/get-key");
     const { key } = await keyResponse.json();
 
+    const referral = localStorage.getItem("referral");
+    console.log("Referral code:", referral);
+
+
     // 2️⃣ Create order on backend
     const orderResponse = await fetch("https://api.form2chat.me/api/payment/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ planName, user,planType }),
+      body: JSON.stringify({ planName, user,planType,referral: referral || null }),
     });
     const data = await orderResponse.json();
 

@@ -1418,6 +1418,17 @@ Form2Chat, online form to chat, lead generation tool, WhatsApp integration, Tele
     const msgReply = document.getElementById('msg-reply');
     const status = document.getElementById('demo-status');
 
+
+    // Save referral if found in URL
+const urlParams = new URLSearchParams(window.location.search);
+const ref = urlParams.get("ref");
+
+if (ref) {
+  localStorage.setItem("referral", ref);
+}
+
+
+
     function handleDemoSubmit(event) {
       event.preventDefault();
       const name = form.name.value.trim();
