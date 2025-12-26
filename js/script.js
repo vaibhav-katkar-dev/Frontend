@@ -9,6 +9,7 @@ let selectedFieldId = null;
 const formArea = document.getElementById('formArea');
 const formTitle = document.getElementById('formTitle');
 const formDesc = document.getElementById('formDesc');
+const countryCodeInput = document.getElementById('countryCode');
 const propPanel = document.getElementById('propertiesPanel');
 const propLabel = document.getElementById('propLabel');
 const propPlaceholder = document.getElementById('propPlaceholder');
@@ -38,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ✅ Set form title and WhatsApp number (description)
   formTitle.innerText = data.title || 'Untitled Form';
   formDesc.value = data.description || '';  // WhatsApp number goes here
+  countryCodeInput.value = data.countryCode || ''; // Set country code
+
 
   // Clear previous fields
   fields = [];
@@ -47,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ...field,
     id: field.id || ('field_' + Date.now() + Math.random())
   }));
-  console.log("Loaded fields:", data.description );
+  // console.log("Loaded fields:", data.description );
 
   fields.push(...existingFields);
   renderForm();

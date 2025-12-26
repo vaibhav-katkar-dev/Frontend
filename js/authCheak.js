@@ -32,15 +32,15 @@ async function checkAuth() {
 
         // Token valid → return user data
         const user = await res.json();
-        console.log("✅ Authenticated User:", user);
+        // console.log("✅ Authenticated User:", user);
         // after console.log("✅ Authenticated User:", user);
 if (user?.email) {
     localStorage.setItem("userEmail", user.email);
-    console.log("📩 Stored Email:", localStorage.getItem("userEmail"));
+    // console.log("📩 Stored Email:", localStorage.getItem("userEmail"));
 }
 if (user?.name) {
     localStorage.setItem("name", user.name);
-    console.log("📩 Stored name:", localStorage.getItem("name"));
+    // console.log("📩 Stored name:", localStorage.getItem("name"));
 }
 
 
