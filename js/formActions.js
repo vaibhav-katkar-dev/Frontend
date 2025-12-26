@@ -12,6 +12,7 @@
 function getFormJSON() {
   return {
     title: document.getElementById('formTitle').innerText.trim(),
+    countryCode: document.getElementById('countryCode').value.trim(),
     description: document.getElementById('formDesc').value.trim(),
     fields: fields.map(f => ({
       type: f.type,

@@ -101,6 +101,7 @@ overlay.style.display = "flex"; // show overlay while loading
 
           document.getElementById("form-title").innerText = data.title;
           number = data.description;
+          countryCode = data.countryCode || "0";
 
           const form = document.getElementById("dynamic-form");
           form.innerHTML = ""; // Clear any existing content
@@ -321,7 +322,7 @@ submitBtn.textContent = "⏳ Submitting...";
 
 
     // 📲 Function to send form data to WhatsApp
-    function sendToWhatsApp(phoneNumber, formData, countryCode = "91") {
+    function sendToWhatsApp(phoneNumber, formData, countryCode ) {
       if (!phoneNumber) {
         console.warn("❌ No phone number provided in form data");
         return;
