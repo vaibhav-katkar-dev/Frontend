@@ -568,6 +568,11 @@
             &copy; 2025 Form2Chat.me. All rights reserved. </div>
     </footer>
     <script> // Mobile Navigation Toggle const menuButton = document.querySelector('.menu-button'); const nav = document.getElementById('primary-nav'); if (menuButton && nav) { menuButton.addEventListener('click', () => { const isExpanded = menuButton.getAttribute('aria-expanded') === 'true'; menuButton.setAttribute('aria-expanded', !isExpanded); nav.classList.toggle('nav-open'); }); nav.addEventListener('click', (e) => { if (e.target.tagName === 'A') { nav.classList.remove('nav-open'); menuButton.setAttribute('aria-expanded', 'false'); } }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('nav-open')) { nav.classList.remove('nav-open'); menuButton.setAttribute('aria-expanded', 'false'); menuButton.focus(); } }); } // Smooth scroll for anchor links document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); }); </script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 
 </html>
