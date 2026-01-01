@@ -70,12 +70,16 @@
 
 
   <script>
-    const baseURL = "https://api.form2chat.me";
+    const baseURL = "http://localhost:5000";
     // window.location.hostname === "localhost"
     //   ? "http://localhost:5000"
     //   : "https://formhit.onrender.com";
 
     let number;
+    let canUseWhatsApp = false;
+let remainingFreeMessages = 0;
+let showLimitWarning = false;
+
     document.addEventListener("DOMContentLoaded", () => {
       const overlay = document.getElementById("loading-overlay");
 overlay.style.display = "flex"; // show overlay while loading
@@ -92,7 +96,10 @@ overlay.style.display = "flex"; // show overlay while loading
 
       fetch(apiURL)
         .then((res) => {
+
           if (!res.ok) throw new Error("Form not found");
+        
+
           return res.json();
 
         })
@@ -102,6 +109,9 @@ overlay.style.display = "flex"; // show overlay while loading
           document.getElementById("form-title").innerText = data.title;
           number = data.description;
           countryCode = data.countryCode || "0";
+            canUseWhatsApp = data.canUseWhatsApp;
+remainingFreeMessages = data.remainingFreeMessages;
+showLimitWarning = data.showLimitWarning;
 
           const form = document.getElementById("dynamic-form");
           form.innerHTML = ""; // Clear any existing content
@@ -212,6 +222,8 @@ overlay.style.display = "flex"; // show overlay while loading
           submitBtn.id = "submit-button";
           form.appendChild(submitBtn);
 
+          
+
           // ✅ Add only ONE submit listener
           form.addEventListener("submit", function (e) {
             e.preventDefault();
@@ -261,9 +273,14 @@ overlay.style.display = "flex"; // show overlay while loading
 
                 // console.log("✅ Form submitted successfully!");
                 showFullScreenSuccess("✅ Form successfully submitted!");
-                setTimeout(() => {
-                  sendToWhatsApp(number, responseData, "91");
-                }, 400);
+
+
+                if (number && canUseWhatsApp) {
+  setTimeout(() => {
+    sendToWhatsApp(number, responseData, countryCode);
+  }, 400);
+}
+
                submitBtn.disabled = true;
 submitBtn.textContent = "⏳ Submitting...";
 
@@ -333,9 +350,20 @@ submitBtn.textContent = "⏳ Submitting...";
       console.log("📞 Cleaned Phone Number:", formatted);
 
       // Build message
-      const customMessage = Object.entries(formData)
-        .map(([key, value]) => `${key}: ${value}`)
-        .join("\n");
+     let customMessage = Object.entries(formData)
+  .map(([key, value]) => `${key}: ${value}`)
+  .join("\n");
+
+// 🔔 Add upgrade tip if free messages are low
+if (showLimitWarning && remainingFreeMessages <= 10) {
+  customMessage += `
+
+⚠️ Only ${remainingFreeMessages} free WhatsApp messages remaining.
+🚀 Upgrade for unlimited WhatsApp:
+👉 https://www.form2chat.me/html/billing.html
+`;
+}
+
 
       const encodedMessage = encodeURIComponent(customMessage);
 
