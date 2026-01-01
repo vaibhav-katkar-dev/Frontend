@@ -350,19 +350,26 @@ submitBtn.textContent = "⏳ Submitting...";
       console.log("📞 Cleaned Phone Number:", formatted);
 
       // Build message
-     let customMessage = Object.entries(formData)
-  .map(([key, value]) => `${key}: ${value}`)
+    let customMessage = `📩 *New Form Submission*\n\n`;
+
+customMessage += Object.entries(formData)
+  .map(([key, value]) => `*${key}:* ${value}`)
   .join("\n");
 
 // 🔔 Add upgrade tip if free messages are low
 if (showLimitWarning && remainingFreeMessages <= 10) {
   customMessage += `
 
-⚠️ Only ${remainingFreeMessages} free WhatsApp messages remaining.
-🚀 Upgrade for unlimited WhatsApp:
+────────────────────
+⚠️ *Free Plan Limit Alert*
+📊 *Remaining messages:* ${remainingFreeMessages}
+
+🚀 *Upgrade for Unlimited WhatsApp*
 👉 https://www.form2chat.me/html/billing.html
+────────────────────
 `;
 }
+
 
 
       const encodedMessage = encodeURIComponent(customMessage);
